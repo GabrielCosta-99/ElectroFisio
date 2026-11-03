@@ -1,0 +1,85 @@
+
+/* Paleta de cores do ElectroFisio */
+:root {
+    --verde-escuro: #175B49;
+    --verde-agua: #48BFAF;
+    --branco: #FFFFFF;
+    --cinza-claro: #F2F4F3;
+}
+
+/* Configurações gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: var(--cinza-claro);
+}
+
+/* Cabeçalho padrão */
+.cabecalho {
+    width: 100%;
+    min-height: 76px;
+    background-color: var(--branco);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 30px;
+}
+
+/* Logo do sistema */
+.cabecalho-logo {
+    display: flex;
+    align-items: center;
+
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.logo-electro {
+    color: var(--verde-escuro);
+}
+
+.logo-fisio {
+    color: var(--verde-agua);
+}
+
+/* Navegação */
+.cabecalho-navegacao {
+    display: flex;
+    align-items: center;
+}
+
+.botao-acessibilidade {
+    color: var(--verde-escuro);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Conteúdo das páginas */
+.conteudo-principal {
+    width: 100%;
+    min-height: calc(100vh - 76px);
+}
+
+/* Ajustes para celulares */
+@media (max-width: 600px) {
+    .cabecalho {
+        padding: 0 16px;
+    }
+
+    .cabecalho-logo {
+        font-size: 22px;
+    }
+
+    .botao-acessibilidade {
+        font-size: 14px;
+    }
+}
