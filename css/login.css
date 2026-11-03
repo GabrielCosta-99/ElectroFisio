@@ -213,3 +213,37 @@
         font-size: 16px;
     }
 }
+
+/* Título do painel verde na página de login */
+.painel-login h2 {
+    color: var(--branco);
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* Links de navegação entre login e cadastro */
+a.botao-login {
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+}
+
+/* Link para recuperação de senha */
+.link-esqueci-senha {
+    color: var(--verde-escuro);
+    font-size: 14px;
+    text-align: right;
+    text-decoration: none;
+    text-align: center;
+
+}
+
+.link-esqueci-senha:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .painel-login h2 {
+        font-size: 24px;
+    }
+}
