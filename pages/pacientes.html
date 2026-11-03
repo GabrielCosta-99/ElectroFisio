@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ElectroFisio - Pacientes</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pacientes.css">
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header class="cabecalho">
+
+        <div class="cabecalho-logo">
+            <span class="logo-electro">Electro</span><span class="logo-fisio">Fisio</span>
+        </div>
+
+        <nav class="cabecalho-navegacao"
+             aria-label="Navegação principal">
+
+            <a href="#">TENS e FES</a>
+            <a href="#" class="nav-ativo">Pacientes</a>
+            <a href="#">Meu perfil</a>
+            <a href="#">Sair</a>
+            <a href="#" class="botao-acessibilidade">
+                Acessibilidade
+            </a>
+
+        </nav>
+
+    </header>
+
+    <!-- Conteúdo -->
+    <main class="conteudo-principal pagina-pacientes">
+
+        <!-- Área superior -->
+        <div class="pacientes-topo">
+
+            <div class="pacientes-acoes">
+                <button type="button" class="botao-aba">
+                    Triagem
+                </button>
+
+                <button type="button" class="botao-aba">
+                    Pacientes 
+                </button>
+            </div>
+
+            <div class="profissional-info">
+                <span class="profissional-nome">
+                    Nome do profissional
+                </span>
+
+                <span class="profissional-crefito">
+                    CREFITO: 000000
+                </span>
+            </div>
+
+        </div>
+
+        <!-- Título -->
+        <h1 class="pacientes-titulo">
+            Pacientes
+        </h1>
+
+        <!-- Busca -->
+        <section class="pacientes-busca">
+
+            <form class="formulario-busca">
+
+                <input
+                    type="text"
+                    name="cpfBusca"
+                    id="cpfBusca"
+                    placeholder="Digite o CPF do paciente"
+                    inputmode="numeric"
+                    maxlength="14"
+                    aria-label="CPF do paciente"
+                >
+
+                <button type="submit" class="botao-buscar">
+                    Buscar
+                </button>
+
+            </form>
+
+        </section>
+
+        <!-- Dados encontrados -->
+        <section class="pacientes-resultado"
+                 aria-label="Dados do paciente">
+
+            <div class="campo-paciente">
+                <span>CPF</span>
+                <p id="resultadoCpf">—</p>
+            </div>
+
+            <div class="campo-paciente">
+                <span>Nome</span>
+                <p id="resultadoNome">—</p>
+            </div>
+
+            <div class="campo-paciente">
+                <span>Data de nascimento</span>
+                <p id="resultadoNascimento">—</p>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../js/pacientes.js"></script>
+
+</body>
+</html>

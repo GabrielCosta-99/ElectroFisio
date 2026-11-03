@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ElectroFisio - Prontuário</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/prontuario.css">
+    <script src="../js/prontuario.js" defer></script>
+</head>
+<body>
+
+    <header class="cabecalho">
+        <div class="cabecalho-logo">
+            <span class="logo-electro">Electro</span><span class="logo-fisio">Fisio</span>
+        </div>
+
+        <nav class="cabecalho-navegacao"
+             aria-label="Navegação principal">
+            <a href="#">TENS e FES</a>
+            <a href="pacientes.html">Pacientes</a>
+            <a href="#">Meu perfil</a>
+            <a href="#">Sair</a>
+            <a href="#">Acessibilidade</a>
+        </nav>
+    </header>
+
+    <main class="conteudo-principal pagina-prontuario">
+
+        <div class="prontuario-topo">
+            <a href="pacientes.html" class="botao-voltar">
+                Voltar
+            </a>
+
+            <div class="profissional-info">
+                <span>Nome do profissional</span>
+                <span>CREFITO: 000000</span>
+            </div>
+        </div>
+
+        <div class="prontuario-colunas">
+
+            <!-- COLUNA 1: PACIENTE E MENU -->
+            <aside class="prontuario-lateral">
+
+                <div class="paciente-identificacao">
+                    <div class="paciente-avatar">
+                        <span aria-hidden="true">👤</span>
+                    </div>
+
+                    <div class="paciente-dados">
+                        <p class="paciente-nome">
+                            Nome do paciente
+                        </p>
+                        <p>CPF: 000.000.000-00</p>
+                        <p>Mãe: Nome da mãe</p>
+                    </div>
+                </div>
+
+                <nav class="menu-prontuario"
+                     aria-label="Seções do prontuário">
+                    <a href="#">Triagem</a>
+                    <a href="#">Dados</a>
+                    <a href="#" class="menu-ativo"
+                       aria-current="page">Anamnese</a>
+                    <a href="#">Receituário</a>
+                </nav>
+
+            </aside>
+
+            <!-- COLUNA 2: ANAMNESE -->
+            <section class="prontuario-central"
+                     aria-label="Anamnese">
+
+                <form id="formularioAnamnese">
+
+                    <section class="quadro-prontuario">
+                        <h2>Conduta adotada</h2>
+
+                        <fieldset class="recurso-grupo">
+                            <legend>Recurso utilizado:</legend>
+
+                            <label>
+                                <input type="radio"
+                                       name="recurso"
+                                       value="TENS">
+                                TENS
+                            </label>
+
+                            <label>
+                                <input type="radio"
+                                       name="recurso"
+                                       value="FES">
+                                FES
+                            </label>
+
+                            <label>
+                                <input type="radio"
+                                       name="recurso"
+                                       value="Ambos">
+                                Ambos
+                            </label>
+                        </fieldset>
+
+                        <h3>Parâmetros ajustados</h3>
+
+                        <div class="parametros">
+
+                            <label>
+                                Frequência (Hz)
+                                <input type="number"
+                                       name="frequencia"
+                                       min="0" step="any">
+                            </label>
+
+                            <label>
+                                Largura de pulso (µs)
+                                <input type="number"
+                                       name="larguraPulso"
+                                       min="0" step="any">
+                            </label>
+
+                            <label>
+                                Subida / descida / on / off (FES)
+                                <input type="text"
+                                       name="temposFes">
+                            </label>
+
+                            <label>
+                                Tempo de aplicação (min)
+                                <input type="number"
+                                       name="tempoAplicacao"
+                                       min="0" step="any">
+                            </label>
+
+                        </div>
+                    </section>
+
+                    <section class="quadro-prontuario">
+                        <h2>Pós-sessão</h2>
+
+                        <fieldset class="escala-dor">
+                            <legend>Classificação da dor</legend>
+
+                            <div class="escala-opcoes">
+
+                                <label class="dor-opcao">
+                                    <input type="radio"
+                                           name="dor" value="0">
+                                    <span class="dor-rosto">😄</span>
+                                    <span class="dor-cor cor-1"></span>
+                                    <span>Sem dor</span>
+                                </label>
+
+                                <label class="dor-opcao">
+                                    <input type="radio"
+                                           name="dor" value="1">
+                                    <span class="dor-rosto">🙂</span>
+                                    <span class="dor-cor cor-2"></span>
+                                    <span>Leve</span>
+                                </label>
+
+                                <label class="dor-opcao">
+                                    <input type="radio"
+                                           name="dor" value="2">
+                                    <span class="dor-rosto">😐</span>
+                                    <span class="dor-cor cor-3"></span>
+                                    <span>Moderada</span>
+                                </label>
+
+                                <label class="dor-opcao">
+                                    <input type="radio"
+                                           name="dor" value="3">
+                                    <span class="dor-rosto">😣</span>
+                                    <span class="dor-cor cor-4"></span>
+                                    <span>Intensa</span>
+                                </label>
+
+                                <label class="dor-opcao">
+                                    <input type="radio"
+                                           name="dor" value="4">
+                                    <span class="dor-rosto">😫</span>
+                                    <span class="dor-cor cor-5"></span>
+                                    <span>Muito intensa</span>
+                                </label>
+
+                            </div>
+                        </fieldset>
+
+                        <div class="observacoes">
+                            <label for="observacoes">
+                                Observações
+                            </label>
+                            <textarea id="observacoes"
+                                      name="observacoes"
+                                      rows="4"
+                                      placeholder="Registre as observações da sessão..."></textarea>
+                        </div>
+                    </section>
+
+                    <!-- AÇÕES COM ÍCONES -->
+                    <div class="acoes-prontuario">
+
+                        <button type="button"
+                                class="botao-icone"
+                                title="Novo"
+                                aria-label="Novo">
+                            <i data-lucide="file-plus"></i>
+                        </button>
+
+                        <button type="button"
+                                class="botao-icone"
+                                title="Salvar"
+                                aria-label="Salvar">
+                            <i data-lucide="save"></i>
+                        </button>
+
+                        <button type="button"
+                                class="botao-icone"
+                                title="Assinar"
+                                aria-label="Assinar">
+                            <i data-lucide="pen-line"></i>
+                        </button>
+
+                        <button type="button"
+                                class="botao-icone"
+                                title="Cancelar"
+                                aria-label="Cancelar">
+                            <i data-lucide="x"></i>
+                        </button>
+
+                        <button type="button"
+                                class="botao-icone"
+                                title="Copiar"
+                                aria-label="Copiar">
+                            <i data-lucide="copy"></i>
+                        </button>
+
+                    </div>
+
+                </form>
+            </section>
+
+            <!-- COLUNA 3: REGISTROS -->
+            <aside class="prontuario-registros">
+                <h2>Registros</h2>
+
+                <article class="registro-item">
+                    <p class="registro-nome">Profissional 1</p>
+                    <p>CREFITO: 000000</p>
+                    <p>Data: 03/11/2026</p>
+                    <p>Horário: 14:30</p>
+                </article>
+
+                <article class="registro-item">
+                    <p class="registro-nome">Profissional 2</p>
+                    <p>CREFITO: 000000</p>
+                    <p>Data: 02/11/2026</p>
+                    <p>Horário: 10:15</p>
+                </article>
+
+                <article class="registro-item">
+                    <p class="registro-nome">Profissional 3</p>
+                    <p>CREFITO: 000000</p>
+                    <p>Data: 30/10/2026</p>
+                    <p>Horário: 09:20</p>
+                </article>
+            </aside>
+
+        </div>
+    </main>
+
+    <!-- Biblioteca dos ícones -->
+    <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+</body>
+</html>
