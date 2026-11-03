@@ -1,0 +1,215 @@
+
+/* Área principal de autenticação */
+.area-autenticacao {
+    width: 100%;
+    min-height: calc(100vh - 76px);
+
+    display: flex;
+    align-items: stretch;
+
+    padding: 80px 40px;
+    gap: 30px;
+}
+
+/* Espaço reservado para cadastro */
+
+/* Área de cadastro */
+.area-cadastro {
+    flex: 1;
+    background-color: var(--cinza-claro);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Conteúdo do cadastro */
+.cadastro-conteudo {
+    width: 100%;
+    max-width: 420px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* Título */
+.cadastro-conteudo h1 {
+    color: var(--verde-escuro);
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+/* Subtítulo */
+.cadastro-subtitulo {
+    color: var(--verde-escuro);
+    font-size: 17px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Botões de perfil */
+.selecao-perfil {
+    display: flex;
+    gap: 12px;
+}
+
+.botao-perfil {
+    flex: 1;
+    height: 45px;
+
+    background-color: var(--branco);
+    color: var(--verde-escuro);
+
+    border: none;
+    border-radius: 6px;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+/* Espaçamento antes do formulário */
+.cadastro-instrucao {
+    color: var(--verde-escuro);
+    font-size: 16px;
+
+    margin-top: 38px;
+    margin-bottom: 18px;
+    text-align: center;
+}
+
+/* Formulário */
+.formulario-cadastro {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+/* Campos de preenchimento */
+.formulario-cadastro input {
+    width: 100%;
+    height: 45px;
+
+    background-color: var(--branco);
+
+    border: none;
+    border-radius: 6px;
+
+    padding: 0 15px;
+
+    font-size: 15px;
+    color: var(--verde-escuro);
+}
+
+/* Texto dentro dos campos */
+.formulario-cadastro input::placeholder {
+    color: #858585;
+}
+
+/* Botão cadastrar */
+.botao-cadastrar {
+    width: 100%;
+    height: 45px;
+
+    background-color: var(--verde-escuro);
+    color: var(--branco);
+
+    border: none;
+    border-radius: 6px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+
+/* Painel verde do lado direito */
+.painel-login {
+    width: 40%;
+    min-height: 400px;
+
+    background-color: var(--verde-agua);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 40px;
+    border-radius: 8px;
+}
+
+/* Conteúdo interno */
+.painel-login-conteudo {
+    width: 100%;
+    max-width: 420px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 24px;
+    text-align: center;
+}
+
+/* Título */
+.painel-login h1 {
+    color: var(--branco);
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* Texto explicativo */
+.painel-login p {
+    color: var(--branco);
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+/* Botão Fazer login */
+.botao-login {
+    background-color: var(--branco);
+    color: var(--verde-escuro);
+
+    border: none;
+    border-radius: 6px;
+
+    padding: 14px 45px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .area-autenticacao {
+        flex-direction: column;
+        padding: 30px 20px;
+    }
+
+    .area-cadastro {
+        display: none;
+    }
+
+    .painel-login {
+        width: 100%;
+        min-height: 400px;
+    }
+
+    .painel-login h1 {
+        font-size: 24px;
+    }
+
+    .painel-login p {
+        font-size: 16px;
+    }
+}

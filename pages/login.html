@@ -31,11 +31,121 @@
     </header>
 
     <!-- Conteúdo específico de cada tela -->
-    <main class="conteudo-principal">
+   
+<main class="conteudo-principal">
 
-        <!-- Futuramente: formulário de login -->
+    <section class="area-autenticacao">
 
-    </main>
+        <!-- Espaço cadastro -->
+        
+<!-- Área de cadastro -->
+<div class="area-cadastro">
+
+    <div class="cadastro-conteudo">
+
+        <h1>Criar conta</h1>
+
+        <p class="cadastro-subtitulo">
+            Selecione seu perfil de acesso
+        </p>
+
+        <!-- Seleção do perfil -->
+        <div class="selecao-perfil">
+
+            <button type="button" class="botao-perfil">
+                Profissional
+            </button>
+
+            <button type="button" class="botao-perfil">
+                Estudante
+            </button>
+
+        </div>
+
+        <p class="cadastro-instrucao">
+            Preencha seus dados para cadastrar
+        </p>
+
+        <!-- Formulário -->
+        <form class="formulario-cadastro">
+
+            <input
+                type="text"
+                name="nome"
+                placeholder="Nome completo"
+                autocomplete="name"
+                required
+            >
+
+            <input
+                type="email"
+                name="email"
+                placeholder="E-mail"
+                autocomplete="email"
+                required
+            >
+
+            <input
+                type="password"
+                name="senha"
+                placeholder="Senha"
+                autocomplete="new-password"
+                required
+            >
+
+            <input
+                type="text"
+                name="curso"
+                placeholder="Curso"
+            >
+
+            <input
+                type="text"
+                name="instituicao"
+                placeholder="Instituição de ensino"
+            >
+
+            <input
+                type="text"
+                name="semestre"
+                placeholder="Período / semestre"
+            >
+
+            <button type="submit" class="botao-cadastrar">
+                Cadastrar
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+        <!-- Painel de login -->
+        <div class="painel-login">
+
+            <div class="painel-login-conteudo">
+
+                <h1>Já possui uma conta?</h1>
+
+                <p>
+                    Acesse a plataforma para ter acesso
+                    aos seus estudos e simulações clínicas.
+                </p>
+
+                <button type="button" class="botao-login">
+                    Fazer login
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
 
 </body>
 </html>
