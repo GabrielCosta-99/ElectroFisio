@@ -192,3 +192,25 @@
         margin-top: 45px;
     }
 }
+
+/* Botão da aba atual */
+.botao-aba.ativo {
+    background-color: var(--verde-escuro);
+    border-color: var(--verde-escuro);
+    color: var(--branco);
+}
+
+/* Mensagem da busca por CPF */
+.mensagem-busca {
+    min-height: 20px;
+    margin-top: 12px;
+
+    color: var(--verde-escuro);
+    font-size: 15px;
+    text-align: center;
+}
+
+.mensagem-busca a {
+    color: var(--verde-escuro);
+    font-weight: bold;
+}
