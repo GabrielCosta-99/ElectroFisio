@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ElectroFisio - Acessibilidade</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/tens-fes.css">
+    <link rel="stylesheet" href="../css/telas-gerais.css">
+    <link rel="stylesheet" href="../css/acessibilidade.css">
+
+    <script src="../js/acessibilidade.js"></script>
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header class="cabecalho">
+        <div class="cabecalho-logo">
+            <span class="logo-electro">Electro</span><span class="logo-fisio">Fisio</span>
+        </div>
+    </header>
+
+    <main class="conteudo-principal pagina-geral">
+
+        <a href="#" class="link-voltar" id="linkVoltar">← Voltar</a>
+
+        <section class="card-acessibilidade" aria-labelledby="tituloAcessibilidade">
+
+            <div class="conteudo-acessibilidade">
+
+                <h1 id="tituloAcessibilidade">Acessibilidade</h1>
+                <p class="subtitulo-acessibilidade">
+                    Ative os recursos mais comuns para facilitar o uso da plataforma
+                </p>
+
+                <!-- Tamanho do texto -->
+                <div class="opcao">
+                    <div class="opcao-texto">
+                        <h2>Tamanho do Texto</h2>
+                        <p>Ajuste o tamanho das letras da plataforma para facilitar a leitura.</p>
+                    </div>
+
+                    <div class="selecao-tamanho" role="group" aria-label="Tamanho do texto">
+                        <button type="button" class="botao-tamanho" data-tamanho="padrao">Padrão</button>
+                        <button type="button" class="botao-tamanho" data-tamanho="grande">Grande (A+)</button>
+                    </div>
+                </div>
+
+                <!-- Alto contraste -->
+                <div class="opcao">
+                    <div class="opcao-texto">
+                        <h2 id="rotuloContraste">Alto Contraste</h2>
+                        <p>Aumenta o contraste das cores para facilitar a visualização.</p>
+                    </div>
+
+                    <button type="button" class="interruptor" role="switch"
+                            aria-checked="false" aria-labelledby="rotuloContraste"
+                            data-opcao="altoContraste"></button>
+                </div>
+
+                <!-- Leitor de tela -->
+                <div class="opcao">
+                    <div class="opcao-texto">
+                        <h2 id="rotuloLeitor">Leitor de Tela e Áudio</h2>
+                        <p>Ativa a narração por voz dos textos e comandos do simulador 3D.</p>
+                    </div>
+
+                    <button type="button" class="interruptor" role="switch"
+                            aria-checked="false" aria-labelledby="rotuloLeitor"
+                            data-opcao="leitorTela"></button>
+                </div>
+
+                <!-- Legendas -->
+                <div class="opcao">
+                    <div class="opcao-texto">
+                        <h2 id="rotuloLegendas">Texto Equivalente e Legendas</h2>
+                        <p>Exibe descrições em texto e legendas para imagens e simulações.</p>
+                    </div>
+
+                    <button type="button" class="interruptor" role="switch"
+                            aria-checked="false" aria-labelledby="rotuloLegendas"
+                            data-opcao="legendas"></button>
+                </div>
+
+            </div>
+
+            <div class="acoes-acessibilidade">
+                <p class="mensagem-salvo" id="mensagemSalvo" role="status"></p>
+
+                <button type="button" class="botao-acao principal" id="botaoSalvar">
+                    Salvar Alterações
+                </button>
+
+                <button type="button" class="botao-acao" id="botaoRestaurar">
+                    Restaurar Padrão
+                </button>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../js/pagina-acessibilidade.js"></script>
+
+</body>
+</html>

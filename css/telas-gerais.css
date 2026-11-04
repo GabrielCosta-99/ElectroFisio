@@ -1,0 +1,293 @@
+
+/* Estilos das telas gerais: acessibilidade, carregamento e sair */
+
+/* Páginas com o conteúdo no meio da tela */
+.pagina-centralizada {
+    position: relative;
+    min-height: calc(100vh - 76px);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px 16px;
+}
+
+/* ---------- Acessibilidade ---------- */
+
+.pagina-geral {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px 40px 60px;
+}
+
+.link-voltar {
+    display: inline-block;
+    margin-bottom: 16px;
+
+    color: var(--verde-escuro);
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.link-voltar:hover {
+    text-decoration: underline;
+}
+
+.card-acessibilidade {
+    background-color: #F6F8F7;
+    border-radius: 6px;
+    padding: 30px 40px 24px;
+}
+
+.conteudo-acessibilidade {
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.conteudo-acessibilidade h1 {
+    color: var(--verde-escuro);
+    font-size: 34px;
+}
+
+.subtitulo-acessibilidade {
+    margin-bottom: 20px;
+    color: var(--texto);
+    font-size: 16px;
+}
+
+/* Cada linha de opção */
+.opcao {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 12px 0;
+    border-bottom: 1px solid #DDE3E0;
+}
+
+.opcao:last-child {
+    border-bottom: none;
+}
+
+.opcao-texto h2 {
+    color: #1E2422;
+    font-size: 21px;
+}
+
+.opcao-texto p {
+    color: var(--texto);
+    font-size: 13px;
+}
+
+/* Botões Padrão / Grande */
+.selecao-tamanho {
+    display: flex;
+    flex-shrink: 0;
+    gap: 6px;
+}
+
+.botao-tamanho {
+    padding: 8px 12px;
+
+    background-color: var(--branco);
+    color: var(--texto);
+
+    border: 1px solid #B9C3BF;
+    border-radius: 3px;
+
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.botao-tamanho.ativo {
+    background-color: var(--verde-escuro);
+    border-color: var(--verde-escuro);
+    color: var(--branco);
+}
+
+/* Interruptor liga/desliga */
+.interruptor {
+    position: relative;
+    flex-shrink: 0;
+
+    width: 30px;
+    height: 16px;
+
+    background-color: #C8CCCA;
+    border: none;
+    border-radius: 2px;
+
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.interruptor::after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+
+    width: 10px;
+    height: 10px;
+    background-color: var(--branco);
+    transition: left 0.15s;
+}
+
+.interruptor[aria-checked="true"] {
+    background-color: var(--verde-agua);
+}
+
+.interruptor[aria-checked="true"]::after {
+    left: 17px;
+}
+
+.interruptor:focus-visible,
+.botao-tamanho:focus-visible {
+    outline: 3px solid var(--verde-escuro);
+    outline-offset: 2px;
+}
+
+/* Salvar / restaurar */
+.acoes-acessibilidade {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+
+    margin-top: 24px;
+}
+
+.acoes-acessibilidade .botao-acao {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.mensagem-salvo {
+    margin-right: auto;
+    color: var(--verde-escuro);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* ---------- Carregamento ---------- */
+
+.carregamento {
+    text-align: center;
+    color: var(--texto);
+}
+
+.rodinha {
+    width: 36px;
+    height: 36px;
+    margin: 0 auto 16px;
+
+    border: 3px solid #C9D2CF;
+    border-top-color: var(--verde-escuro);
+    border-radius: 50%;
+
+    animation: girar 0.9s linear infinite;
+}
+
+@keyframes girar {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .rodinha {
+        animation-duration: 3s;
+    }
+}
+
+.carregamento h1 {
+    margin-bottom: 8px;
+    color: var(--verde-escuro);
+    font-size: 26px;
+    font-weight: normal;
+}
+
+.carregamento p {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.texto-carregando {
+    margin-top: 20px;
+    font-size: 12px !important;
+}
+
+.rodape-carregamento {
+    position: absolute;
+    bottom: 24px;
+
+    color: var(--texto);
+    font-size: 12px;
+}
+
+/* ---------- Sair ---------- */
+
+.confirmar-saida {
+    text-align: center;
+}
+
+.confirmar-saida h1 {
+    margin-bottom: 14px;
+    color: var(--texto);
+    font-size: 24px;
+    font-weight: normal;
+}
+
+.botoes-saida {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+.botao-cancelar {
+    color: var(--texto);
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.botao-cancelar:hover {
+    text-decoration: underline;
+}
+
+.botao-sair {
+    padding: 8px 36px;
+
+    background-color: var(--verde-escuro);
+    color: var(--branco);
+
+    border-radius: 2px;
+
+    font-size: 16px;
+    text-decoration: none;
+}
+
+/* Responsividade */
+@media (max-width: 650px) {
+    .pagina-geral {
+        padding: 16px;
+    }
+
+    .card-acessibilidade {
+        padding: 20px 16px;
+    }
+
+    .opcao {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .acoes-acessibilidade {
+        justify-content: flex-start;
+    }
+}

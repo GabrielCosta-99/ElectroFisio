@@ -1,0 +1,56 @@
+
+/* Ajustes de acessibilidade aplicados em todas as telas (ver js/acessibilidade.js) */
+
+/* Texto grande: aumenta o conteúdo da página */
+.texto-grande .conteudo-principal {
+    zoom: 1.15;
+}
+
+/* Alto contraste: fundo branco, texto preto e bordas fortes */
+.alto-contraste {
+    --verde-escuro: #00382B;
+    --verde-agua: #006B5E;
+    --cinza-claro: #FFFFFF;
+    --cinza-fundo: #FFFFFF;
+    --cinza-card: #FFFFFF;
+    --verde-claro: #FFFFFF;
+    --texto: #000000;
+}
+
+.alto-contraste body {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+.alto-contraste .cabecalho {
+    border-bottom: 2px solid #000000;
+}
+
+.alto-contraste .card-info,
+.alto-contraste .card-branco,
+.alto-contraste .card-acessibilidade,
+.alto-contraste .aviso-educativo,
+.alto-contraste .campo {
+    border: 2px solid #000000;
+}
+
+.alto-contraste .botao-aba,
+.alto-contraste .botao-acao {
+    border: 2px solid #000000;
+    color: #000000;
+}
+
+.alto-contraste .botao-aba.ativo,
+.alto-contraste .botao-acao.principal {
+    background-color: #000000;
+    color: #FFFFFF;
+}
+
+.alto-contraste a {
+    text-decoration: underline;
+}
+
+.alto-contraste :focus-visible {
+    outline: 3px solid #000000;
+    outline-offset: 2px;
+}
