@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ElectroFisio - Triagens</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/prontuario.css">
+    <link rel="stylesheet" href="../css/receituario.css">
+    <link rel="stylesheet" href="../css/triagens.css">
+
+    <script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+    <script defer src="../js/prontuario.js"></script>
+    <script defer src="../js/triagens.js"></script>
+    <link rel="stylesheet" href="../css/acessibilidade.css">
+
+    <script src="../js/acessibilidade.js"></script>
+    <script defer src="../js/menu.js"></script>
+</head>
+<body>
+
+    <!-- CABEÇALHO -->
+    <header class="cabecalho">
+
+        <div class="cabecalho-logo">
+            <span class="logo-electro">Electro</span><span class="logo-fisio">Fisio</span>
+        </div>
+
+        <nav class="cabecalho-navegacao"
+             aria-label="Navegação principal">
+
+            <a href="inicio.html">Início</a>
+
+            <a href="visao-geral.html">TENS e FES</a>
+            <a href="pacientes.html">Pacientes</a>
+            <a href="perfil.html">Meu perfil</a>
+            <a href="sair.html">Sair</a>
+            <a href="acessibilidade.html">Acessibilidade</a>
+
+        </nav>
+    </header>
+
+    <main class="conteudo-principal pagina-prontuario">
+
+        <!-- ÁREA SUPERIOR -->
+        <div class="prontuario-topo">
+
+            <a href="pacientes.html" class="botao-voltar">
+                Voltar
+            </a>
+
+            <div class="profissional-info">
+                <span>Nome do profissional</span>
+                <span>CREFITO: 000000</span>
+            </div>
+
+        </div>
+
+        <div class="prontuario-colunas layout-receituario">
+
+            <!-- COLUNA 1 -->
+            <aside class="prontuario-lateral">
+
+                <div class="paciente-identificacao">
+
+                    <div class="paciente-avatar">
+                        <span aria-hidden="true">👤</span>
+                    </div>
+
+                    <div class="paciente-dados">
+                        <p class="paciente-nome">
+                            Nome do paciente
+                        </p>
+                        <p>CPF: 000.000.000-00</p>
+                        <p>Mãe: Nome da mãe</p>
+                    </div>
+
+                </div>
+
+                <nav class="menu-prontuario"
+                     aria-label="Seções do prontuário">
+
+                    <a href="triagens.html"
+                       class="menu-ativo"
+                       aria-current="page">
+                        Triagem
+                    </a>
+
+                    <a href="dados.html">
+                        Dados
+                    </a>
+
+                    <a href="prontuario.html">
+                        Anamnese
+                    </a>
+
+                    <a href="receituario.html">
+                        Receituário
+                    </a>
+
+                </nav>
+
+            </aside>
+
+            <!-- COLUNA 2: TRIAGENS FEITAS -->
+            <section class="conteudo-receituario">
+
+                <div class="quadro-prontuario quadro-triagens">
+
+                    <h2>Triagens</h2>
+
+                    <!-- Cada triagem abre na aba correspondente da tela de triagem -->
+                    <ul class="lista-triagens" id="listaTriagens">
+                        <li>
+                            <button type="button" class="item-triagem" data-aba="questionario" aria-pressed="false">
+                                <span>Questionário</span>
+                                <span class="data-triagem">03/11/2026 - 16:35</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="item-triagem" data-aba="tens" aria-pressed="false">
+                                <span>Mapeamento TENS</span>
+                                <span class="data-triagem">03/11/2026 - 16:35</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="item-triagem" data-aba="fes" aria-pressed="false">
+                                <span>Mapeamento FES</span>
+                                <span class="data-triagem">03/11/2026 - 16:35</span>
+                            </button>
+                        </li>
+                    </ul>
+
+                    <p class="mensagem-triagens" id="mensagemTriagens" role="status">
+                        Selecione uma triagem para abrir.
+                    </p>
+
+                </div>
+
+                <!-- BOTÕES -->
+                <div class="acoes-triagens">
+                    <a href="triagem.html" class="botao-triagens">Novo</a>
+                    <button type="button" class="botao-triagens principal" id="botaoAbrir" disabled>
+                        Abrir
+                    </button>
+                </div>
+
+            </section>
+
+            <!-- COLUNA 3: QUEM REGISTROU CADA TRIAGEM -->
+            <aside class="prontuario-registros">
+
+                <h2>Registros de triagens</h2>
+
+                <!-- REGISTRO 1 -->
+                <article class="registro-item">
+                    <p class="registro-nome">Profissional 1</p>
+                    <p>CREFITO: 000000</p>
+                    <p>Data: 03/11/2026</p>
+                    <p>Horário: 14:30</p>
+                </article>
+
+                <!-- REGISTRO 2 -->
+                <article class="registro-item">
+                    <p class="registro-nome">Profissional 2</p>
+                    <p>CREFITO: 000000</p>
+                    <p>Data: 02/11/2026</p>
+                    <p>Horário: 10:15</p>
+                </article>
+
+                <!-- REGISTRO 3 -->
+                <article class="registro-item">
+                    <p class="registro-nome">Profissional 3</p>
+                    <p>CREFITO: 000000</p>
+                    <p>Data: 30/10/2026</p>
+                    <p>Horário: 09:20</p>
+                </article>
+
+            </aside>
+
+        </div>
+    </main>
+
+</body>
+</html>
+

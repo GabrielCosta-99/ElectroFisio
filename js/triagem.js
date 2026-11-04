@@ -100,5 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("A função Novo será implementada na próxima etapa.");
     });
 
-    abrirAba("dados");
+    // Abre na aba pedida pela tela de triagens (triagem.html?aba=tens)
+    const abaPedida = new URLSearchParams(window.location.search).get("aba");
+    abrirAba(abas.includes(abaPedida) ? abaPedida : "dados");
 });
