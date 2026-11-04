@@ -10,6 +10,11 @@
 
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/acessibilidade.css">
+
+    <script defer src="../js/entrar.js"></script>
+
+    <script src="../js/acessibilidade.js"></script>
 </head>
 <body>
 
@@ -20,7 +25,7 @@
 
         <nav class="cabecalho-navegacao"
              aria-label="Navegação principal">
-            <a href="#" class="botao-acessibilidade">
+            <a href="acessibilidade.html" class="botao-acessibilidade">
                 Acessibilidade
             </a>
         </nav>
@@ -40,24 +45,28 @@
                     </p>
 
                     <div class="selecao-perfil">
-                        <button type="button" class="botao-perfil">
+                        <button type="button" class="botao-perfil"
+                                data-perfil="profissional" aria-pressed="false">
                             Profissional
                         </button>
 
-                        <button type="button" class="botao-perfil">
+                        <button type="button" class="botao-perfil"
+                                data-perfil="estudante" aria-pressed="false">
                             Estudante
                         </button>
                     </div>
 
-                    <p class="cadastro-instrucao">
+                    <p class="cadastro-instrucao" id="instrucaoEntrar">
                         Acesse sua conta com CREFITO e senha
                     </p>
 
-                    <form class="formulario-cadastro">
+                    <form class="formulario-cadastro" id="formularioEntrar">
 
                         <input
                             type="text"
+                            id="campoUsuario"
                             name="crefito"
+                            aria-label="CREFITO"
                             placeholder="CREFITO"
                             autocomplete="username"
                             required
@@ -66,6 +75,7 @@
                         <input
                             type="password"
                             name="senha"
+                            aria-label="Senha"
                             placeholder="Senha"
                             autocomplete="current-password"
                             required

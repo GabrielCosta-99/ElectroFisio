@@ -46,7 +46,15 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        alert("Cadastro demonstrativo. O salvamento será implementado posteriormente.");
+        // O cadastro ainda não é salvo: por enquanto é só uma etapa de acesso.
+        // Guarda apenas o tipo de perfil e segue para o sistema.
+        try {
+            localStorage.setItem("electrofisio-perfil", tipoPerfil.value);
+        } catch (erro) {
+            // Sem armazenamento disponível: segue mesmo assim
+        }
+
+        window.location.href = "carregamento.html";
     });
 
 });
