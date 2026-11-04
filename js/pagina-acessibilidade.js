@@ -58,13 +58,13 @@ botaoRestaurar.addEventListener("click", function () {
     mensagemSalvo.textContent = "Configurações padrão restauradas.";
 });
 
-// Voltar para a tela anterior (ou para a visão geral, se abriu direto)
+// Voltar para a tela anterior (ou para o início, se abriu direto)
 linkVoltar.addEventListener("click", function (evento) {
     evento.preventDefault();
     if (history.length > 1) {
         history.back();
     } else {
-        window.location.href = "visao-geral.html";
+        window.location.href = "inicio.html";
     }
 });
 

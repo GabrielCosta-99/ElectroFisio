@@ -3,8 +3,7 @@
 // O destino pode ser passado na URL: carregamento.html?destino=visao-geral.html
 
 const TEMPO_CARREGAMENTO = 2500; // milissegundos
-// Trocar para "inicio.html" quando a tela de início estiver pronta
-const DESTINO_PADRAO = "visao-geral.html";
+const DESTINO_PADRAO = "inicio.html";
 
 const parametros = new URLSearchParams(window.location.search);
 let destino = parametros.get("destino") || DESTINO_PADRAO;

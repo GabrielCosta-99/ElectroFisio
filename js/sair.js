@@ -9,6 +9,6 @@ botaoCancelar.addEventListener("click", function (evento) {
     if (history.length > 1) {
         history.back();
     } else {
-        window.location.href = "visao-geral.html";
+        window.location.href = "inicio.html";
     }
 });
