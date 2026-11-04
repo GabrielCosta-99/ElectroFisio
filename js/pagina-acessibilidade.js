@@ -64,7 +64,7 @@ linkVoltar.addEventListener("click", function (evento) {
     if (history.length > 1) {
         history.back();
     } else {
-        window.location.href = "inicio.html";
+        window.location.href = "inicio-profissional.html";
     }
 });
 

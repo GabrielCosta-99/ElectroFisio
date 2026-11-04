@@ -3,7 +3,15 @@
 // O destino pode ser passado na URL: carregamento.html?destino=visao-geral.html
 
 const TEMPO_CARREGAMENTO = 2500; // milissegundos
-const DESTINO_PADRAO = "inicio.html";
+// Cada perfil tem a sua tela de início (o perfil é guardado no login)
+let perfilAtual = "profissional";
+try {
+    perfilAtual = localStorage.getItem("electrofisio-perfil") || "profissional";
+} catch (erro) {
+    // Sem armazenamento: usa o início do profissional
+}
+
+const DESTINO_PADRAO = perfilAtual === "estudante" ? "inicio.html" : "inicio-profissional.html";
 
 const parametros = new URLSearchParams(window.location.search);
 let destino = parametros.get("destino") || DESTINO_PADRAO;
