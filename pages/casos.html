@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ElectroFisio - Casos</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/tens-fes.css">
+    <link rel="stylesheet" href="../css/casos.css">
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header class="cabecalho">
+
+        <div class="cabecalho-logo">
+            <span class="logo-electro">Electro</span><span class="logo-fisio">Fisio</span>
+        </div>
+
+        <nav class="cabecalho-navegacao"
+             aria-label="Navegação principal">
+            <a href="#">Início</a>
+            <a href="visao-geral.html" class="nav-ativo">TENS e FES</a>
+            <a href="pacientes.html">Pacientes</a>
+            <a href="#">Meu Perfil</a>
+            <a href="#">Sair</a>
+        </nav>
+
+    </header>
+
+    <main class="conteudo-principal pagina-tens-fes">
+
+        <div class="linha-acessibilidade">
+            <a href="#">Acessibilidade</a>
+        </div>
+
+        <!-- Abas -->
+        <div class="barra-abas">
+
+            <nav class="abas" aria-label="Seções de TENS e FES">
+                <a href="visao-geral.html" class="botao-aba link-modalidade">Visão Geral</a>
+                <a href="aparelho.html" class="botao-aba link-modalidade">Aparelho</a>
+                <a href="eletrodos.html" class="botao-aba link-modalidade">Eletrodos</a>
+                <a href="parametros.html" class="botao-aba link-modalidade">Parâmetros</a>
+                <a href="seguranca.html" class="botao-aba link-modalidade">Segurança</a>
+                <a href="casos.html" class="botao-aba ativo link-modalidade">Casos</a>
+            </nav>
+
+            <div class="selecao-modalidade">
+                <button type="button" class="botao-aba botao-modalidade ativo"
+                        data-modalidade="tens">
+                    TENS
+                </button>
+
+                <button type="button" class="botao-aba botao-modalidade"
+                        data-modalidade="fes">
+                    FES
+                </button>
+            </div>
+
+        </div>
+
+        <section class="grade-duas-colunas">
+
+            <!-- Casos de TENS -->
+            <div class="coluna" data-conteudo="tens">
+
+                <article class="card-info card-caso">
+                    <h2>Caso 1 · Dor localizada no joelho</h2>
+                    <p><strong>Enunciado:</strong> .</p>
+                    <p><strong>Pergunta:</strong> .</p>
+
+                    <div class="acoes acoes-card">
+                        <button type="button" class="botao-acao principal botao-responder">Responder</button>
+                        <button type="button" class="botao-acao botao-comentario">Ver resposta comentada</button>
+                    </div>
+
+                    <form class="area-resposta escondido">
+                        <label>
+                            Sua resposta e justificativa
+                            <textarea rows="4" required></textarea>
+                        </label>
+                        <button type="submit" class="botao-acao principal">Enviar resposta</button>
+                        <p class="retorno-resposta" role="status"></p>
+                    </form>
+
+                    <div class="resposta-comentada escondido">
+                        <h3>Resposta comentada</h3>
+                        <p>.</p>
+                    </div>
+                </article>
+
+                <article class="card-info card-caso">
+                    <h2>Caso 4 · Queimação sob o eletrodo</h2>
+                    <p><strong>Enunciado:</strong> .</p>
+                    <p><strong>Pergunta:</strong> .</p>
+
+                    <div class="acoes acoes-card">
+                        <button type="button" class="botao-acao principal botao-responder">Responder</button>
+                        <button type="button" class="botao-acao botao-comentario">Ver resposta comentada</button>
+                    </div>
+
+                    <form class="area-resposta escondido">
+                        <label>
+                            Sua resposta e justificativa
+                            <textarea rows="4" required></textarea>
+                        </label>
+                        <button type="submit" class="botao-acao principal">Enviar resposta</button>
+                        <p class="retorno-resposta" role="status"></p>
+                    </form>
+
+                    <div class="resposta-comentada escondido">
+                        <h3>Resposta comentada</h3>
+                        <p>.</p>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- Casos de FES -->
+            <div class="coluna escondido" data-conteudo="fes">
+
+                <article class="card-info card-caso">
+                    <h2>Caso 2 · Contração de quadríceps</h2>
+                    <p><strong>Enunciado:</strong> .</p>
+                    <p><strong>Pergunta:</strong> .</p>
+
+                    <div class="acoes acoes-card">
+                        <button type="button" class="botao-acao principal botao-responder">Responder</button>
+                        <button type="button" class="botao-acao botao-comentario">Ver resposta comentada</button>
+                    </div>
+
+                    <form class="area-resposta escondido">
+                        <label>
+                            Sua resposta e justificativa
+                            <textarea rows="4" required></textarea>
+                        </label>
+                        <button type="submit" class="botao-acao principal">Enviar resposta</button>
+                        <p class="retorno-resposta" role="status"></p>
+                    </form>
+
+                    <div class="resposta-comentada escondido">
+                        <h3>Resposta comentada</h3>
+                        <p>.</p>
+                    </div>
+                </article>
+
+                <article class="card-info card-caso">
+                    <h2>Caso 3 · Pé caído</h2>
+                    <p><strong>Enunciado:</strong> .</p>
+                    <p><strong>Pergunta:</strong> .</p>
+
+                    <div class="acoes acoes-card">
+                        <button type="button" class="botao-acao principal botao-responder">Responder</button>
+                        <button type="button" class="botao-acao botao-comentario">Ver resposta comentada</button>
+                    </div>
+
+                    <form class="area-resposta escondido">
+                        <label>
+                            Sua resposta e justificativa
+                            <textarea rows="4" required></textarea>
+                        </label>
+                        <button type="submit" class="botao-acao principal">Enviar resposta</button>
+                        <p class="retorno-resposta" role="status"></p>
+                    </form>
+
+                    <div class="resposta-comentada escondido">
+                        <h3>Resposta comentada</h3>
+                        <p>.</p>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- Lado direito: igual para TENS e FES -->
+            <div class="coluna">
+
+                <article class="card-info">
+                    <h2>Como praticar</h2>
+                    <ol class="passos">
+                        <li>Leia o enunciado.</li>
+                        <li>Escreva sua resposta e a justificativa.</li>
+                        <li>Compare com a resposta comentada e revise o que faltou.</li>
+                    </ol>
+                </article>
+
+                <article class="card-info">
+                    <h2>Tem um caso para estudar?</h2>
+                    <p>
+                        Envie um caso fictício ou anonimizado e receba uma resposta
+                        educativa baseada nos conteúdos profissionais revisados.
+                        Não inclua identificação de pacientes.
+                    </p>
+
+                    <div class="acoes acoes-card">
+                        <a href="#" class="botao-acao principal">Enviar meu caso para a IA</a>
+                    </div>
+                </article>
+
+                <p class="aviso-educativo">
+                    A resposta da IA apoia o estudo. Ela não substitui avaliação,
+                    diagnóstico, prescrição ou decisão clínica.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../js/tens-fes.js"></script>
+    <script src="../js/casos.js"></script>
+
+</body>
+</html>
