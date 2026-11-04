@@ -1,0 +1,268 @@
+
+/* ==========================================
+   MEU PERFIL - ELECTROFISIO
+========================================== */
+
+/* NAVEGAÇÃO DO CABEÇALHO */
+.cabecalho-navegacao {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.cabecalho-navegacao a {
+    color: var(--verde-escuro);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.cabecalho-navegacao .link-ativo {
+    font-weight: 600;
+}
+
+/* ÁREA PRINCIPAL */
+.pagina-perfil {
+    padding: 35px 40px 70px;
+}
+
+/* TOPO */
+.perfil-topo {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.perfil-topo h1 {
+    text-align: center;
+    color: var(--verde-escuro);
+    font-size: 30px;
+}
+
+.botao-voltar {
+    width: fit-content;
+    padding: 11px 30px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    color: #333;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+/* COLUNAS */
+.perfil-colunas {
+    display: grid;
+    grid-template-columns: minmax(190px, 1fr) minmax(0, 3.5fr);
+    gap: 25px;
+    align-items: start;
+}
+
+/* COLUNA ESQUERDA */
+.perfil-lateral {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.perfil-avatar {
+    width: 105px;
+    height: 105px;
+    border-radius: 50%;
+    background: #E3EAE6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+}
+
+.perfil-lateral h2 {
+    color: var(--verde-escuro);
+    font-size: 19px;
+    text-align: center;
+}
+
+.perfil-lateral > p {
+    color: #626A68;
+    font-size: 14px;
+}
+
+.perfil-menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 15px;
+    gap: 8px;
+}
+
+.perfil-menu a {
+    display: block;
+    padding: 13px 15px;
+    color: var(--verde-escuro);
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.perfil-menu a:hover,
+.perfil-menu .menu-ativo {
+    background: var(--verde-escuro);
+    color: var(--branco);
+}
+
+/* SELETOR DE TESTE */
+.perfil-demonstracao {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.perfil-demonstracao label {
+    color: #626A68;
+    font-size: 13px;
+}
+
+.perfil-demonstracao select {
+    height: 42px;
+    border: 1px solid #C9D1CD;
+    border-radius: 6px;
+    padding: 0 10px;
+    background: var(--branco);
+    color: var(--verde-escuro);
+}
+
+/* COLUNA DIREITA */
+.perfil-conteudo {
+    min-width: 0;
+}
+
+#formularioPerfil {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* QUADROS */
+.quadro-perfil {
+    background: var(--branco);
+    border: 1px solid #C9D1CD;
+    border-radius: 8px;
+    padding: 25px;
+}
+
+.quadro-perfil[hidden] {
+    display: none;
+}
+
+.perfil-quadro-topo {
+    margin-bottom: 25px;
+}
+
+.perfil-quadro-topo h2 {
+    color: var(--verde-escuro);
+    font-size: 21px;
+}
+
+/* CAMPOS */
+.perfil-campos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.perfil-campos label {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    color: #263C35;
+    font-size: 14px;
+}
+
+.perfil-campos input {
+    width: 100%;
+    height: 43px;
+    padding: 10px 12px;
+    border: 1px solid #C9D1CD;
+    border-radius: 6px;
+    background: var(--branco);
+    color: #263C35;
+    font-size: 14px;
+}
+
+.perfil-campos input:focus {
+    outline: 2px solid var(--verde-escuro);
+    outline-offset: 1px;
+}
+
+/* BOTÕES */
+.perfil-acoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.perfil-acoes button {
+    min-width: 135px;
+    height: 43px;
+    padding: 0 18px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.botao-perfil-cancelar {
+    background: var(--branco);
+    border: 1px solid var(--verde-escuro);
+    color: var(--verde-escuro);
+}
+
+.botao-perfil-salvar {
+    background: var(--verde-escuro);
+    border: 1px solid var(--verde-escuro);
+    color: var(--branco);
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 950px) {
+    .perfil-colunas {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 650px) {
+    .pagina-perfil {
+        padding: 25px 15px;
+    }
+
+    .cabecalho {
+        flex-wrap: wrap;
+        gap: 15px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    .cabecalho-navegacao {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .perfil-topo h1 {
+        font-size: 24px;
+    }
+
+    .perfil-campos {
+        grid-template-columns: 1fr;
+    }
+
+    .quadro-perfil {
+        padding: 18px;
+    }
+
+    .perfil-acoes {
+        flex-wrap: wrap;
+    }
+}
+

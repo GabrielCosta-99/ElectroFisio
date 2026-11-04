@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ElectroFisio - Meu Perfil</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/perfil.css">
+
+    <script defer src="../js/perfil.js"></script>
+</head>
+
+<body>
+
+    <!-- CABEÇALHO PADRÃO -->
+    <header class="cabecalho">
+
+        <div class="cabecalho-logo">
+            <span class="logo-electro">Electro</span>
+            <span class="logo-fisio">Fisio</span>
+        </div>
+
+        <nav class="cabecalho-navegacao" aria-label="Navegação principal">
+            <a href="#">TENS e FES</a>
+            <a href="pacientes.html">Pacientes</a>
+            <a href="perfil.html" class="link-ativo">Meu perfil</a>
+            <a href="entrar.html">Sair</a>
+            <a href="#" class="botao-acessibilidade">Acessibilidade</a>
+        </nav>
+
+    </header>
+
+    <main class="conteudo-principal pagina-perfil">
+
+        <!-- TOPO -->
+        <div class="perfil-topo">
+            <a href="pacientes.html" class="botao-voltar">
+                Voltar
+            </a>
+
+            <h1>Meu perfil</h1>
+        </div>
+
+        <div class="perfil-colunas">
+
+            <!-- COLUNA 1: IDENTIFICAÇÃO -->
+            <aside class="perfil-lateral">
+
+                <div class="perfil-avatar">
+                    <span aria-hidden="true">👤</span>
+                </div>
+
+                <h2 id="nomeResumo">Nome do usuário</h2>
+                <p id="tipoResumo">Profissional</p>
+
+                <div class="perfil-menu">
+                    <a href="#dadosPessoais" class="menu-ativo">
+                        Dados pessoais
+                    </a>
+
+                    <a href="#dadosEspecificos">
+                        Dados do perfil
+                    </a>
+                </div>
+
+                <!-- SELETOR APENAS PARA TESTAR A INTERFACE -->
+                <div class="perfil-demonstracao">
+                    <label for="tipoPerfilTeste">
+                        Visualizar como
+                    </label>
+
+                    <select id="tipoPerfilTeste">
+                        <option value="profissional">Profissional</option>
+                        <option value="estudante">Estudante</option>
+                    </select>
+                </div>
+
+            </aside>
+
+            <!-- COLUNA 2: INFORMAÇÕES -->
+            <section class="perfil-conteudo">
+
+                <form id="formularioPerfil">
+
+                    <!-- DADOS PESSOAIS -->
+                    <section class="quadro-perfil" id="dadosPessoais">
+
+                        <div class="perfil-quadro-topo">
+                            <h2>Dados pessoais</h2>
+                        </div>
+
+                        <div class="perfil-campos">
+
+                            <label>
+                                Nome completo
+                                <input
+                                    type="text"
+                                    name="nome"
+                                    id="nomePerfil"
+                                    placeholder="Nome completo"
+                                    autocomplete="name"
+                                >
+                            </label>
+
+                            <label>
+                                CPF
+                                <input
+                                    type="text"
+                                    name="cpf"
+                                    placeholder="000.000.000-00"
+                                    maxlength="14"
+                                    inputmode="numeric"
+                                >
+                            </label>
+
+                            <label>
+                                Data de nascimento
+                                <input
+                                    type="date"
+                                    name="nascimento"
+                                >
+                            </label>
+
+                            <label>
+                                E-mail
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="E-mail"
+                                    autocomplete="email"
+                                >
+                            </label>
+
+                            <label>
+                                Telefone
+                                <input
+                                    type="tel"
+                                    name="telefone"
+                                    placeholder="(00) 00000-0000"
+                                    autocomplete="tel"
+                                >
+                            </label>
+
+                        </div>
+
+                    </section>
+
+                    <!-- DADOS PROFISSIONAIS -->
+                    <section class="quadro-perfil"
+                             id="dadosProfissionais">
+
+                        <div class="perfil-quadro-topo">
+                            <h2>Dados profissionais</h2>
+                        </div>
+
+                        <div class="perfil-campos">
+
+                            <label>
+                                CREFITO
+                                <input
+                                    type="text"
+                                    name="crefito"
+                                    placeholder="Número do registro"
+                                >
+                            </label>
+
+                            <label>
+                                Região do CREFITO
+                                <input
+                                    type="text"
+                                    name="regiao"
+                                    placeholder="Região"
+                                >
+                            </label>
+
+                            <label>
+                                Especialidade
+                                <input
+                                    type="text"
+                                    name="especialidade"
+                                    placeholder="Especialidade"
+                                >
+                            </label>
+
+                            <label>
+                                Vínculo profissional
+                                <input
+                                    type="text"
+                                    name="vinculo"
+                                    placeholder="Vínculo profissional"
+                                >
+                            </label>
+
+                        </div>
+
+                    </section>
+
+                    <!-- DADOS ACADÊMICOS -->
+                    <section class="quadro-perfil"
+                             id="dadosAcademicos"
+                             hidden>
+
+                        <div class="perfil-quadro-topo">
+                            <h2>Dados acadêmicos</h2>
+                        </div>
+
+                        <div class="perfil-campos">
+
+                            <label>
+                                Instituição de ensino
+                                <input
+                                    type="text"
+                                    name="instituicao"
+                                    placeholder="Instituição de ensino"
+                                    disabled
+                                >
+                            </label>
+
+                            <label>
+                                Curso
+                                <input
+                                    type="text"
+                                    name="curso"
+                                    placeholder="Curso"
+                                    disabled
+                                >
+                            </label>
+
+                            <label>
+                                Período / semestre
+                                <input
+                                    type="text"
+                                    name="semestre"
+                                    placeholder="Período / semestre"
+                                    disabled
+                                >
+                            </label>
+
+                        </div>
+
+                    </section>
+
+                    <!-- BOTÕES -->
+                    <div class="perfil-acoes">
+
+                        <button type="button"
+                                class="botao-perfil-cancelar"
+                                id="botaoCancelar">
+                            Cancelar
+                        </button>
+
+                        <button type="submit"
+                                class="botao-perfil-salvar">
+                            Salvar alterações
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</body>
+</html>
