@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ElectroFisio - Aparelho</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/tens-fes.css">
+    <link rel="stylesheet" href="../css/aparelho.css">
+    <link rel="stylesheet" href="../css/aparelho-3d.css">
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header class="cabecalho">
+
+        <div class="cabecalho-logo">
+            <span class="logo-electro">Electro</span><span class="logo-fisio">Fisio</span>
+        </div>
+
+        <nav class="cabecalho-navegacao"
+             aria-label="Navegação principal">
+            <a href="#">Início</a>
+            <a href="visao-geral.html" class="nav-ativo">TENS e FES</a>
+            <a href="pacientes.html">Pacientes</a>
+            <a href="#">Meu Perfil</a>
+            <a href="#">Sair</a>
+        </nav>
+
+    </header>
+
+    <main class="conteudo-principal pagina-tens-fes">
+
+        <div class="linha-acessibilidade">
+            <a href="#">Acessibilidade</a>
+        </div>
+
+        <!-- Abas -->
+        <div class="barra-abas">
+
+            <nav class="abas" aria-label="Seções de TENS e FES">
+                <a href="visao-geral.html" class="botao-aba link-modalidade">Visão Geral</a>
+                <a href="aparelho.html" class="botao-aba ativo link-modalidade">Aparelho</a>
+                <a href="eletrodos.html" class="botao-aba link-modalidade">Eletrodos</a>
+                <a href="parametros.html" class="botao-aba link-modalidade">Parâmetros</a>
+                <a href="seguranca.html" class="botao-aba link-modalidade">Segurança</a>
+                <a href="casos.html" class="botao-aba link-modalidade">Casos</a>
+            </nav>
+
+            <div class="selecao-modalidade">
+                <button type="button" class="botao-aba botao-modalidade ativo"
+                        data-modalidade="tens">
+                    TENS
+                </button>
+
+                <button type="button" class="botao-aba botao-modalidade"
+                        data-modalidade="fes">
+                    FES
+                </button>
+            </div>
+
+        </div>
+
+        <section class="grade-duas-colunas">
+
+            <!-- Lado esquerdo: modelo 3D e lista de controles -->
+            <div class="coluna">
+
+                <div class="card-modelo">
+                    <div class="visualizador" id="visualizador"
+                         role="img"
+                         aria-label="Modelo 3D do aparelho. Os mesmos controles estão na lista abaixo.">
+                    </div>
+
+                    <div class="barra-modelo">
+                        <div class="ferramentas-modelo">
+                            <button type="button" class="botao-ferramenta" id="botaoCentralizar">
+                                Centralizar vista
+                            </button>
+
+                            <button type="button" class="botao-ferramenta" id="botaoBaloes"
+                                    aria-pressed="true">
+                                Informações flutuantes
+                            </button>
+                        </div>
+
+                        <p class="dica-modelo">Arraste para girar · role para aproximar</p>
+                    </div>
+                </div>
+
+                <div class="card-branco">
+                    <h2>Controles</h2>
+
+                    <ul class="lista-controles">
+                        <li>
+                            <button type="button" class="botao-controle" data-parte="energia">
+                                <span class="numero">1</span> Liga/desliga
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="botao-controle" data-parte="visor">
+                                <span class="numero">2</span> Visor
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="botao-controle" data-parte="modo">
+                                <span class="numero">3</span> Seletor de modo
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="botao-controle" data-parte="parametro">
+                                <span class="numero">4</span> Ajuste de parâmetros
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="botao-controle" data-parte="intensidade">
+                                <span class="numero">5</span> Intensidade
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="botao-controle" data-parte="iniciar">
+                                <span class="numero">6</span> Iniciar/pausar
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="botao-controle" data-parte="saida1">
+                                <span class="numero">7</span> Saída do canal 1
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="botao-controle" data-parte="saida2">
+                                <span class="numero">8</span> Saída do canal 2
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+                <p class="aviso-educativo">
+                    Ambiente educativo. Os ajustes do simulador não acionam
+                    equipamentos nem geram prescrição automática.
+                </p>
+
+            </div>
+
+            <!-- Lado direito: informações e simulação -->
+            <div class="coluna">
+
+                <div class="card-branco">
+                    <h2>Painel de informações</h2>
+
+                    <div class="painel-campos">
+                        <div class="campo">
+                            <span>Nome do controle</span>
+                            <p id="campoNome">—</p>
+                        </div>
+
+                        <div class="campo">
+                            <span>Unidade</span>
+                            <p id="campoUnidade">—</p>
+                        </div>
+
+                        <div class="campo">
+                            <span>Valor simulado</span>
+                            <p id="campoValor">—</p>
+                        </div>
+
+                        <div class="campo">
+                            <span>Estado</span>
+                            <p class="campo-estado">
+                                <span class="indicador" id="indicadorEstado"></span>
+                                <span id="textoEstado">Desligado</span>
+                            </p>
+                        </div>
+
+                        <div class="campo campo-largo">
+                            <span>Orientação e referência no manual</span>
+                            <p id="campoOrientacao">Selecione um controle no modelo ou na lista.</p>
+                            <p class="referencia-manual" id="campoManual"></p>
+                        </div>
+                    </div>
+
+                    <div class="acoes-controle" id="acoesControle"></div>
+                </div>
+
+                <div class="card-branco">
+                    <div class="titulo-intensidade">
+                        <h2>Intensidade simulada</h2>
+
+                        <div class="botoes-sessao">
+                            <button type="button" class="botao-energia" id="botaoEnergia">
+                                Ligar
+                            </button>
+
+                            <button type="button" class="botao-energia" id="botaoIniciar">
+                                Iniciar
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="selecao-canal">
+                        <button type="button" class="botao-canal ativo" data-canal="0">Canal 1</button>
+                        <button type="button" class="botao-canal" data-canal="1">Canal 2</button>
+                    </div>
+
+                    <div class="controle-intensidade">
+                        <button type="button" class="botao-intensidade" id="diminuir"
+                                aria-label="Diminuir intensidade">
+                            −
+                        </button>
+
+                        <p class="valor-intensidade" id="valorIntensidade">
+                            0 mA
+                        </p>
+
+                        <button type="button" class="botao-intensidade mais" id="aumentar"
+                                aria-label="Aumentar intensidade">
+                            +
+                        </button>
+                    </div>
+
+                    <div class="barra-intensidade">
+                        <div class="barra-preenchida" id="barraIntensidade"></div>
+                    </div>
+
+                    <p class="mensagem" id="mensagem" role="status" aria-live="polite"></p>
+                </div>
+
+                <div class="card-branco">
+                    <h2>Pulso</h2>
+
+                    <canvas class="grafico-pulso" id="graficoPulso"
+                            role="img"
+                            aria-label="Desenho do pulso"
+                            aria-describedby="descricaoPulso"></canvas>
+
+                    <p class="descricao-pulso" id="descricaoPulso"></p>
+                </div>
+
+                <div class="card-branco">
+                    <h2>Modo de estudo</h2>
+
+                    <div class="modos-estudo">
+                        <button type="button" class="botao-modo ativo">Modo explorar</button>
+                        <button type="button" class="botao-modo">Modo praticar</button>
+                        <button type="button" class="botao-modo">Praticar com caso fictício</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../js/tens-fes.js"></script>
+
+    <!-- Biblioteca Three.js para o modelo 3D -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+    <script type="module" src="../js/aparelho.js"></script>
+
+</body>
+</html>
