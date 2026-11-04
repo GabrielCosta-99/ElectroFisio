@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ElectroFisio - Conteúdo</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/tens-fes.css">
+    <link rel="stylesheet" href="../css/conteudo.css">
+    <link rel="stylesheet" href="../css/acessibilidade.css">
+
+    <script src="../js/acessibilidade.js"></script>
+    <script defer src="../js/menu.js"></script>
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header class="cabecalho">
+
+        <div class="cabecalho-logo">
+            <span class="logo-electro">Electro</span><span class="logo-fisio">Fisio</span>
+        </div>
+
+        <nav class="cabecalho-navegacao"
+             aria-label="Navegação principal">
+            <a href="inicio.html">Início</a>
+            <a href="visao-geral.html">TENS e FES</a>
+            <a href="conteudo.html" class="nav-ativo">Conteúdo</a>
+            <a href="perfil.html">Meu Perfil</a>
+            <a href="sair.html">Sair</a>
+        </nav>
+
+    </header>
+
+    <main class="conteudo-principal pagina-tens-fes">
+
+        <div class="linha-acessibilidade">
+            <a href="acessibilidade.html">Acessibilidade</a>
+        </div>
+
+        <h1 class="titulo-conteudo">Conteúdo</h1>
+
+        <!-- Abas -->
+        <nav class="abas abas-conteudo" aria-label="Seções do conteúdo">
+            <button type="button" class="botao-aba ativo" data-secao="novoMaterial">Criar material</button>
+            <button type="button" class="botao-aba" data-secao="enviarCaso">Enviar caso para a IA</button>
+            <button type="button" class="botao-aba" data-secao="meusMateriais">Meus materiais</button>
+        </nav>
+
+        <section class="grade-duas-colunas">
+
+            <!-- Coluna esquerda: material de estudo -->
+            <div class="coluna">
+
+                <article class="card-info" id="novoMaterial" tabindex="-1">
+                    <h2 id="tituloFormMaterial">Novo material de estudo</h2>
+
+                    <form class="formulario-conteudo" id="formMaterial">
+
+                        <label>
+                            Título
+                            <input type="text" name="titulo" required
+                                   placeholder="Ex.: Resumo de TENS convencional">
+                        </label>
+
+                        <label>
+                            Modalidade
+                            <select name="modalidade">
+                                <option value="TENS">TENS</option>
+                                <option value="FES">FES</option>
+                            </select>
+                        </label>
+
+                        <label>
+                            Tema
+                            <input type="text" name="tema"
+                                   placeholder="Ex.: parâmetros, eletrodos, segurança">
+                        </label>
+
+                        <label>
+                            Texto
+                            <textarea name="texto" rows="5"
+                                      placeholder="Escreva o conteúdo do material"></textarea>
+                        </label>
+
+                        <label>
+                            Anexo
+                            <input type="file" name="anexo">
+                        </label>
+
+                        <label>
+                            Referências
+                            <textarea name="referencias" rows="2"
+                                      placeholder="Livros, artigos ou manuais consultados"></textarea>
+                        </label>
+
+                        <p class="estado-material">
+                            <strong>Estado:</strong> <span id="estadoMaterial">Rascunho</span>
+                        </p>
+
+                        <div class="acoes">
+                            <button type="submit" class="botao-acao principal" data-estado="Em revisão">
+                                Enviar para revisão
+                            </button>
+                            <button type="submit" class="botao-acao" data-estado="Rascunho">
+                                Salvar rascunho
+                            </button>
+                            <button type="button" class="botao-acao botao-novo-material escondido" id="botaoNovoMaterial">
+                                Novo material
+                            </button>
+                        </div>
+
+                        <p class="mensagem-conteudo" id="mensagemMaterial" role="status"></p>
+                    </form>
+                </article>
+
+                <article class="card-info" id="meusMateriais" tabindex="-1">
+                    <h2>Meus materiais</h2>
+
+                    <ul class="lista-materiais" id="listaMateriais"></ul>
+
+                    <p class="legenda-estados">
+                        <strong>Estados:</strong> Rascunho → Em revisão → Aprovado → Arquivado
+                    </p>
+                </article>
+
+            </div>
+
+            <!-- Coluna direita: enviar caso para a IA -->
+            <div class="coluna">
+
+                <article class="card-info" id="enviarCaso" tabindex="-1">
+                    <h2>Enviar caso para a IA</h2>
+
+                    <form class="formulario-conteudo" id="formCaso">
+
+                        <label>
+                            Título e objetivo
+                            <input type="text" name="objetivo" required
+                                   placeholder="O que deseja estudar (analgesia, ativação ou tarefa funcional)">
+                        </label>
+
+                        <label>
+                            Contexto
+                            <textarea name="contexto" rows="2"
+                                      placeholder="Caso fictício ou anonimizado"></textarea>
+                        </label>
+
+                        <label>
+                            Avaliação do cenário
+                            <textarea name="avaliacao" rows="2"
+                                      placeholder="Pele, sensibilidade, resposta motora e riscos"></textarea>
+                        </label>
+
+                        <label>
+                            Proposta
+                            <textarea name="proposta" rows="2"
+                                      placeholder="Modalidade, parâmetros com unidades, montagem e justificativa"></textarea>
+                        </label>
+
+                        <label>
+                            Dúvida
+                            <input type="text" name="duvida"
+                                   placeholder="Qual parte do raciocínio quer esclarecer?">
+                        </label>
+
+                        <label>
+                            Anexos
+                            <input type="file" name="anexos">
+                            <small>Somente material permitido.</small>
+                        </label>
+
+                        <div class="acoes">
+                            <button type="submit" class="botao-acao principal">Enviar caso</button>
+                        </div>
+
+                        <p class="mensagem-conteudo" id="mensagemCaso" role="status"></p>
+                    </form>
+                </article>
+
+                <p class="aviso-educativo">
+                    Não inclua nome, foto ou dados que identifiquem pacientes.
+                    A resposta da IA apoia o estudo e não é diagnóstico nem prescrição.
+                </p>
+
+                <article class="card-info">
+                    <h2>A resposta da IA traz</h2>
+                    <p>
+                        Resumo do objetivo, o que falta informar, conceitos envolvidos,
+                        comparação com o conteúdo revisado, riscos e limites,
+                        referências e data de revisão.
+                    </p>
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../js/conteudo.js"></script>
+
+</body>
+</html>
