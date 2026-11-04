@@ -1,0 +1,365 @@
+
+/* =====================================
+   TRIAGEM - ELECTROFISIO
+===================================== */
+
+.cabecalho-navegacao {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.cabecalho-navegacao a {
+    color: var(--verde-escuro);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.pagina-triagem {
+    padding: 35px 30px 70px;
+}
+
+/* TOPO */
+.triagem-topo {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.triagem-topo h1 {
+    text-align: center;
+    color: var(--verde-escuro);
+    font-size: 32px;
+}
+
+.botao-voltar {
+    width: fit-content;
+    padding: 11px 30px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    color: #333;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+/* COLUNAS */
+.triagem-colunas {
+    display: grid;
+    grid-template-columns: minmax(210px, 1fr) minmax(0, 2.7fr);
+    gap: 25px;
+    align-items: start;
+}
+
+.triagem-lateral,
+.triagem-conteudo {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0;
+}
+
+/* QUADROS */
+.quadro-triagem {
+    background: #FFFFFF;
+    border: 1px solid #C9D1CD;
+    border-radius: 8px;
+    padding: 25px;
+}
+
+.quadro-triagem h2 {
+    color: var(--verde-escuro);
+    font-size: 21px;
+    margin-bottom: 20px;
+}
+
+.descricao-aba {
+    color: #626A68;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+/* BUSCA */
+.busca-paciente {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.busca-paciente label,
+.campos-cadastro label {
+    color: #263C35;
+    font-size: 14px;
+}
+
+.busca-paciente input,
+.campos-cadastro input {
+    width: 100%;
+    min-width: 0;
+    height: 43px;
+    padding: 10px 12px;
+    border: 1px solid #C9D1CD;
+    border-radius: 6px;
+    background: #FFFFFF;
+    font-size: 14px;
+    color: #263C35;
+}
+
+.busca-paciente button {
+    height: 43px;
+    border: none;
+    border-radius: 6px;
+    background: var(--verde-escuro);
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.paciente-encontrado {
+    color: #626A68;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* ABAS */
+.triagem-abas {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.aba-triagem {
+    min-height: 65px;
+    padding: 12px 8px;
+    border: 1px solid #C9D1CD;
+    border-radius: 7px;
+    background: #FFFFFF;
+    color: var(--verde-escuro);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.aba-triagem.ativa {
+    background: var(--verde-escuro);
+    border-color: var(--verde-escuro);
+    color: #FFFFFF;
+}
+
+.painel-aba[hidden] {
+    display: none;
+}
+
+/* CAMPOS DE CADASTRO */
+.campos-cadastro {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.campos-cadastro label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* QUESTIONÁRIO */
+.lista-perguntas {
+    display: flex;
+    flex-direction: column;
+}
+
+.pergunta,
+.grupo-avaliacao {
+    border: none;
+    min-width: 0;
+    margin: 0;
+    padding: 20px 0;
+    border-bottom: 1px solid #E3E7E5;
+}
+
+.pergunta legend,
+.grupo-avaliacao legend {
+    color: #263C35;
+    font-size: 16px;
+    font-weight: 600;
+    padding-top: 12px;
+}
+
+.pergunta p {
+    margin: 10px 0 15px;
+    color: #626A68;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.opcoes {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.opcoes label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    color: #263C35;
+    font-size: 14px;
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+.opcoes input {
+    accent-color: var(--verde-escuro);
+    margin-top: 3px;
+}
+
+.opcoes-verticais {
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+/* ESCALA DE DOR */
+.escala-dor {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.nivel-dor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    padding: 12px 6px;
+    border: 1px solid #E3E7E5;
+    border-radius: 7px;
+    text-align: center;
+    font-size: 12px;
+    color: #263C35;
+    cursor: pointer;
+}
+
+.nivel-dor input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
+
+.nivel-dor:has(input:checked) {
+    border: 2px solid var(--verde-escuro);
+    background: #E7F2EE;
+}
+
+.nivel-dor:has(input:focus-visible) {
+    outline: 2px solid var(--verde-escuro);
+    outline-offset: 3px;
+}
+
+.rosto {
+    font-size: 30px;
+}
+
+.barra-dor {
+    width: 100%;
+    height: 5px;
+    border-radius: 5px;
+}
+
+.dor-0 { background: #4CAF50; }
+.dor-1 { background: #8BC34A; }
+.dor-2 { background: #E6C343; }
+.dor-3 { background: #F59E42; }
+.dor-4 { background: #E57373; }
+
+/* BOTÕES INFERIORES */
+.acoes-triagem {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.acoes-triagem button {
+    min-width: 100px;
+    height: 43px;
+    padding: 0 18px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.botao-secundario {
+    background: #FFFFFF;
+    border: 1px solid var(--verde-escuro);
+    color: var(--verde-escuro);
+}
+
+.botao-principal {
+    background: var(--verde-escuro);
+    border: 1px solid var(--verde-escuro);
+    color: #FFFFFF;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 950px) {
+    .triagem-colunas {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 650px) {
+    .pagina-triagem {
+        padding: 25px 15px;
+    }
+
+    .cabecalho {
+        flex-wrap: wrap;
+        gap: 15px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    .cabecalho-navegacao {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .triagem-topo {
+        grid-template-columns: 1fr 2fr 1fr;
+    }
+
+    .triagem-topo h1 {
+        font-size: 24px;
+    }
+
+    .triagem-abas {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .quadro-triagem {
+        padding: 18px;
+    }
+
+    .escala-dor {
+        gap: 4px;
+    }
+
+    .nivel-dor {
+        padding: 8px 3px;
+        font-size: 10px;
+    }
+
+    .rosto {
+        font-size: 23px;
+    }
+
+    .acoes-triagem {
+        flex-wrap: wrap;
+    }
+}

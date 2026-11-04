@@ -1,0 +1,431 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ElectroFisio - Triagem</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/triagem.css">
+
+    <script defer src="../js/triagem.js"></script>
+</head>
+<body>
+
+    <!-- CABEÇALHO -->
+    <header class="cabecalho">
+        <div class="cabecalho-logo">
+            <span class="logo-electro">Electro</span><span class="logo-fisio">Fisio</span>
+        </div>
+
+        <nav class="cabecalho-navegacao" aria-label="Navegação principal">
+            <a href="#">TENS e FES</a>
+            <a href="pacientes.html">Pacientes</a>
+            <a href="#">Meu perfil</a>
+            <a href="#">Sair</a>
+            <a href="#">Acessibilidade</a>
+        </nav>
+    </header>
+
+    <main class="conteudo-principal pagina-triagem">
+
+        <!-- TOPO -->
+        <div class="triagem-topo">
+            <a href="pacientes.html" class="botao-voltar">Voltar</a>
+            <h1>Triagem</h1>
+        </div>
+
+        <div class="triagem-colunas">
+
+            <!-- COLUNA 1: BUSCA -->
+            <aside class="triagem-lateral">
+
+                <section class="quadro-triagem">
+                    <h2>Buscar paciente</h2>
+
+                    <div class="busca-paciente">
+                        <label for="cpfBusca">CPF do paciente</label>
+                        <input
+                            type="text"
+                            id="cpfBusca"
+                            placeholder="Digite o CPF"
+                            maxlength="14"
+                            inputmode="numeric">
+
+                        <button type="button" id="botaoBuscar">
+                            Buscar
+                        </button>
+                    </div>
+                </section>
+
+                <section class="quadro-triagem">
+                    <h2>Paciente</h2>
+
+                    <div class="paciente-encontrado" id="pacienteEncontrado">
+                        <p>Nenhum paciente selecionado.</p>
+                    </div>
+                </section>
+
+            </aside>
+
+            <!-- COLUNA 2: FORMULÁRIO -->
+            <section class="triagem-conteudo">
+
+                <!-- ABAS -->
+                <div class="triagem-abas" role="tablist"
+                     aria-label="Etapas da triagem">
+
+                    <button type="button"
+                            class="aba-triagem ativa"
+                            id="tab-dados"
+                            data-aba="dados"
+                            role="tab"
+                            aria-selected="true"
+                            aria-controls="aba-dados">
+                        Dados
+                    </button>
+
+                    <button type="button"
+                            class="aba-triagem"
+                            id="tab-questionario"
+                            data-aba="questionario"
+                            role="tab"
+                            aria-selected="false"
+                            aria-controls="aba-questionario">
+                        Questionário
+                    </button>
+
+                    <button type="button"
+                            class="aba-triagem"
+                            id="tab-tens"
+                            data-aba="tens"
+                            role="tab"
+                            aria-selected="false"
+                            aria-controls="aba-tens">
+                        Mapeamento TENS
+                    </button>
+
+                    <button type="button"
+                            class="aba-triagem"
+                            id="tab-fes"
+                            data-aba="fes"
+                            role="tab"
+                            aria-selected="false"
+                            aria-controls="aba-fes">
+                        Mapeamento FES
+                    </button>
+                </div>
+
+                <form id="formularioTriagem">
+
+                    <!-- ABA 1: DADOS -->
+                    <section class="quadro-triagem painel-aba"
+                             id="aba-dados"
+                             role="tabpanel"
+                             aria-labelledby="tab-dados">
+
+                        <h2>Dados cadastrais</h2>
+                        <p class="descricao-aba">
+                            Preencha as informações do paciente.
+                        </p>
+
+                        <div class="campos-cadastro">
+
+                            <label>
+                                Nome completo
+                                <input type="text" name="nome"
+                                       autocomplete="name"
+                                       placeholder="Nome do paciente">
+                            </label>
+
+                            <label>
+                                CPF
+                                <input type="text" name="cpf"
+                                       id="cpfCadastro"
+                                       maxlength="14"
+                                       inputmode="numeric"
+                                       placeholder="000.000.000-00">
+                            </label>
+
+                            <label>
+                                Data de nascimento
+                                <input type="date" name="nascimento">
+                            </label>
+
+                            <label>
+                                Nome da mãe
+                                <input type="text" name="mae"
+                                       placeholder="Nome da mãe">
+                            </label>
+
+                            <label>
+                                Endereço
+                                <input type="text" name="endereco"
+                                       placeholder="Rua, número, bairro, cidade e UF">
+                            </label>
+
+                            <label>
+                                E-mail
+                                <input type="email" name="email"
+                                       autocomplete="email"
+                                       placeholder="E-mail do paciente">
+                            </label>
+
+                            <label>
+                                Telefone 1
+                                <input type="tel" name="telefone1"
+                                       placeholder="(00) 00000-0000">
+                            </label>
+
+                            <label>
+                                Telefone 2
+                                <input type="tel" name="telefone2"
+                                       placeholder="(00) 00000-0000">
+                            </label>
+
+                        </div>
+                    </section>
+
+                    <!-- ABA 2: QUESTIONÁRIO -->
+                    <section class="quadro-triagem painel-aba"
+                             id="aba-questionario"
+                             role="tabpanel"
+                             aria-labelledby="tab-questionario"
+                             hidden>
+
+                        <h2>Questionário de segurança</h2>
+                        <p class="descricao-aba">
+                            Avalie as condições clínicas relevantes antes
+                            de considerar a aplicação de TENS ou FES.
+                        </p>
+
+                        <div class="lista-perguntas">
+
+                            <fieldset class="pergunta">
+                                <legend>Tecido neoplásico</legend>
+                                <p>Existe tumor ou câncer ativo na área de aplicação?</p>
+                                <div class="opcoes">
+                                    <label><input type="radio" name="neoplasia" value="sim"> Sim</label>
+                                    <label><input type="radio" name="neoplasia" value="nao"> Não</label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="pergunta">
+                                <legend>Integridade cutânea e sensibilidade</legend>
+                                <p>Há feridas abertas, infecções locais ou perda importante da sensibilidade na região-alvo?</p>
+                                <div class="opcoes">
+                                    <label><input type="radio" name="pele" value="sim"> Sim</label>
+                                    <label><input type="radio" name="pele" value="nao"> Não</label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="pergunta">
+                                <legend>Dispositivos eletrônicos implantados</legend>
+                                <p>O paciente possui marcapasso, desfibrilador ou outro dispositivo eletrônico implantado?</p>
+                                <div class="opcoes">
+                                    <label><input type="radio" name="dispositivo" value="sim"> Sim</label>
+                                    <label><input type="radio" name="dispositivo" value="nao"> Não</label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="pergunta">
+                                <legend>Gestação</legend>
+                                <p>A paciente está gestante?</p>
+                                <div class="opcoes">
+                                    <label><input type="radio" name="gestacao" value="sim"> Sim</label>
+                                    <label><input type="radio" name="gestacao" value="nao"> Não</label>
+                                    <label><input type="radio" name="gestacao" value="nao_aplica"> Não se aplica</label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="pergunta">
+                                <legend>Implantes metálicos locais</legend>
+                                <p>Há placas, parafusos, próteses ou outros implantes metálicos na região dos eletrodos?</p>
+                                <div class="opcoes">
+                                    <label><input type="radio" name="metal" value="sim"> Sim</label>
+                                    <label><input type="radio" name="metal" value="nao"> Não</label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="pergunta">
+                                <legend>Circulação / vascular</legend>
+                                <p>Existe diagnóstico ou suspeita de trombose venosa profunda na região?</p>
+                                <div class="opcoes">
+                                    <label><input type="radio" name="vascular" value="sim"> Sim</label>
+                                    <label><input type="radio" name="vascular" value="nao"> Não</label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="pergunta">
+                                <legend>Histórico neurológico</legend>
+                                <p>O paciente possui histórico de epilepsia ou convulsões?</p>
+                                <div class="opcoes">
+                                    <label><input type="radio" name="epilepsia" value="sim"> Sim</label>
+                                    <label><input type="radio" name="epilepsia" value="nao"> Não</label>
+                                </div>
+                            </fieldset>
+
+                        </div>
+                    </section>
+
+                    <!-- ABA 3: MAPEAMENTO TENS -->
+                    <section class="quadro-triagem painel-aba"
+                             id="aba-tens"
+                             role="tabpanel"
+                             aria-labelledby="tab-tens"
+                             hidden>
+
+                        <h2>Mapeamento TENS</h2>
+
+                        <div class="campos-cadastro">
+                            <label>
+                                Localização da dor (dermátomo / segmento)
+                                <input type="text" name="localizacaoDor"
+                                       placeholder="Ex.: região lombar, L4-L5">
+                            </label>
+                        </div>
+
+                        <fieldset class="grupo-avaliacao">
+                            <legend>Qual o nível da dor hoje?</legend>
+
+                            <div class="escala-dor">
+                                <label class="nivel-dor">
+                                    <input type="radio" name="dor" value="0">
+                                    <span class="rosto">😄</span>
+                                    <span class="barra-dor dor-0"></span>
+                                    <span>Sem dor</span>
+                                </label>
+
+                                <label class="nivel-dor">
+                                    <input type="radio" name="dor" value="1">
+                                    <span class="rosto">🙂</span>
+                                    <span class="barra-dor dor-1"></span>
+                                    <span>Leve</span>
+                                </label>
+
+                                <label class="nivel-dor">
+                                    <input type="radio" name="dor" value="2">
+                                    <span class="rosto">😐</span>
+                                    <span class="barra-dor dor-2"></span>
+                                    <span>Moderada</span>
+                                </label>
+
+                                <label class="nivel-dor">
+                                    <input type="radio" name="dor" value="3">
+                                    <span class="rosto">😣</span>
+                                    <span class="barra-dor dor-3"></span>
+                                    <span>Intensa</span>
+                                </label>
+
+                                <label class="nivel-dor">
+                                    <input type="radio" name="dor" value="4">
+                                    <span class="rosto">😫</span>
+                                    <span class="barra-dor dor-4"></span>
+                                    <span>Muito intensa</span>
+                                </label>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="grupo-avaliacao">
+                            <legend>Cronicidade</legend>
+                            <div class="opcoes">
+                                <label><input type="radio" name="cronicidade" value="aguda"> Aguda</label>
+                                <label><input type="radio" name="cronicidade" value="cronica"> Crônica</label>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="grupo-avaliacao">
+                            <legend>Tipo de dor predominante</legend>
+                            <div class="opcoes opcoes-verticais">
+                                <label><input type="radio" name="tipoDor" value="mecanica"> Mecânica / inflamatória</label>
+                                <label><input type="radio" name="tipoDor" value="neuropatica"> Neuropática</label>
+                                <label><input type="radio" name="tipoDor" value="nociplastica"> Nociplástica</label>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="grupo-avaliacao">
+                            <legend>Modalidade TENS considerada</legend>
+                            <div class="opcoes opcoes-verticais">
+                                <label>
+                                    <input type="radio" name="modalidadeTens" value="convencional">
+                                    TENS convencional — alta frequência / baixa intensidade
+                                </label>
+                                <label>
+                                    <input type="radio" name="modalidadeTens" value="acupuntura">
+                                    TENS tipo acupuntura — baixa frequência / maior intensidade
+                                </label>
+                                <label>
+                                    <input type="radio" name="modalidadeTens" value="burst">
+                                    TENS burst — trens de pulsos
+                                </label>
+                            </div>
+                        </fieldset>
+
+                    </section>
+
+                    <!-- ABA 4: MAPEAMENTO FES -->
+                    <section class="quadro-triagem painel-aba"
+                             id="aba-fes"
+                             role="tabpanel"
+                             aria-labelledby="tab-fes"
+                             hidden>
+
+                        <h2>Mapeamento FES</h2>
+
+                        <fieldset class="grupo-avaliacao">
+                            <legend>Condição do tecido muscular</legend>
+
+                            <div class="opcoes opcoes-verticais">
+                                <label><input type="radio" name="tecidoMuscular" value="semLesao"> Sem lesão estrutural conhecida</label>
+                                <label><input type="radio" name="tecidoMuscular" value="posOperatorio"> Pós-operatório imediato</label>
+                                <label><input type="radio" name="tecidoMuscular" value="neurologica"> Sequela neurológica</label>
+                                <label><input type="radio" name="tecidoMuscular" value="outra"> Outra condição</label>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="grupo-avaliacao">
+                            <legend>Grau de força muscular atual</legend>
+
+                            <div class="opcoes opcoes-verticais">
+                                <label><input type="radio" name="forcaMuscular" value="0"> Grau 0 — nenhuma contração</label>
+                                <label><input type="radio" name="forcaMuscular" value="1"> Grau 1 — contração palpável, sem movimento</label>
+                                <label><input type="radio" name="forcaMuscular" value="2"> Grau 2 — movimento com gravidade eliminada</label>
+                                <label><input type="radio" name="forcaMuscular" value="3"> Grau 3 — movimento contra a gravidade</label>
+                                <label><input type="radio" name="forcaMuscular" value="4"> Grau 4 — movimento contra resistência</label>
+                                <label><input type="radio" name="forcaMuscular" value="5"> Grau 5 — força considerada normal</label>
+                            </div>
+                        </fieldset>
+
+                    </section>
+
+                    <!-- BOTÕES INFERIORES -->
+                    <div class="acoes-triagem">
+
+                        <button type="button"
+                                class="botao-secundario"
+                                id="botaoNovo">
+                            Novo
+                        </button>
+
+                        <button type="button"
+                                class="botao-secundario"
+                                id="botaoSalvar">
+                            Salvar
+                        </button>
+
+                        <button type="button"
+                                class="botao-principal"
+                                id="botaoProximo">
+                            Próximo
+                        </button>
+
+                    </div>
+
+                </form>
+            </section>
+        </div>
+    </main>
+</body>
+</html>
