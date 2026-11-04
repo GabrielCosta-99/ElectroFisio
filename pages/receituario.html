@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ElectroFisio - Receituário</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/prontuario.css">
+    <link rel="stylesheet" href="../css/receituario.css">
+
+    <script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+    <script defer src="../js/prontuario.js"></script>
+</head>
+<body>
+
+    <!-- CABEÇALHO -->
+    <header class="cabecalho">
+
+        <div class="cabecalho-logo">
+            <span class="logo-electro">Electro</span><span class="logo-fisio">Fisio</span>
+        </div>
+
+        <nav class="cabecalho-navegacao"
+             aria-label="Navegação principal">
+
+            <a href="#">TENS e FES</a>
+            <a href="pacientes.html">Pacientes</a>
+            <a href="#">Meu perfil</a>
+            <a href="#">Sair</a>
+            <a href="#">Acessibilidade</a>
+
+        </nav>
+    </header>
+
+    <main class="conteudo-principal pagina-prontuario">
+
+        <!-- ÁREA SUPERIOR -->
+        <div class="prontuario-topo">
+
+            <a href="pacientes.html" class="botao-voltar">
+                Voltar
+            </a>
+
+            <div class="profissional-info">
+                <span>Nome do profissional</span>
+                <span>CREFITO: 000000</span>
+            </div>
+
+        </div>
+
+        <div class="prontuario-colunas layout-receituario">
+
+            <!-- COLUNA 1 -->
+            <aside class="prontuario-lateral">
+
+                <div class="paciente-identificacao">
+
+                    <div class="paciente-avatar">
+                        <span aria-hidden="true">👤</span>
+                    </div>
+
+                    <div class="paciente-dados">
+                        <p class="paciente-nome">
+                            Nome do paciente
+                        </p>
+                        <p>CPF: 000.000.000-00</p>
+                        <p>Mãe: Nome da mãe</p>
+                    </div>
+
+                </div>
+
+                <nav class="menu-prontuario"
+                     aria-label="Seções do prontuário">
+
+                    <a href="#">Triagem</a>
+
+                    <a href="dados.html">
+                        Dados
+                    </a>
+
+                    <a href="prontuario.html">
+                        Anamnese
+                    </a>
+
+                    <a href="receituario.html"
+                       class="menu-ativo"
+                       aria-current="page">
+                        Receituário
+                    </a>
+
+                </nav>
+
+            </aside>
+
+            <!-- COLUNA 2 -->
+            <section class="conteudo-receituario">
+
+                <div class="quadro-prontuario quadro-receituario">
+
+                    <h2>Receituário</h2>
+
+                    <label for="textoReceituario"
+                           class="receituario-label">
+                        Descrição
+                    </label>
+
+                    <textarea
+                        id="textoReceituario"
+                        name="textoReceituario"
+                        placeholder="Digite aqui as orientações ou o conteúdo do receituário..."
+                        aria-label="Conteúdo do receituário"
+                    ></textarea>
+
+                </div>
+
+                <!-- BOTÕES DE AÇÃO -->
+                <div class="acoes-prontuario">
+
+                    <button type="button"
+                            class="botao-icone"
+                            title="Novo"
+                            aria-label="Novo receituário">
+                        <i data-lucide="file-plus"></i>
+                    </button>
+
+                    <button type="button"
+                            class="botao-icone"
+                            title="Salvar"
+                            aria-label="Salvar receituário">
+                        <i data-lucide="save"></i>
+                    </button>
+
+                    <button type="button"
+                            class="botao-icone"
+                            title="Assinar"
+                            aria-label="Assinar receituário">
+                        <i data-lucide="pen-line"></i>
+                    </button>
+
+                    <button type="button"
+                            class="botao-icone"
+                            title="Cancelar"
+                            aria-label="Cancelar edição">
+                        <i data-lucide="x"></i>
+                    </button>
+
+                    <button type="button"
+                            class="botao-icone"
+                            title="Copiar"
+                            aria-label="Copiar receituário">
+                        <i data-lucide="copy"></i>
+                    </button>
+
+                </div>
+
+            
+            </section>
+
+            <!-- COLUNA 3: REGISTROS DE RECEITAS -->
+            <aside class="prontuario-registros">
+
+                <h2>Registros de receitas</h2>
+
+                <!-- REGISTRO 1 -->
+                <article class="registro-item">
+                    <p class="registro-nome">Profissional 1</p>
+                    <p>CREFITO: 000000</p>
+                    <p>Data: 03/11/2026</p>
+                    <p>Horário: 14:30</p>
+                </article>
+
+                <!-- REGISTRO 2 -->
+                <article class="registro-item">
+                    <p class="registro-nome">Profissional 2</p>
+                    <p>CREFITO: 000000</p>
+                    <p>Data: 02/11/2026</p>
+                    <p>Horário: 10:15</p>
+                </article>
+
+                <!-- REGISTRO 3 -->
+                <article class="registro-item">
+                    <p class="registro-nome">Profissional 3</p>
+                    <p>CREFITO: 000000</p>
+                    <p>Data: 30/10/2026</p>
+                    <p>Horário: 09:20</p>
+                </article>
+
+            </aside>
+
+        </div>
+    </main>
+
+</body>
+</html>
+
