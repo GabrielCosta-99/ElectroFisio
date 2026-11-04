@@ -246,3 +246,12 @@
         height: 340px;
     }
 }
+
+/* Mensagem do botão "Salvar os dados da sessão" */
+.mensagem-salvar {
+    min-height: 18px;
+    margin-top: -8px;
+
+    color: var(--verde-escuro);
+    font-size: 13px;
+}

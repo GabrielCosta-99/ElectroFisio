@@ -62,11 +62,20 @@ const regiaoEscolhida = document.getElementById("regiaoEscolhida");
 const imagemExemplo = document.getElementById("imagemExemplo");
 const legendaExemplo = document.getElementById("legendaExemplo");
 
+const botaoSalvar = document.querySelector(".botao-salvar");
+const CHAVE_SESSAO = "electrofisio-eletrodos";
+
 const selecao = {
     vista: "anterior",
     area: "tronco",
     modalidade: document.body.dataset.modalidade || "tens"
 };
+
+// Mensagem logo abaixo do botão "Salvar os dados da sessão"
+const mensagemSalvar = document.createElement("p");
+mensagemSalvar.className = "mensagem-salvar";
+mensagemSalvar.setAttribute("role", "status");
+botaoSalvar.insertAdjacentElement("afterend", mensagemSalvar);
 
 function preencherRegioes() {
     filtroRegiao.innerHTML = "";
@@ -176,6 +185,50 @@ botoesVista.forEach(function (botao) {
     });
 });
 
+// Salvar os dados da sessão (por enquanto, só neste navegador)
+botaoSalvar.addEventListener("click", function () {
+    const dados = {
+        modalidade: selecao.modalidade,
+        vista: selecao.vista,
+        area: selecao.area,
+        objetivo: filtroObjetivo.value,
+        salvoEm: new Date().toLocaleString("pt-BR", {
+            day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit"
+        })
+    };
+
+    try {
+        localStorage.setItem(CHAVE_SESSAO, JSON.stringify(dados));
+        mensagemSalvar.textContent = "Sessão salva em " + dados.salvoEm + ": " +
+            dados.modalidade.toUpperCase() + " · " + REGIOES[dados.vista][dados.area] + ".";
+    } catch (erro) {
+        mensagemSalvar.textContent = "Não foi possível salvar neste navegador.";
+    }
+});
+
+// Abre com a última sessão salva (a modalidade continua a escolhida no topo)
+function carregarSessao() {
+    try {
+        const salvo = JSON.parse(localStorage.getItem(CHAVE_SESSAO));
+        if (salvo && REGIOES[salvo.vista] && REGIOES[salvo.vista][salvo.area]) {
+            selecao.vista = salvo.vista;
+            selecao.area = salvo.area;
+            return salvo;
+        }
+    } catch (erro) {
+        // Nada salvo ainda
+    }
+    return null;
+}
+
+const sessaoSalva = carregarSessao();
+
 preencherRegioes();
 preencherObjetivos();
+
+if (sessaoSalva) {
+    filtroObjetivo.value = sessaoSalva.objetivo || "";
+    mensagemSalvar.textContent = "Última sessão salva em " + sessaoSalva.salvoEm + ".";
+}
+
 atualizarTela();
