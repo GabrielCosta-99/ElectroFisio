@@ -11,6 +11,10 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/prontuario.css">
     <script src="../js/prontuario.js" defer></script>
+    <script src="../js/registro.js" defer></script>
+    <link rel="stylesheet" href="../css/acessibilidade.css">
+
+    <script src="../js/acessibilidade.js"></script>
 </head>
 <body>
 
@@ -21,11 +25,11 @@
 
         <nav class="cabecalho-navegacao"
              aria-label="Navegação principal">
-            <a href="#">TENS e FES</a>
+            <a href="visao-geral.html">TENS e FES</a>
             <a href="pacientes.html">Pacientes</a>
-            <a href="#">Meu perfil</a>
-            <a href="#">Sair</a>
-            <a href="#">Acessibilidade</a>
+            <a href="perfil.html">Meu perfil</a>
+            <a href="sair.html">Sair</a>
+            <a href="acessibilidade.html">Acessibilidade</a>
         </nav>
     </header>
 
@@ -63,11 +67,11 @@
 
                 <nav class="menu-prontuario"
                      aria-label="Seções do prontuário">
-                    <a href="#">Triagem</a>
-                    <a href="#">Dados</a>
-                    <a href="#" class="menu-ativo"
+                    <a href="triagem.html">Triagem</a>
+                    <a href="dados.html">Dados</a>
+                    <a href="prontuario.html" class="menu-ativo"
                        aria-current="page">Anamnese</a>
-                    <a href="#">Receituário</a>
+                    <a href="receituario.html">Receituário</a>
                 </nav>
 
             </aside>
@@ -76,7 +80,7 @@
             <section class="prontuario-central"
                      aria-label="Anamnese">
 
-                <form id="formularioAnamnese">
+                <form id="formularioAnamnese" data-registro="anamnese">
 
                     <section class="quadro-prontuario">
                         <h2>Conduta adotada</h2>
@@ -207,6 +211,7 @@
 
                         <button type="button"
                                 class="botao-icone"
+                                data-acao="novo"
                                 title="Novo"
                                 aria-label="Novo">
                             <i data-lucide="file-plus"></i>
@@ -214,6 +219,7 @@
 
                         <button type="button"
                                 class="botao-icone"
+                                data-acao="salvar"
                                 title="Salvar"
                                 aria-label="Salvar">
                             <i data-lucide="save"></i>
@@ -221,6 +227,7 @@
 
                         <button type="button"
                                 class="botao-icone"
+                                data-acao="assinar"
                                 title="Assinar"
                                 aria-label="Assinar">
                             <i data-lucide="pen-line"></i>
@@ -228,6 +235,7 @@
 
                         <button type="button"
                                 class="botao-icone"
+                                data-acao="cancelar"
                                 title="Cancelar"
                                 aria-label="Cancelar">
                             <i data-lucide="x"></i>
@@ -235,6 +243,7 @@
 
                         <button type="button"
                                 class="botao-icone"
+                                data-acao="copiar"
                                 title="Copiar"
                                 aria-label="Copiar">
                             <i data-lucide="copy"></i>

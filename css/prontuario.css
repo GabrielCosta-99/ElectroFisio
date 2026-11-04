@@ -370,3 +370,13 @@ input[type="radio"] {
         font-size: 23px;
     }
 }
+
+/* Mensagem dos botões de ação (Novo, Salvar, Assinar...) */
+.status-registro {
+    min-height: 18px;
+    margin-top: 8px;
+
+    color: var(--verde-escuro);
+    font-size: 14px;
+    text-align: right;
+}
