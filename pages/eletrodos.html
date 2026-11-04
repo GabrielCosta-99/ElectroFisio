@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ElectroFisio - Eletrodos</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/tens-fes.css">
+    <link rel="stylesheet" href="../css/eletrodos.css">
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header class="cabecalho">
+
+        <div class="cabecalho-logo">
+            <span class="logo-electro">Electro</span><span class="logo-fisio">Fisio</span>
+        </div>
+
+        <nav class="cabecalho-navegacao"
+             aria-label="Navegação principal">
+            <a href="#">Início</a>
+            <a href="visao-geral.html" class="nav-ativo">TENS e FES</a>
+            <a href="pacientes.html">Pacientes</a>
+            <a href="#">Meu Perfil</a>
+            <a href="#">Sair</a>
+        </nav>
+
+    </header>
+
+    <main class="conteudo-principal pagina-tens-fes">
+
+        <div class="linha-acessibilidade">
+            <a href="#">Acessibilidade</a>
+        </div>
+
+        <!-- Abas -->
+        <div class="barra-abas">
+
+            <nav class="abas" aria-label="Seções de TENS e FES">
+                <a href="visao-geral.html" class="botao-aba link-modalidade">Visão Geral</a>
+                <a href="aparelho.html" class="botao-aba link-modalidade">Aparelho</a>
+                <a href="eletrodos.html" class="botao-aba ativo link-modalidade">Eletrodos</a>
+                <a href="parametros.html" class="botao-aba link-modalidade">Parâmetros</a>
+                <a href="seguranca.html" class="botao-aba link-modalidade">Segurança</a>
+                <a href="casos.html" class="botao-aba link-modalidade">Casos</a>
+            </nav>
+
+            <div class="selecao-modalidade">
+                <button type="button" class="botao-aba botao-modalidade ativo"
+                        data-modalidade="tens">
+                    TENS
+                </button>
+
+                <button type="button" class="botao-aba botao-modalidade"
+                        data-modalidade="fes">
+                    FES
+                </button>
+            </div>
+
+        </div>
+
+        <section class="grade-eletrodos">
+
+            <!-- Coluna 1: filtros e vista -->
+            <div class="coluna">
+
+                <div class="card-branco">
+                    <h2>Filtros</h2>
+
+                    <form class="filtros" id="filtros">
+                        <label for="filtroModalidade">Modalidade</label>
+                        <select id="filtroModalidade">
+                            <option value="tens">TENS</option>
+                            <option value="fes">FES</option>
+                        </select>
+
+                        <label for="filtroRegiao">Região corporal</label>
+                        <select id="filtroRegiao"></select>
+
+                        <label for="filtroObjetivo">Objetivo</label>
+                        <select id="filtroObjetivo">
+                            <option value="">Objetivo do tratamento</option>
+                        </select>
+                    </form>
+                </div>
+
+                <div class="card-branco">
+                    <h2>Vista do corpo</h2>
+
+                    <div class="selecao-vista" role="group" aria-label="Vista do corpo">
+                        <button type="button" class="botao-vista ativo" data-vista="anterior">Anterior</button>
+                        <button type="button" class="botao-vista" data-vista="posterior">Posterior</button>
+                        <button type="button" class="botao-vista" data-vista="lateral">Lateral</button>
+                    </div>
+                </div>
+
+                <p class="aviso-educativo">
+                    Ambiente educativo. Os exemplos não substituem a avaliação
+                    do paciente nem o manual do aparelho.
+                </p>
+
+            </div>
+
+            <!-- Coluna 2: seleção da região no corpo -->
+            <div class="card-branco card-corpo">
+                <h2 class="titulo-centro">Selecione a região do corpo</h2>
+
+                <svg class="figura-corpo" id="figuraCorpo" viewBox="0 0 200 450"
+                     role="group" aria-label="Figura do corpo com regiões clicáveis">
+
+                    <!-- Cabeça e pescoço -->
+                    <circle class="regiao" data-area="cabeca" cx="100" cy="34" r="24"/>
+                    <rect class="regiao" data-area="pescoco" x="89" y="58" width="22" height="14" rx="4"/>
+
+                    <!-- Tronco -->
+                    <rect class="regiao" data-area="tronco" x="60" y="72" width="80" height="62" rx="14"/>
+                    <rect class="regiao" data-area="abdome" x="64" y="136" width="72" height="54" rx="8"/>
+                    <rect class="regiao" data-area="pelve" x="62" y="192" width="76" height="30" rx="10"/>
+
+                    <!-- Braços -->
+                    <rect class="regiao" data-area="braco" x="34" y="76" width="22" height="70" rx="10"/>
+                    <rect class="regiao" data-area="braco" x="144" y="76" width="22" height="70" rx="10"/>
+                    <rect class="regiao" data-area="antebraco" x="30" y="149" width="20" height="70" rx="9"/>
+                    <rect class="regiao" data-area="antebraco" x="150" y="149" width="20" height="70" rx="9"/>
+                    <ellipse class="regiao" data-area="mao" cx="40" cy="234" rx="11" ry="14"/>
+                    <ellipse class="regiao" data-area="mao" cx="160" cy="234" rx="11" ry="14"/>
+
+                    <!-- Pernas -->
+                    <rect class="regiao" data-area="coxa" x="64" y="224" width="33" height="88" rx="12"/>
+                    <rect class="regiao" data-area="coxa" x="103" y="224" width="33" height="88" rx="12"/>
+                    <ellipse class="regiao" data-area="joelho" cx="80" cy="322" rx="15" ry="11"/>
+                    <ellipse class="regiao" data-area="joelho" cx="120" cy="322" rx="15" ry="11"/>
+                    <rect class="regiao" data-area="perna" x="67" y="335" width="27" height="78" rx="11"/>
+                    <rect class="regiao" data-area="perna" x="106" y="335" width="27" height="78" rx="11"/>
+                    <ellipse class="regiao" data-area="pe" cx="80" cy="426" rx="15" ry="9"/>
+                    <ellipse class="regiao" data-area="pe" cx="120" cy="426" rx="15" ry="9"/>
+                </svg>
+
+                <p class="regiao-escolhida" id="regiaoEscolhida" aria-live="polite"></p>
+
+                <p class="dica-corpo">
+                    Toque em uma região para ver exemplos de posicionamento.
+                </p>
+            </div>
+
+            <!-- Coluna 3: informações e exemplo -->
+            <div class="coluna">
+
+                <div class="card-branco">
+                    <h2>Informações</h2>
+
+                    <details class="item-informacao">
+                        <summary>Características dos eletrodos</summary>
+                        <p>.</p>
+                    </details>
+
+                    <details class="item-informacao">
+                        <summary>Objetivo do cuidado</summary>
+                        <p>.</p>
+                    </details>
+
+                    <details class="item-informacao">
+                        <summary>Fontes consultadas</summary>
+                        <p>.</p>
+                    </details>
+                </div>
+
+                <button type="button" class="botao-salvar">
+                    Salvar os dados da sessão
+                </button>
+
+                <div class="card-branco">
+                    <h2>Exemplo de posicionamento</h2>
+
+                    <figure class="exemplo-posicionamento">
+                        <div class="imagem-exemplo" id="imagemExemplo">
+                            <span>Imagem do posicionamento</span>
+                        </div>
+
+                        <figcaption id="legendaExemplo">.</figcaption>
+                    </figure>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../js/tens-fes.js"></script>
+    <script src="../js/eletrodos.js"></script>
+
+</body>
+</html>
