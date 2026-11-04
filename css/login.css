@@ -247,3 +247,22 @@ a.botao-login {
         font-size: 24px;
     }
 }
+
+/* Campos específicos do perfil selecionado */
+.campos-perfil {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Ocultar os campos do perfil não selecionado */
+.campos-perfil[hidden] {
+    display: none;
+}
+
+/* Destacar o botão selecionado */
+.botao-perfil.selecionado {
+    background-color: var(--verde-escuro);
+    color: var(--branco);
+}

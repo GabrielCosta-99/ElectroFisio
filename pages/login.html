@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/login.css">
+    <script defer src="../js/login.js"></script>
 </head>
 
 <body>
@@ -49,73 +50,154 @@
             Selecione seu perfil de acesso
         </p>
 
-        <!-- Seleção do perfil -->
-        <div class="selecao-perfil">
+        
+<!-- Seleção do perfil -->
+<div class="selecao-perfil">
 
-            <button type="button" class="botao-perfil">
-                Profissional
-            </button>
+    <button type="button"
+            class="botao-perfil"
+            data-perfil="profissional"
+            aria-pressed="false">
+        Profissional
+    </button>
 
-            <button type="button" class="botao-perfil">
-                Estudante
-            </button>
+    <button type="button"
+            class="botao-perfil"
+            data-perfil="estudante"
+            aria-pressed="false">
+        Estudante
+    </button>
 
-        </div>
+</div>
 
-        <p class="cadastro-instrucao">
-            Preencha seus dados para cadastrar
-        </p>
+<p class="cadastro-instrucao">
+    Preencha seus dados para cadastrar
+</p>
 
-        <!-- Formulário -->
-        <form class="formulario-cadastro">
+<!-- Formulário -->
+<form class="formulario-cadastro" id="formularioCadastro">
 
-            <input
-                type="text"
-                name="nome"
-                placeholder="Nome completo"
-                autocomplete="name"
-                required
-            >
+    <input type="hidden" name="tipoPerfil" id="tipoPerfil">
 
-            <input
-                type="email"
-                name="email"
-                placeholder="E-mail"
-                autocomplete="email"
-                required
-            >
+    <!-- DADOS PESSOAIS -->
+    <input
+        type="text"
+        name="nome"
+        placeholder="Nome completo"
+        autocomplete="name"
+        required
+    >
 
-            <input
-                type="password"
-                name="senha"
-                placeholder="Senha"
-                autocomplete="new-password"
-                required
-            >
+    <input
+        type="text"
+        name="cpf"
+        placeholder="CPF"
+        maxlength="14"
+        inputmode="numeric"
+        required
+    >
 
-            <input
-                type="text"
-                name="curso"
-                placeholder="Curso"
-            >
+    <input
+        type="date"
+        name="nascimento"
+        aria-label="Data de nascimento"
+        required
+    >
 
-            <input
-                type="text"
-                name="instituicao"
-                placeholder="Instituição de ensino"
-            >
+    <input
+        type="email"
+        name="email"
+        placeholder="E-mail"
+        autocomplete="email"
+        required
+    >
 
-            <input
-                type="text"
-                name="semestre"
-                placeholder="Período / semestre"
-            >
+    <input
+        type="tel"
+        name="telefone"
+        placeholder="Telefone"
+        autocomplete="tel"
+        required
+    >
 
-            <button type="submit" class="botao-cadastrar">
-                Cadastrar
-            </button>
+    <input
+        type="password"
+        name="senha"
+        placeholder="Senha"
+        autocomplete="new-password"
+        required
+    >
 
-        </form>
+    <!-- CAMPOS DO PROFISSIONAL -->
+    <div class="campos-perfil" id="camposProfissional" hidden>
+
+        <input
+            type="text"
+            name="crefito"
+            placeholder="CREFITO"
+            disabled
+            required
+        >
+
+        <input
+            type="text"
+            name="regiao"
+            placeholder="Região do CREFITO"
+            disabled
+            required
+        >
+
+        <input
+            type="text"
+            name="especialidade"
+            placeholder="Especialidade"
+            disabled
+        >
+
+        <input
+            type="text"
+            name="vinculo"
+            placeholder="Vínculo profissional"
+            disabled
+        >
+
+    </div>
+
+    <!-- CAMPOS DO ESTUDANTE -->
+    <div class="campos-perfil" id="camposEstudante" hidden>
+
+        <input
+            type="text"
+            name="curso"
+            placeholder="Curso"
+            disabled
+            required
+        >
+
+        <input
+            type="text"
+            name="instituicao"
+            placeholder="Instituição de ensino"
+            disabled
+            required
+        >
+
+        <input
+            type="text"
+            name="semestre"
+            placeholder="Período / semestre"
+            disabled
+            required
+        >
+
+    </div>
+
+    <button type="submit" class="botao-cadastrar">
+        Cadastrar
+    </button>
+
+</form>
+
 
     </div>
 
