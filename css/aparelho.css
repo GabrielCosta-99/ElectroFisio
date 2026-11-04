@@ -337,3 +337,63 @@
         flex-direction: column;
     }
 }
+
+/* Aviso no canto da tela quando a intensidade muda */
+.aviso-intensidade {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 10;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 12px 18px;
+    background-color: var(--verde-escuro);
+    color: var(--branco);
+    border-radius: 6px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none;
+}
+
+.aviso-intensidade.mostrar {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.aviso-icone {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--verde-agua);
+    border-radius: 50%;
+
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.aviso-intensidade strong {
+    display: block;
+    font-size: 14px;
+}
+
+.aviso-detalhe {
+    font-size: 13px;
+    opacity: 0.85;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .aviso-intensidade {
+        transition: none;
+    }
+}

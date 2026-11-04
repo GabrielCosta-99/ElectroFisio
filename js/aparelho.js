@@ -286,9 +286,44 @@ new ResizeObserver(desenharPulso).observe(graficoPulso);
 // Eventos
 // ---------------------------------------------------------------
 
+// ---------------------------------------------------------------
+// Aviso no canto da tela quando a intensidade muda
+// ---------------------------------------------------------------
+
+const avisoIntensidade = document.createElement("div");
+avisoIntensidade.className = "aviso-intensidade";
+avisoIntensidade.setAttribute("role", "status");
+avisoIntensidade.innerHTML =
+    "<span class=\"aviso-icone\" aria-hidden=\"true\">✓</span>" +
+    "<div><strong>Intensidade alterada</strong><span class=\"aviso-detalhe\"></span></div>";
+document.body.appendChild(avisoIntensidade);
+
+let ultimaIntensidade = { canal: 0, valor: 0 };
+let tempoAviso = 0;
+
+function verificarIntensidade() {
+    const canal = estado.canalSelecionado;
+    const valor = estado.canais[canal];
+
+    // Só avisa quando a pessoa ajusta a intensidade durante a sessão
+    if (estado.emCurso && canal === ultimaIntensidade.canal && valor !== ultimaIntensidade.valor) {
+        avisoIntensidade.querySelector(".aviso-detalhe").textContent =
+            "Canal " + (canal + 1) + ": de " + ultimaIntensidade.valor + " mA para " + valor + " mA";
+        avisoIntensidade.classList.add("mostrar");
+
+        clearTimeout(tempoAviso);
+        tempoAviso = setTimeout(function () {
+            avisoIntensidade.classList.remove("mostrar");
+        }, 3000);
+    }
+
+    ultimaIntensidade = { canal: canal, valor: valor };
+}
+
 aoMudar(function (texto, tipo) {
     mostrarMensagem(texto, tipo);
     atualizarPainel();
+    verificarIntensidade();
 });
 
 botoesControle.forEach(function (botao) {
