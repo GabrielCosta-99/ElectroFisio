@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ElectroFisio - Segurança</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/tens-fes.css">
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header class="cabecalho">
+
+        <div class="cabecalho-logo">
+            <span class="logo-electro">Electro</span><span class="logo-fisio">Fisio</span>
+        </div>
+
+        <nav class="cabecalho-navegacao"
+             aria-label="Navegação principal">
+            <a href="#">Início</a>
+            <a href="visao-geral.html" class="nav-ativo">TENS e FES</a>
+            <a href="pacientes.html">Pacientes</a>
+            <a href="#">Meu Perfil</a>
+            <a href="#">Sair</a>
+        </nav>
+
+    </header>
+
+    <main class="conteudo-principal pagina-tens-fes">
+
+        <div class="linha-acessibilidade">
+            <a href="#">Acessibilidade</a>
+        </div>
+
+        <!-- Abas -->
+        <div class="barra-abas">
+
+            <nav class="abas" aria-label="Seções de TENS e FES">
+                <a href="visao-geral.html" class="botao-aba link-modalidade">Visão Geral</a>
+                <a href="aparelho.html" class="botao-aba link-modalidade">Aparelho</a>
+                <a href="eletrodos.html" class="botao-aba link-modalidade">Eletrodos</a>
+                <a href="parametros.html" class="botao-aba link-modalidade">Parâmetros</a>
+                <a href="seguranca.html" class="botao-aba ativo link-modalidade">Segurança</a>
+                <a href="casos.html" class="botao-aba link-modalidade">Casos</a>
+            </nav>
+
+            <div class="selecao-modalidade">
+                <button type="button" class="botao-aba botao-modalidade ativo"
+                        data-modalidade="tens">
+                    TENS
+                </button>
+
+                <button type="button" class="botao-aba botao-modalidade"
+                        data-modalidade="fes">
+                    FES
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Conteúdo TENS -->
+        <section class="grade-duas-colunas" data-conteudo="tens">
+
+            <div class="coluna">
+
+                <article class="card-info">
+                    <h2>Antes da aplicação: situações de atenção</h2>
+                    <p>
+                        .
+                    </p>
+                </article>
+
+                <p class="aviso-educativo">
+                    .
+                </p>
+
+            </div>
+
+            <div class="coluna">
+
+                <article class="card-info">
+                    <h2>Durante e depois</h2>
+                    <p>
+                        .
+                    </p>
+                </article>
+
+                <article class="card-info">
+                    <h2>Antes de começar a sessão</h2>
+
+                    <!-- Lista de conferência: cada item é uma caixinha de marcar -->
+                    <ul class="lista-conferencia">
+                        <li><label><input type="checkbox"> .</label></li>
+                        <li><label><input type="checkbox"> .</label></li>
+                        <li><label><input type="checkbox"> .</label></li>
+                        <li><label><input type="checkbox"> .</label></li>
+                        <li><label><input type="checkbox"> .</label></li>
+                        <li><label><input type="checkbox"> .</label></li>
+                    </ul>
+
+                    <p class="progresso-conferencia" aria-live="polite"></p>
+                </article>
+
+            </div>
+
+        </section>
+
+        <!-- Conteúdo FES -->
+        <section class="grade-duas-colunas escondido" data-conteudo="fes">
+
+            <div class="coluna">
+
+                <article class="card-info">
+                    <h2>Antes da aplicação: situações de atenção</h2>
+                    <p>
+                        .
+                    </p>
+                </article>
+
+                <p class="aviso-educativo">
+                    .
+                </p>
+
+            </div>
+
+            <div class="coluna">
+
+                <article class="card-info">
+                    <h2>Durante e depois</h2>
+                    <p>
+                        .
+                    </p>
+                </article>
+
+                <article class="card-info">
+                    <h2>Antes de começar a sessão</h2>
+
+                    <ul class="lista-conferencia">
+                        <li><label><input type="checkbox"> .</label></li>
+                        <li><label><input type="checkbox"> .</label></li>
+                        <li><label><input type="checkbox"> .</label></li>
+                        <li><label><input type="checkbox"> .</label></li>
+                        <li><label><input type="checkbox"> .</label></li>
+                        <li><label><input type="checkbox"> .</label></li>
+                    </ul>
+
+                    <p class="progresso-conferencia" aria-live="polite"></p>
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../js/tens-fes.js"></script>
+    <script src="../js/seguranca.js"></script>
+
+</body>
+</html>

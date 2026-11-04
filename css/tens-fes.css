@@ -1,0 +1,245 @@
+
+/* Cores usadas nas telas de TENS e FES */
+:root {
+    --cinza-fundo: #E4E6E5;
+    --cinza-card: #D8DCDA;
+    --texto: #3A3F3D;
+    --verde-claro: #E1EBE8;
+}
+
+body {
+    background-color: var(--cinza-fundo);
+}
+
+/* Navegação do cabeçalho */
+.cabecalho {
+    border-bottom: 1px solid #CFCFCF;
+}
+
+.cabecalho-navegacao {
+    gap: 30px;
+}
+
+.cabecalho-navegacao a {
+    color: var(--verde-escuro);
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.cabecalho-navegacao .nav-ativo {
+    font-weight: bold;
+}
+
+/* Conteúdo da página */
+.pagina-tens-fes {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 12px 40px 60px;
+}
+
+/* Link de acessibilidade */
+.linha-acessibilidade {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.linha-acessibilidade a {
+    color: var(--verde-escuro);
+    font-size: 15px;
+    font-weight: bold;
+}
+
+/* Abas superiores */
+.barra-abas {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+
+    margin-top: 12px;
+    margin-bottom: 20px;
+}
+
+.abas,
+.selecao-modalidade {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.selecao-modalidade {
+    gap: 8px;
+}
+
+.botao-aba {
+    min-width: 95px;
+    height: 38px;
+    padding: 0 14px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: transparent;
+    color: var(--texto);
+
+    border: 1px solid #555555;
+    border-radius: 2px;
+
+    font-size: 15px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.botao-modalidade {
+    min-width: 60px;
+}
+
+.botao-aba.ativo {
+    background-color: var(--verde-escuro);
+    border-color: var(--verde-escuro);
+    color: var(--branco);
+}
+
+/* Grade em duas colunas */
+.grade-duas-colunas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.coluna {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* Cards de conteúdo */
+.card-info {
+    background-color: var(--cinza-card);
+    border-radius: 4px;
+    padding: 16px 18px;
+
+    color: var(--texto);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.card-info h2,
+.card-branco h2 {
+    color: var(--verde-escuro);
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.card-info strong {
+    color: #222222;
+}
+
+/* Aviso de ambiente educativo */
+.aviso-educativo {
+    background-color: var(--branco);
+    border-left: 3px solid var(--verde-agua);
+    border-radius: 4px;
+    padding: 12px 16px;
+
+    color: var(--texto);
+    font-size: 14px;
+}
+
+/* Botões de ação */
+.acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.botao-acao {
+    padding: 10px 16px;
+
+    background-color: var(--branco);
+    color: var(--verde-escuro);
+
+    border: 1px solid var(--verde-escuro);
+    border-radius: 2px;
+
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.botao-acao.principal {
+    background-color: var(--verde-escuro);
+    color: var(--branco);
+}
+
+/* Lista de conferência (tela de segurança) */
+.lista-conferencia {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.lista-conferencia label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.lista-conferencia input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--verde-escuro);
+    cursor: pointer;
+}
+
+.progresso-conferencia {
+    margin-top: 10px;
+    color: #6B7370;
+    font-size: 13px;
+}
+
+.progresso-conferencia.completo {
+    color: var(--verde-escuro);
+    font-weight: bold;
+}
+
+/* Botões dentro de um card */
+.acoes-card {
+    margin-top: 12px;
+}
+
+/* Conteúdo escondido ao trocar entre TENS e FES */
+.escondido {
+    display: none;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+    .cabecalho {
+        flex-wrap: wrap;
+        padding: 12px 16px;
+        gap: 10px;
+    }
+
+    .cabecalho-navegacao {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .pagina-tens-fes {
+        padding: 12px 16px 40px;
+    }
+
+    .barra-abas {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .grade-duas-colunas {
+        grid-template-columns: 1fr;
+    }
+}
