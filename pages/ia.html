@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ElectroFisio - Casos Fictícios</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/ia.css">
+
+    <script defer src="../js/ia.js"></script>
+</head>
+<body>
+
+    <header class="cabecalho">
+        <div class="cabecalho-logo">
+            <span class="logo-electro">Electro</span><span class="logo-fisio">Fisio</span>
+        </div>
+
+        <nav class="cabecalho-navegacao" aria-label="Navegação principal">
+            <a href="inicio.html">Início</a>
+            <a href="inicio.html#modulos">TENS e FES</a>
+            <a href="pacientes.html">Pacientes</a>
+            <a href="perfil.html">Meu perfil</a>
+            <a href="entrar.html">Sair</a>
+            <a href="#" class="botao-acessibilidade">Acessibilidade</a>
+        </nav>
+    </header>
+
+    <main class="conteudo-principal pagina-casos">
+
+        <div class="casos-topo">
+            <a href="inicio.html" class="casos-voltar">
+                <i data-lucide="arrow-left"></i>
+                Voltar
+            </a>
+
+            <div class="casos-titulo">
+                <div class="casos-icone">
+                    <i data-lucide="bot"></i>
+                </div>
+
+                <div>
+                    <h1>Explorar casos fictícios</h1>
+                    <p>
+                        Treine seus conhecimentos com casos clínicos
+                        gerados por Inteligência Artificial.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="casos-colunas">
+
+            <!-- CASO CLÍNICO -->
+            <section class="casos-cartao">
+
+                <div class="casos-indicador">
+                    <span id="numeroCaso">Caso 1 de 5</span>
+                    <div class="casos-pontos" id="indicadoresCaso"
+                         aria-label="Progresso dos casos"></div>
+                </div>
+
+                <div class="casos-subtitulo">
+                    <i data-lucide="clipboard-list"></i>
+                    <h2>Caso clínico</h2>
+                </div>
+
+                <p class="casos-descricao" id="descricaoCaso">
+                    Paciente do sexo masculino, 52 anos, com diagnóstico
+                    de lombalgia crônica inespecífica, relata dor lombar
+                    de intensidade moderada (EVA 6/10), sem sinais de
+                    déficits neurológicos. O objetivo do tratamento é
+                    o alívio da dor e a melhora da funcionalidade.
+                </p>
+
+                <div class="casos-desafio">
+                    <div class="casos-subtitulo">
+                        <i data-lucide="target"></i>
+                        <h2>Desafio</h2>
+                    </div>
+
+                    <p>Com base no caso apresentado, defina:</p>
+
+                    <ul>
+                        <li>Qual recurso utilizar (TENS ou FES);</li>
+                        <li>Parâmetros sugeridos (frequência, largura de pulso, intensidade e tempo);</li>
+                        <li>Posicionamento dos eletrodos;</li>
+                        <li>Justifique sua escolha.</li>
+                    </ul>
+                </div>
+
+                <div class="casos-navegacao">
+                    <button type="button" id="casoAnterior">
+                        <i data-lucide="chevron-left"></i>
+                        Anterior
+                    </button>
+
+                    <button type="button" id="proximoCaso">
+                        Próximo caso
+                        <i data-lucide="chevron-right"></i>
+                    </button>
+                </div>
+
+            </section>
+
+            <!-- RESPOSTA -->
+            <section class="casos-cartao">
+
+                <div class="casos-subtitulo">
+                    <i data-lucide="pencil"></i>
+                    <h2>Sua resposta</h2>
+                </div>
+
+                <label for="respostaEstudante" class="texto-oculto">
+                    Escreva sua resposta
+                </label>
+
+                <textarea
+                    id="respostaEstudante"
+                    maxlength="1000"
+                    placeholder="Digite aqui sua conduta, os parâmetros e a justificativa..."
+                ></textarea>
+
+                <p class="casos-contador" id="contadorCaracteres">
+                    0 / 1000
+                </p>
+
+                <div class="casos-acoes">
+                    <button type="button" id="limparResposta"
+                            class="casos-botao-limpar">
+                        <i data-lucide="rotate-ccw"></i>
+                        Limpar resposta
+                    </button>
+
+                    <button type="button" id="enviarResposta"
+                            class="casos-botao-enviar">
+                        <i data-lucide="send"></i>
+                        Enviar para avaliação da IA
+                    </button>
+                </div>
+
+                <div class="casos-feedback" aria-live="polite">
+                    <div class="casos-subtitulo">
+                        <i data-lucide="bot"></i>
+                        <h2>Feedback da IA</h2>
+                    </div>
+
+                    <p id="textoFeedback">
+                        A avaliação da sua resposta aparecerá aqui após o envio.
+                    </p>
+                </div>
+
+            </section>
+
+        </div>
+
+        <p class="aviso-educacional">
+            Ambiente educacional com casos fictícios. Não substitui
+            avaliação clínica ou orientação profissional.
+        </p>
+
+    </main>
+
+    <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+    <script>
+        if (window.lucide) lucide.createIcons();
+    </script>
+
+</body>
+</html>

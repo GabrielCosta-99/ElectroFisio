@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ElectroFisio - Início</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/inicio.css">
+</head>
+<body>
+
+    <header class="cabecalho">
+        <div class="cabecalho-logo">
+            <span class="logo-electro">Electro</span><span class="logo-fisio">Fisio</span>
+        </div>
+
+        <nav class="cabecalho-navegacao" aria-label="Navegação principal">
+            <a href="inicio.html" class="link-ativo">Início</a>
+            <a href="#modulos">TENS e FES</a>
+            <a href="pacientes.html">Pacientes</a>
+            <a href="perfil.html">Meu perfil</a>
+            <a href="entrar.html">Sair</a>
+            <a href="#" class="botao-acessibilidade">Acessibilidade</a>
+        </nav>
+    </header>
+
+    <main class="conteudo-principal pagina-inicio">
+
+        <section class="boas-vindas">
+            <div class="icone-usuario" aria-hidden="true">
+                <i data-lucide="user-round"></i>
+            </div>
+
+            <div>
+                <h1>Olá, Estudante!</h1>
+                <p>Bem-vindo(a) ao ElectroFisio. Escolha uma opção para começar:</p>
+            </div>
+        </section>
+
+        <section class="painel-inicio" id="modulos" aria-label="Opções de estudo">
+
+            <!-- TENS -->
+            <article class="cartao-inicio cartao-modulo">
+                <div class="cartao-cabecalho">
+                    <div class="icone-modulo">
+                        <i data-lucide="zap"></i>
+                    </div>
+                    <h2>Abrir módulo<br>TENS</h2>
+                </div>
+
+                <p class="descricao-modulo">
+                    Estude, simule e aplique os principais conceitos da
+                    Estimulação Elétrica Nervosa Transcutânea.
+                </p>
+
+                <!-- Substituir # pela rota do módulo TENS -->
+                <a href="#" class="botao-abrir">
+                    Abrir módulo TENS
+                    <i data-lucide="arrow-right"></i>
+                </a>
+            </article>
+
+            <!-- FES -->
+            <article class="cartao-inicio cartao-modulo">
+                <div class="cartao-cabecalho">
+                    <div class="icone-modulo">
+                        <i data-lucide="activity"></i>
+                    </div>
+                    <h2>Abrir módulo<br>FES</h2>
+                </div>
+
+                <p class="descricao-modulo">
+                    Estude, simule e aplique os principais conceitos da
+                    Estimulação Elétrica Funcional.
+                </p>
+
+                <!-- Substituir # pela rota do módulo FES -->
+                <a href="#" class="botao-abrir">
+                    Abrir módulo FES
+                    <i data-lucide="arrow-right"></i>
+                </a>
+            </article>
+
+            <!-- ATALHOS -->
+            <article class="cartao-inicio cartao-atalhos">
+                <div class="cartao-cabecalho">
+                    <div class="icone-modulo">
+                        <i data-lucide="layers"></i>
+                    </div>
+
+                    <div>
+                        <h2>Atalhos</h2>
+                        <p>Acesse recursos complementares para ampliar seus estudos.</p>
+                    </div>
+                </div>
+
+                <div class="lista-atalhos">
+
+                    <a href="ia.html" class="item-atalho">
+                        <span class="icone-atalho">
+                            <i data-lucide="bot"></i>
+                        </span>
+                        <span>Explorar casos fictícios</span>
+                        <i data-lucide="chevron-right"></i>
+                    </a>
+
+                    <a href="#" class="item-atalho">
+                        <span class="icone-atalho">
+                            <i data-lucide="workflow"></i>
+                        </span>
+                        <span>Explorar eletrodos</span>
+                        <i data-lucide="chevron-right"></i>
+                    </a>
+
+                    <a href="#" class="item-atalho">
+                        <span class="icone-atalho">
+                            <i data-lucide="monitor"></i>
+                        </span>
+                        <span>Explorar aparelhos</span>
+                        <i data-lucide="chevron-right"></i>
+                    </a>
+
+                    <a href="#" class="item-atalho">
+                        <span class="icone-atalho">
+                            <i data-lucide="book-open"></i>
+                        </span>
+                        <span>Abrir biblioteca</span>
+                        <i data-lucide="chevron-right"></i>
+                    </a>
+
+                </div>
+            </article>
+
+        </section>
+    </main>
+
+    <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+    <script>
+        if (window.lucide) lucide.createIcons();
+    </script>
+</body>
+</html>
