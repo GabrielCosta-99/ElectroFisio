@@ -114,6 +114,11 @@
             <div class="card-branco card-corpo">
                 <h2 class="titulo-centro">Selecione a região do corpo</h2>
 
+                <!-- Modelo 3D do corpo (js/corpo-3d.js); a figura plana abaixo fica como reserva -->
+                <div class="corpo-3d escondido" id="corpo3d"
+                     role="img"
+                     aria-label="Modelo 3D do corpo. Escolha a região também pelo filtro Região corporal."></div>
+
                 <svg class="figura-corpo" id="figuraCorpo" viewBox="0 0 200 450"
                      role="group" aria-label="Figura do corpo com regiões clicáveis">
 
@@ -149,6 +154,7 @@
 
                 <p class="dica-corpo">
                     Toque em uma região para ver exemplos de posicionamento.
+                    Arraste para girar o corpo.
                 </p>
             </div>
 
@@ -198,6 +204,17 @@
 
     <script src="../js/tens-fes.js"></script>
     <script src="../js/eletrodos.js"></script>
+
+    <!-- Biblioteca Three.js para o modelo 3D do corpo -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+    <script type="module" src="../js/corpo-3d.js"></script>
 
 </body>
 </html>

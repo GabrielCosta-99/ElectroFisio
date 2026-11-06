@@ -121,12 +121,26 @@ function atualizarTela() {
         "Imagem do posicionamento · " + selecao.modalidade.toUpperCase() + " · " + nomeRegiao;
     imagemExemplo.dataset.modalidade = selecao.modalidade;
     imagemExemplo.dataset.regiao = selecao.area;
+
+    // Avisa o modelo 3D do corpo (js/corpo-3d.js) sobre a região e a vista
+    document.body.dataset.area = selecao.area;
+    document.body.dataset.vista = selecao.vista;
+    document.dispatchEvent(new CustomEvent("corpo-atualizado", {
+        detail: { area: selecao.area, vista: selecao.vista, nome: nomeRegiao }
+    }));
 }
 
 function escolherArea(area) {
     selecao.area = area;
     atualizarTela();
 }
+
+// Clique em uma parte do modelo 3D
+document.addEventListener("corpo-clicado", function (evento) {
+    if (REGIOES[selecao.vista][evento.detail]) {
+        escolherArea(evento.detail);
+    }
+});
 
 // Cliques e teclado nas áreas da figura
 const areasComFoco = [];

@@ -131,6 +131,26 @@
     font-size: 12px;
 }
 
+/* Modelo 3D do corpo */
+.corpo-3d {
+    width: 100%;
+    height: 420px;
+    margin: 8px 0;
+
+    background: radial-gradient(ellipse at 50% 40%, #F4F7F6, #E1E8E5);
+    border-radius: 6px;
+}
+
+.corpo-3d canvas {
+    display: block;
+    touch-action: none;
+}
+
+.corpo-3d.escondido,
+.figura-corpo.escondido {
+    display: none;
+}
+
 /* Informações */
 .item-informacao {
     border-top: 1px solid #E6EAE8;
