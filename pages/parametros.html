@@ -74,15 +74,107 @@
 
                 <article class="card-info">
                     <h2>Dicionário de parâmetros</h2>
+
+                    <table class="tabela-info">
+                        <thead>
+                            <tr>
+                                <th>Parâmetro</th>
+                                <th>Unidade</th>
+                                <th>Significado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Frequência</td>
+                                <td>Hz</td>
+                                <td>Pulsos por segundo. Na TENS, define o padrão de estimulação sensitiva: convencional cerca de 50–100 Hz; baixa frequência cerca de 2–4 Hz.</td>
+                            </tr>
+                            <tr>
+                                <td>Duração do pulso</td>
+                                <td>µs</td>
+                                <td>Tempo de cada pulso ou fase. Na TENS convencional, valores como 50–200 µs; na baixa frequência, pulsos mais longos.</td>
+                            </tr>
+                            <tr>
+                                <td>Intensidade</td>
+                                <td>mA</td>
+                                <td>Amplitude da corrente. Deve produzir formigamento perceptível, forte e confortável, sem dor. Não existe um valor universal em mA.</td>
+                            </tr>
+                            <tr>
+                                <td>Forma de onda</td>
+                                <td>—</td>
+                                <td>Como a corrente varia no tempo: monofásica, bifásica simétrica ou bifásica assimétrica.</td>
+                            </tr>
+                            <tr>
+                                <td>Rampa</td>
+                                <td>s</td>
+                                <td>Aumento ou redução gradual da intensidade, conforme o aparelho.</td>
+                            </tr>
+                            <tr>
+                                <td>Duração da aplicação</td>
+                                <td>min</td>
+                                <td>Tempo total da sessão, diferente da duração de cada pulso.</td>
+                            </tr>
+                            <tr>
+                                <td>Canais</td>
+                                <td>—</td>
+                                <td>Saídas independentes; cada canal controla um par de eletrodos.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Limiares</h3>
+                    <ul>
+                        <li><strong>Limiar sensitivo:</strong> menor intensidade em que a pessoa começa a perceber a estimulação.</li>
+                        <li><strong>Limiar motor:</strong> menor intensidade que produz contração visível.</li>
+                        <li><strong>Máxima tolerável:</strong> maior intensidade suportada sem desconforto excessivo.</li>
+                    </ul>
                     <p>
-                        .
+                        Na TENS convencional, busca-se uma resposta sensitiva confortável.
+                        <span class="ref">[2, 4, 7]</span>
                     </p>
                 </article>
 
                 <article class="card-info">
                     <h2>Atenção às unidades</h2>
                     <p>
-                        .
+                        1 segundo = 1.000 milissegundos e 1 milissegundo = 1.000 microssegundos.
+                        <strong>200 µs não é o mesmo que 200 ms</strong>: o segundo valor é mil vezes maior.
+                    </p>
+
+                    <table class="tabela-info">
+                        <thead>
+                            <tr>
+                                <th>µs</th>
+                                <th>50</th>
+                                <th>100</th>
+                                <th>200</th>
+                                <th>300</th>
+                                <th>500</th>
+                                <th>1.000</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>ms</th>
+                                <td>0,05</td>
+                                <td>0,1</td>
+                                <td>0,2</td>
+                                <td>0,3</td>
+                                <td>0,5</td>
+                                <td>1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <ul>
+                        <li><strong>Frequência × duração:</strong> 50 Hz e 200 µs são 50 pulsos por segundo, cada um com 200 microssegundos.</li>
+                        <li><strong>Intensidade × frequência:</strong> aumentar uma não aumenta a outra.</li>
+                        <li><strong>mA × V:</strong> corrente e tensão não são equivalentes; não compare números de aparelhos diferentes.</li>
+                    </ul>
+
+                    <p class="destaque-alerta">
+                        Antes de qualquer ajuste, confira a unidade mostrada no equipamento.
+                        <span class="ref">[4, 14]</span>
                     </p>
                 </article>
 
@@ -109,8 +201,52 @@
                 <article class="card-info">
                     <h2>Exemplo de exercício</h2>
                     <p>
-                        .
+                        <strong>Situação:</strong> um paciente tem dor no joelho ao subir e descer
+                        escadas. Após avaliação, o fisioterapeuta considera a TENS convencional como
+                        recurso complementar.
                     </p>
+
+                    <table class="tabela-info">
+                        <tbody>
+                            <tr><th>Modalidade</th><td>TENS convencional</td></tr>
+                            <tr><th>Frequência</th><td>80 Hz</td></tr>
+                            <tr><th>Duração do pulso</th><td>100 µs</td></tr>
+                            <tr><th>Intensidade</th><td>Formigamento forte e confortável</td></tr>
+                            <tr><th>Rampa e ON/OFF</th><td>Conforme o equipamento e o programa</td></tr>
+                        </tbody>
+                    </table>
+
+                    <details class="gabarito">
+                        <summary>Perguntas e respostas comentadas</summary>
+                        <ul>
+                            <li><strong>Qual o objetivo?</strong> Ajudar no controle da dor estimulando fibras nervosas sensitivas.</li>
+                            <li><strong>Por que 80 Hz?</strong> Está na faixa usada na TENS convencional.</li>
+                            <li><strong>Deve haver contração visível?</strong> Não. A resposta buscada é sensitiva.</li>
+                            <li><strong>Como ajustar a intensidade?</strong> Até uma sensação forte, perceptível e confortável, sem dor.</li>
+                            <li><strong>Como avaliar o benefício?</strong> Comparar a dor antes e depois, durante as atividades relevantes.</li>
+                        </ul>
+                    </details>
+
+                    <p>
+                        Valores ilustrativos, não uma prescrição. <span class="ref">[1, 2]</span>
+                    </p>
+                </article>
+
+                <article class="card-info">
+                    <h2>Exercício de unidades</h2>
+                    <p>
+                        Um aparelho mostra: 40 Hz, 300 µs, 25 mA, ON 5 s e OFF 10 s.
+                    </p>
+
+                    <details class="gabarito">
+                        <summary>Ver gabarito</summary>
+                        <ul>
+                            <li><strong>Pulsos por segundo:</strong> 40.</li>
+                            <li><strong>Duração em ms:</strong> 300 µs = 0,3 ms.</li>
+                            <li><strong>Unidade da intensidade:</strong> miliampères (mA).</li>
+                            <li><strong>Ciclo de trabalho:</strong> 5 ÷ (5 + 10) × 100 = 33,3%.</li>
+                        </ul>
+                    </details>
                 </article>
 
             </div>
@@ -124,15 +260,60 @@
 
                 <article class="card-info">
                     <h2>Parâmetros motores</h2>
+
+                    <table class="tabela-info">
+                        <thead>
+                            <tr>
+                                <th>Ajuste</th>
+                                <th>Explicação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Frequência (Hz)</td>
+                                <td>Faixas de 20–50 Hz são comuns. Frequências baixas dão contrações isoladas; mais altas sustentam a contração, mas aceleram a fadiga.</td>
+                            </tr>
+                            <tr>
+                                <td>Duração do pulso (µs)</td>
+                                <td>Valores próximos de 200–300 µs aparecem em protocolos motores; varia com o músculo, os eletrodos e a tolerância.</td>
+                            </tr>
+                            <tr>
+                                <td>Intensidade (mA)</td>
+                                <td>Deve produzir o movimento pretendido com tolerância e segurança. Não há um valor único em mA.</td>
+                            </tr>
+                            <tr>
+                                <td>Rampas (s)</td>
+                                <td>Tornam a contração gradual; em tarefas rápidas, precisam acompanhar o movimento.</td>
+                            </tr>
+                            <tr>
+                                <td>Canais</td>
+                                <td>Vários canais permitem estimular grupos musculares em sequência coordenada.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
                     <p>
-                        .
+                        Na FES, procura-se uma resposta motora adequada à função desejada, avaliando
+                        a qualidade do movimento e a fadiga, não só a presença de contração.
+                        <span class="ref">[7, 10, 14]</span>
                     </p>
                 </article>
 
                 <article class="card-info">
                     <h2>Ciclo ON/OFF</h2>
                     <p>
-                        .
+                        <strong>ON</strong> é o período com a corrente ativa; <strong>OFF</strong>
+                        é o repouso. O repouso permite a recuperação muscular e reduz a fadiga em
+                        exercícios repetitivos.
+                    </p>
+                    <p>
+                        <strong>Ciclo de trabalho:</strong> DC = ON ÷ (ON + OFF) × 100.
+                        Exemplo: ON 5 s e OFF 10 s → 5 ÷ 15 × 100 = 33,3%.
+                    </p>
+                    <p>
+                        Na marcha, a estimulação acompanha as fases do passo em vez de um ciclo fixo.
+                        Não existe proporção ON/OFF ou duração de sessão adequada para todas as
+                        aplicações. <span class="ref">[7, 15]</span>
                     </p>
                 </article>
 
@@ -159,14 +340,60 @@
                 <article class="card-info">
                     <h2>Exercício A: quadríceps (NMES)</h2>
                     <p>
-                        .
+                        35 Hz; 300 µs; subida 2 s; platô 6 s; descida 2 s; repouso 30 s; 8 ciclos.
+                        A intensidade é ajustada à contração tolerável.
                     </p>
+
+                    <details class="gabarito">
+                        <summary>Ver resolução</summary>
+                        <ul>
+                            <li><strong>Tempo com estímulo:</strong> 10 s por ciclo, incluindo as rampas.</li>
+                            <li><strong>Cada ciclo:</strong> 2 + 6 + 2 + 30 = 40 s.</li>
+                            <li><strong>Total:</strong> 8 × 40 s = 320 s (5 min 20 s).</li>
+                            <li><strong>Classificação:</strong> NMES, porque não há tarefa funcional integrada.</li>
+                        </ul>
+                    </details>
                 </article>
 
                 <article class="card-info">
                     <h2>Exercício B: abrir a mão (FES)</h2>
                     <p>
-                        .
+                        30 Hz; 250 µs; subida 1 s; platô 3 s; descida 1 s; repouso 15 s; 6 ciclos.
+                        Durante a fase ativa, a pessoa abre a mão e solta um objeto leve, com
+                        assistência prevista.
+                    </p>
+
+                    <details class="gabarito">
+                        <summary>Ver resolução</summary>
+                        <ul>
+                            <li><strong>Por que é FES?</strong> Há uma tarefa explícita ligada à contração.</li>
+                            <li><strong>Cada ciclo:</strong> 1 + 3 + 1 + 15 = 20 s; 6 ciclos = 2 min.</li>
+                            <li><strong>O que avaliar:</strong> extensão útil, conforto e ausência de postura indesejada.</li>
+                        </ul>
+                    </details>
+                </article>
+
+                <article class="card-info">
+                    <h2>Exercício C: auxílio na marcha (FES)</h2>
+                    <p>
+                        Após um AVC, o paciente tem dificuldade de levantar a ponta do pé ao caminhar.
+                        Exemplo: 30 Hz; 250 µs; intensidade ajustada para dorsiflexão funcional;
+                        estimulação sincronizada ao balanço da marcha.
+                    </p>
+
+                    <details class="gabarito">
+                        <summary>Perguntas e respostas comentadas</summary>
+                        <ul>
+                            <li><strong>Objetivo:</strong> ajudar a dorsiflexão do tornozelo durante a caminhada.</li>
+                            <li><strong>Frequência:</strong> influencia a somação das respostas e a sustentação da contração.</li>
+                            <li><strong>Duração do pulso:</strong> influencia o recrutamento das fibras nervosas.</li>
+                            <li><strong>Intensidade individual:</strong> depende das condições neuromusculares, dos eletrodos e da tolerância.</li>
+                            <li><strong>Momento:</strong> no balanço, quando o pé precisa subir para a ponta não tocar o chão.</li>
+                        </ul>
+                    </details>
+
+                    <p>
+                        Valores didáticos, não parâmetros universais após AVC. <span class="ref">[7, 14]</span>
                     </p>
                 </article>
 
