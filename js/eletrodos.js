@@ -138,10 +138,16 @@ function alertaRegiao(vista, area) {
     return "";
 }
 
-// Opções do filtro de objetivo em cada modalidade
+// Opções do filtro de objetivo em cada modalidade e o que cada uma significa
 const OBJETIVOS = {
     tens: ["Analgesia"],
     fes: ["Ativação muscular", "Tarefa funcional"]
+};
+
+const EXPLICACAO_OBJETIVO = {
+    "Analgesia": "Analgesia: os eletrodos ficam ao redor da área dolorosa, buscando formigamento forte e confortável, sem contração.",
+    "Ativação muscular": "Ativação muscular: o par fica sobre o ventre do músculo-alvo. Contração isolada, sem tarefa, é NMES.",
+    "Tarefa funcional": "Tarefa funcional: a contração precisa acontecer no momento da tarefa (ex.: balanço da marcha, soltar um objeto). Só assim é FES."
 };
 
 const filtroModalidade = document.getElementById("filtroModalidade");
@@ -243,6 +249,10 @@ function mostrarExemplo(nomeRegiao) {
         adicionarLegenda("p", "Regiões com exemplo: " + listaComExemplo() + ".", "nota-exemplo");
     }
 
+    if (filtroObjetivo.value) {
+        adicionarLegenda("p", EXPLICACAO_OBJETIVO[filtroObjetivo.value], "objetivo-exemplo");
+    }
+
     if (alerta) {
         adicionarLegenda("p", "Atenção: " + alerta, "alerta-regiao");
     }
@@ -302,6 +312,10 @@ areasCorpo.forEach(function (forma) {
 });
 
 // Filtros
+filtroObjetivo.addEventListener("change", function () {
+    atualizarTela();
+});
+
 filtroRegiao.addEventListener("change", function () {
     escolherArea(filtroRegiao.value);
 });

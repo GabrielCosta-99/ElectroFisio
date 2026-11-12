@@ -318,3 +318,12 @@
     color: var(--verde-escuro);
     font-size: 13px;
 }
+
+/* Explicação do objetivo escolhido no filtro */
+.objetivo-exemplo {
+    padding: 8px 10px;
+
+    background-color: #E1EBE8;
+    border-left: 3px solid var(--verde-escuro);
+    border-radius: 4px;
+}
