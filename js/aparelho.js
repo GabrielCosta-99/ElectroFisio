@@ -375,7 +375,7 @@ const DESAFIOS = {
         }
     },
     fes: {
-        enunciado: "Pé caído após AVC. Configure a estimulação motora (NMES/FES) para dorsiflexão e inicie a sessão.",
+        enunciado: "Após um AVC, treino de dorsiflexão sentado, em ciclos (NMES), antes do treino de marcha. Configure a estimulação motora e inicie a sessão. Na marcha, seria preciso um gatilho sincronizado ao passo.",
         conferir: function () {
             const v = estado.valores;
             return [
