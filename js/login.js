@@ -38,6 +38,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    // CPF, telefone e e-mail: máscara e mensagem de erro
+    Validacao.protegerFormulario(formulario);
+
     formulario.addEventListener("submit", evento => {
         evento.preventDefault();
 

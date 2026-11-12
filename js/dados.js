@@ -47,7 +47,39 @@ document.addEventListener("DOMContentLoaded", () => {
         valores[0].focus();
     });
 
+    // Confere CPF, e-mail e telefones antes de salvar
+    function conferirDados() {
+        for (const valor of valores) {
+            const rotulo = valor.previousElementSibling ? valor.previousElementSibling.textContent : "";
+            const texto = valor.textContent.trim();
+            let erro = "";
+
+            if (rotulo === "CPF") {
+                erro = Validacao.erroCpf(texto);
+                if (!erro) valor.textContent = Validacao.formatarCpf(texto);
+            } else if (rotulo === "E-mail") {
+                erro = Validacao.erroEmail(texto);
+            } else if (rotulo.indexOf("Telefone") === 0 && texto) {
+                erro = Validacao.erroTelefone(texto);
+                if (!erro) valor.textContent = Validacao.formatarTelefone(texto);
+            }
+
+            valor.classList.toggle("campo-invalido", Boolean(erro));
+
+            if (erro) {
+                mensagem.textContent = rotulo + ": " + erro;
+                valor.focus();
+                return false;
+            }
+        }
+        return true;
+    }
+
     botaoSalvar.addEventListener("click", () => {
+        if (!conferirDados()) {
+            return;
+        }
+
         const lista = Array.from(valores).map(valor => valor.textContent.trim());
 
         try {

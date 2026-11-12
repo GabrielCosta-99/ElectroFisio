@@ -83,3 +83,21 @@ body {
         font-size: 14px;
     }
 }
+
+/* Erros de preenchimento (js/validacao.js) */
+.erro-campo {
+    display: block;
+    margin-top: 4px;
+
+    color: #B5503C;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.erro-campo:empty {
+    display: none;
+}
+
+.campo-invalido {
+    border-color: #B5503C !important;
+}

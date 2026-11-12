@@ -13,6 +13,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let abaAtual = "dados";
 
+    // CPF, telefone e e-mail do cadastro do paciente
+    const validarCadastro = Validacao.prepararCampos(document.getElementById("aba-dados"));
+    Validacao.prepararCampos(document.getElementById("cpfBusca").parentElement);
+
     function abrirAba(nomeAba) {
 
         if (!abas.includes(nomeAba)) return;
@@ -82,8 +86,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const cpf = document.getElementById("cpfBusca").value.trim();
 
-        if (!cpf) {
-            alert("Digite o CPF do paciente.");
+        if (Validacao.erroCpf(cpf)) {
+            alert("Digite os 11 números do CPF do paciente.");
             return;
         }
 
@@ -92,6 +96,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Salvamento ainda não implementado.
     botaoSalvar.addEventListener("click", () => {
+        if (!validarCadastro()) {
+            abrirAba("dados");
+            validarCadastro(); // de novo, para focar o campo já visível
+            return;
+        }
+
         alert("O salvamento da triagem será implementado na próxima etapa.");
     });
 
