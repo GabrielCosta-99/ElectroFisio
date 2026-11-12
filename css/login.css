@@ -149,7 +149,7 @@
 /* Conteúdo interno */
 .painel-login-conteudo {
     width: 100%;
-    max-width: 420px;
+    max-width: 460px;
 
     display: flex;
     flex-direction: column;
@@ -162,14 +162,14 @@
 /* Título */
 .painel-login h1 {
     color: var(--branco);
-    font-size: 30px;
+    font-size: 38px;
     font-weight: bold;
 }
 
 /* Texto explicativo */
 .painel-login p {
     color: var(--branco);
-    font-size: 18px;
+    font-size: 22px;
     line-height: 1.6;
 }
 
@@ -181,9 +181,9 @@
     border: none;
     border-radius: 6px;
 
-    padding: 14px 45px;
+    padding: 16px 50px;
 
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
 
     cursor: pointer;
@@ -265,4 +265,14 @@ a.botao-login {
 .botao-perfil.selecionado {
     background-color: var(--verde-escuro);
     color: var(--branco);
+}
+
+/* Aviso de "Esqueceu sua senha?" */
+.aviso-senha {
+    color: var(--verde-escuro);
+    font-size: 14px;
+}
+
+.aviso-senha:empty {
+    display: none;
 }

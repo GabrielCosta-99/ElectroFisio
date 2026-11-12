@@ -59,6 +59,19 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "carregamento.html";
     });
 
+    // Recuperação de senha ainda não existe: avisa em vez de não fazer nada
+    const linkEsqueci = document.querySelector(".link-esqueci-senha");
+    const avisoSenha = document.createElement("p");
+    avisoSenha.className = "aviso-senha";
+    avisoSenha.setAttribute("role", "status");
+    linkEsqueci.insertAdjacentElement("afterend", avisoSenha);
+
+    linkEsqueci.addEventListener("click", evento => {
+        evento.preventDefault();
+        avisoSenha.textContent = "A recuperação de senha estará disponível em uma próxima versão. "
+            + "Por enquanto, procure o responsável pelo sistema.";
+    });
+
     selecionarPerfil(perfilSelecionado);
 
 });
