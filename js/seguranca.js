@@ -11,7 +11,7 @@ listas.forEach(function (lista) {
         const marcadas = lista.querySelectorAll("input:checked").length;
 
         if (marcadas === caixas.length) {
-            progresso.textContent = "Todos os itens conferidos.";
+            progresso.textContent = caixas.length + " de " + caixas.length + " itens conferidos. A conferência não libera o tratamento: a decisão é do profissional.";
             progresso.classList.add("completo");
         } else {
             progresso.textContent = marcadas + " de " + caixas.length + " itens conferidos";
