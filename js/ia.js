@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const aviso = document.createElement("p");
         aviso.className = "nota-resposta";
-        aviso.textContent = "Resposta educativa baseada no conteúdo revisado do ElectroFisio. Não é diagnóstico nem prescrição; discuta o caso com o professor ou profissional responsável.";
+        aviso.textContent = "Resposta simulada (protótipo), montada a partir do conteúdo do ElectroFisio. Não é diagnóstico nem prescrição; discuta o caso com o professor ou profissional responsável.";
         resposta.appendChild(aviso);
     }
 
