@@ -12,6 +12,7 @@
 
     <script defer src="../js/validacao.js"></script>
     <script defer src="../js/triagem.js"></script>
+    <script defer src="../js/calculadora-triagem.js"></script>
     <link rel="stylesheet" href="../css/acessibilidade.css">
 
     <script src="../js/acessibilidade.js"></script>
@@ -205,9 +206,47 @@
                         <p class="descricao-aba">
                             Avalie as condições clínicas relevantes antes
                             de considerar a aplicação de TENS ou FES.
+                            As respostas são usadas pela calculadora nas abas de mapeamento.
                         </p>
 
                         <div class="lista-perguntas">
+
+                            <fieldset class="pergunta">
+                                <legend>Avaliação profissional</legend>
+                                <p>Um profissional habilitado avaliou o paciente e acompanha esta triagem?</p>
+                                <div class="opcoes">
+                                    <label><input type="radio" name="avaliacaoProfissional" value="sim"> Sim</label>
+                                    <label><input type="radio" name="avaliacaoProfissional" value="nao"> Não</label>
+                                </div>
+                            </fieldset>
+
+                            <div class="pergunta">
+                                <label class="campo-regiao">
+                                    <span class="legenda-campo">Região dos eletrodos</span>
+                                    <select name="regiaoEletrodos">
+                                        <option value="">Selecione a região</option>
+                                        <option value="cabeca">Cabeça / face (inclui olhos)</option>
+                                        <option value="pescocoAnterior">Pescoço: região anterior ou lateral</option>
+                                        <option value="cervical">Cervical posterior</option>
+                                        <option value="torax">Tórax anterior / região cardíaca</option>
+                                        <option value="ombro">Ombro</option>
+                                        <option value="membroSuperior">Braço, antebraço ou mão</option>
+                                        <option value="dorsal">Dorsal (costas, parte alta)</option>
+                                        <option value="lombar">Lombar</option>
+                                        <option value="abdome">Abdome</option>
+                                        <option value="pelve">Pelve / quadril</option>
+                                        <option value="coxa">Coxa</option>
+                                        <option value="joelho">Joelho</option>
+                                        <option value="perna">Perna, tornozelo ou pé</option>
+                                    </select>
+                                </label>
+
+                                <div class="opcoes">
+                                    <label><input type="radio" name="lado" value="direito"> Direito</label>
+                                    <label><input type="radio" name="lado" value="esquerdo"> Esquerdo</label>
+                                    <label><input type="radio" name="lado" value="bilateral"> Bilateral</label>
+                                </div>
+                            </div>
 
                             <fieldset class="pergunta">
                                 <legend>Tecido neoplásico</legend>
@@ -215,34 +254,59 @@
                                 <div class="opcoes">
                                     <label><input type="radio" name="neoplasia" value="sim"> Sim</label>
                                     <label><input type="radio" name="neoplasia" value="nao"> Não</label>
+                                    <label><input type="radio" name="neoplasia" value="nao_avaliado"> Não avaliado</label>
                                 </div>
                             </fieldset>
 
                             <fieldset class="pergunta">
-                                <legend>Integridade cutânea e sensibilidade</legend>
-                                <p>Há feridas abertas, infecções locais ou perda importante da sensibilidade na região-alvo?</p>
+                                <legend>Integridade da pele</legend>
+                                <p>Há ferida aberta, infecção, dermatite, queimadura ou sangramento na região-alvo?</p>
                                 <div class="opcoes">
                                     <label><input type="radio" name="pele" value="sim"> Sim</label>
                                     <label><input type="radio" name="pele" value="nao"> Não</label>
+                                    <label><input type="radio" name="pele" value="nao_avaliado"> Não avaliado</label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="pergunta">
+                                <legend>Sensibilidade na região</legend>
+                                <p>Como está a sensibilidade onde os eletrodos serão posicionados?</p>
+                                <div class="opcoes opcoes-verticais">
+                                    <label><input type="radio" name="sensibilidade" value="preservada"> Preservada</label>
+                                    <label><input type="radio" name="sensibilidade" value="diminuida"> Diminuída</label>
+                                    <label><input type="radio" name="sensibilidade" value="ausente"> Ausente</label>
+                                    <label><input type="radio" name="sensibilidade" value="nao_avaliado"> Não avaliada</label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="pergunta">
+                                <legend>Comunicação de desconforto</legend>
+                                <p>O paciente consegue perceber e comunicar desconforto durante a estimulação?</p>
+                                <div class="opcoes">
+                                    <label><input type="radio" name="comunicacao" value="sim"> Sim</label>
+                                    <label><input type="radio" name="comunicacao" value="auxilio"> Com auxílio</label>
+                                    <label><input type="radio" name="comunicacao" value="nao"> Não</label>
                                 </div>
                             </fieldset>
 
                             <fieldset class="pergunta">
                                 <legend>Dispositivos eletrônicos implantados</legend>
-                                <p>O paciente possui marcapasso, desfibrilador ou outro dispositivo eletrônico implantado?</p>
+                                <p>O paciente possui marca-passo, desfibrilador ou outro dispositivo eletrônico implantado?</p>
                                 <div class="opcoes">
                                     <label><input type="radio" name="dispositivo" value="sim"> Sim</label>
                                     <label><input type="radio" name="dispositivo" value="nao"> Não</label>
+                                    <label><input type="radio" name="dispositivo" value="nao_sabe"> Não sabe</label>
                                 </div>
                             </fieldset>
 
                             <fieldset class="pergunta">
                                 <legend>Gestação</legend>
-                                <p>A paciente está gestante?</p>
-                                <div class="opcoes">
+                                <p>A paciente está gestante ou há possibilidade de gestação?</p>
+                                <div class="opcoes opcoes-verticais">
                                     <label><input type="radio" name="gestacao" value="sim"> Sim</label>
                                     <label><input type="radio" name="gestacao" value="nao"> Não</label>
                                     <label><input type="radio" name="gestacao" value="nao_aplica"> Não se aplica</label>
+                                    <label><input type="radio" name="gestacao" value="nao_avaliado"> Não avaliado</label>
                                 </div>
                             </fieldset>
 
@@ -252,6 +316,7 @@
                                 <div class="opcoes">
                                     <label><input type="radio" name="metal" value="sim"> Sim</label>
                                     <label><input type="radio" name="metal" value="nao"> Não</label>
+                                    <label><input type="radio" name="metal" value="nao_avaliado"> Não avaliado</label>
                                 </div>
                             </fieldset>
 
@@ -261,6 +326,7 @@
                                 <div class="opcoes">
                                     <label><input type="radio" name="vascular" value="sim"> Sim</label>
                                     <label><input type="radio" name="vascular" value="nao"> Não</label>
+                                    <label><input type="radio" name="vascular" value="nao_avaliado"> Não avaliado</label>
                                 </div>
                             </fieldset>
 
@@ -270,13 +336,34 @@
                                 <div class="opcoes">
                                     <label><input type="radio" name="epilepsia" value="sim"> Sim</label>
                                     <label><input type="radio" name="epilepsia" value="nao"> Não</label>
+                                    <label><input type="radio" name="epilepsia" value="nao_avaliado"> Não avaliado</label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="pergunta">
+                                <legend>Condição cardiovascular</legend>
+                                <p>Há doença cardíaca, arritmia ou alteração importante da pressão arterial?</p>
+                                <div class="opcoes">
+                                    <label><input type="radio" name="cardiaco" value="sim"> Sim</label>
+                                    <label><input type="radio" name="cardiaco" value="nao"> Não</label>
+                                    <label><input type="radio" name="cardiaco" value="nao_avaliado"> Não avaliado</label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="pergunta">
+                                <legend>Cirurgia ou fratura recente</legend>
+                                <p>Há cirurgia recente, fratura em consolidação ou instabilidade articular na região?</p>
+                                <div class="opcoes">
+                                    <label><input type="radio" name="cirurgia" value="sim"> Sim</label>
+                                    <label><input type="radio" name="cirurgia" value="nao"> Não</label>
+                                    <label><input type="radio" name="cirurgia" value="nao_avaliado"> Não avaliado</label>
                                 </div>
                             </fieldset>
 
                         </div>
                     </section>
 
-                    <!-- ABA 3: MAPEAMENTO TENS -->
+                    <!-- ABA 3: MAPEAMENTO TENS (calculadora: js/calculadora-triagem.js) -->
                     <section class="quadro-triagem painel-aba"
                              id="aba-tens"
                              role="tabpanel"
@@ -284,6 +371,10 @@
                              hidden>
 
                         <h2>Mapeamento TENS</h2>
+                        <p class="descricao-aba">
+                            A calculadora não gera prescrição automática: ela confere a segurança e
+                            mostra protocolos de referência para revisão do profissional.
+                        </p>
 
                         <div class="campos-cadastro">
                             <label>
@@ -334,44 +425,84 @@
                             </div>
                         </fieldset>
 
-                        <fieldset class="grupo-avaliacao">
-                            <legend>Cronicidade</legend>
-                            <div class="opcoes">
-                                <label><input type="radio" name="cronicidade" value="aguda"> Aguda</label>
-                                <label><input type="radio" name="cronicidade" value="cronica"> Crônica</label>
-                            </div>
-                        </fieldset>
+                            <fieldset class="grupo-avaliacao">
+                                <legend>Duração da dor</legend>
+                                <div class="opcoes opcoes-verticais">
+                                    <label><input type="radio" name="cronicidade" value="aguda"> Aguda (menos de 6 semanas)</label>
+                                    <label><input type="radio" name="cronicidade" value="subaguda"> Subaguda (6 a 12 semanas)</label>
+                                    <label><input type="radio" name="cronicidade" value="cronica"> Crônica (mais de 3 meses)</label>
+                                    <label><input type="radio" name="cronicidade" value="nao_informada"> Não informada</label>
+                                </div>
+                            </fieldset>
 
-                        <fieldset class="grupo-avaliacao">
-                            <legend>Tipo de dor predominante</legend>
-                            <div class="opcoes opcoes-verticais">
-                                <label><input type="radio" name="tipoDor" value="mecanica"> Mecânica / inflamatória</label>
-                                <label><input type="radio" name="tipoDor" value="neuropatica"> Neuropática</label>
-                                <label><input type="radio" name="tipoDor" value="nociplastica"> Nociplástica</label>
-                            </div>
-                        </fieldset>
+                            <fieldset class="grupo-avaliacao">
+                                <legend>Mecanismo predominante (classificação profissional)</legend>
+                                <div class="opcoes opcoes-verticais">
+                                    <label><input type="radio" name="tipoDor" value="mecanica"> Nociceptiva (mecânica / inflamatória)</label>
+                                    <label><input type="radio" name="tipoDor" value="neuropatica"> Neuropática / radicular</label>
+                                    <label><input type="radio" name="tipoDor" value="nociplastica"> Nociplástica</label>
+                                    <label><input type="radio" name="tipoDor" value="mista"> Mista</label>
+                                    <label><input type="radio" name="tipoDor" value="indefinido"> Não definido</label>
+                                </div>
+                            </fieldset>
 
-                        <fieldset class="grupo-avaliacao">
-                            <legend>Modalidade TENS considerada</legend>
-                            <div class="opcoes opcoes-verticais">
-                                <label>
-                                    <input type="radio" name="modalidadeTens" value="convencional">
-                                    TENS convencional — alta frequência / baixa intensidade
-                                </label>
-                                <label>
-                                    <input type="radio" name="modalidadeTens" value="acupuntura">
-                                    TENS tipo acupuntura — baixa frequência / maior intensidade
-                                </label>
-                                <label>
-                                    <input type="radio" name="modalidadeTens" value="burst">
-                                    TENS burst — trens de pulsos
-                                </label>
-                            </div>
-                        </fieldset>
+                            <fieldset class="grupo-avaliacao">
+                                <legend>Objetivo</legend>
+                                <div class="opcoes opcoes-verticais">
+                                    <label><input type="radio" name="objetivoTens" value="atividade"> Alívio da dor durante a atividade</label>
+                                    <label><input type="radio" name="objetivoTens" value="sessao"> Analgesia durante a sessão</label>
+                                    <label><input type="radio" name="objetivoTens" value="outro"> Outro</label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="grupo-avaliacao">
+                                <legend>Ponto-gatilho miofascial</legend>
+                                <div class="opcoes">
+                                    <label><input type="radio" name="pontoGatilho" value="confirmado"> Confirmado pelo profissional</label>
+                                    <label><input type="radio" name="pontoGatilho" value="nao"> Não</label>
+                                    <label><input type="radio" name="pontoGatilho" value="nao_avaliado"> Não avaliado</label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="grupo-avaliacao">
+                                <legend>Tolerância à sensação elétrica</legend>
+                                <div class="opcoes">
+                                    <label><input type="radio" name="toleranciaTens" value="boa"> Boa</label>
+                                    <label><input type="radio" name="toleranciaTens" value="desconforto"> Desconforto</label>
+                                    <label><input type="radio" name="toleranciaTens" value="nao_testada"> Não testada</label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="grupo-avaliacao">
+                                <legend>Equipamento</legend>
+                                <div class="opcoes opcoes-verticais">
+                                    <label><input type="radio" name="equipamentoTens" value="neurodyn2"> IBRAMED Neurodyn II (modelo e limites confirmados)</label>
+                                    <label><input type="radio" name="equipamentoTens" value="outro"> Outro aparelho ou modelo não confirmado</label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="grupo-avaliacao">
+                                <legend>Teste supervisionado</legend>
+                                <div class="opcoes opcoes-verticais">
+                                    <label><input type="radio" name="testeTens" value="nao_realizado"> Não realizado</label>
+                                    <label><input type="radio" name="testeTens" value="confortavel"> Sensação forte e confortável</label>
+                                    <label><input type="radio" name="testeTens" value="insuficiente"> Resposta insuficiente</label>
+                                    <label><input type="radio" name="testeTens" value="desconforto"> Desconforto</label>
+                                    <label><input type="radio" name="testeTens" value="evento"> Evento adverso</label>
+                                </div>
+                            </fieldset>
+
+                        <div class="acoes-calculadora">
+                            <button type="button" class="botao-principal" id="calcularTens">
+                                Calcular TENS
+                            </button>
+                        </div>
+
+                        <div class="resultado-calculadora" id="resultadoTens" aria-live="polite" tabindex="-1" hidden></div>
 
                     </section>
 
-                    <!-- ABA 4: MAPEAMENTO FES -->
+                    <!-- ABA 4: MAPEAMENTO FES (calculadora: js/calculadora-triagem.js) -->
                     <section class="quadro-triagem painel-aba"
                              id="aba-fes"
                              role="tabpanel"
@@ -379,30 +510,154 @@
                              hidden>
 
                         <h2>Mapeamento FES</h2>
+                        <p class="descricao-aba">
+                            A FES relaciona a contração a uma tarefa funcional. A calculadora segue o
+                            fluxo: segurança, inervação, tarefa, protocolo, teste supervisionado.
+                        </p>
 
-                        <fieldset class="grupo-avaliacao">
-                            <legend>Condição do tecido muscular</legend>
+                            <fieldset class="grupo-avaliacao">
+                                <legend>Condição clínica</legend>
+                                <div class="opcoes opcoes-verticais">
+                                    <label><input type="radio" name="condicaoFes" value="avc"> AVC</label>
+                                    <label><input type="radio" name="condicaoFes" value="lesaoMedular"> Lesão medular</label>
+                                    <label><input type="radio" name="condicaoFes" value="esclerose"> Esclerose múltipla</label>
+                                    <label><input type="radio" name="condicaoFes" value="paralisiaCerebral"> Paralisia cerebral</label>
+                                    <label><input type="radio" name="condicaoFes" value="outra"> Outra condição neurológica</label>
+                                    <label><input type="radio" name="condicaoFes" value="indefinida"> Diagnóstico não definido</label>
+                                </div>
+                            </fieldset>
 
-                            <div class="opcoes opcoes-verticais">
-                                <label><input type="radio" name="tecidoMuscular" value="semLesao"> Sem lesão estrutural conhecida</label>
-                                <label><input type="radio" name="tecidoMuscular" value="posOperatorio"> Pós-operatório imediato</label>
-                                <label><input type="radio" name="tecidoMuscular" value="neurologica"> Sequela neurológica</label>
-                                <label><input type="radio" name="tecidoMuscular" value="outra"> Outra condição</label>
-                            </div>
-                        </fieldset>
+                            <fieldset class="grupo-avaliacao">
+                                <legend>Condição do tecido muscular</legend>
+                                <div class="opcoes opcoes-verticais">
+                                    <label><input type="radio" name="tecidoMuscular" value="semLesao"> Sem lesão estrutural conhecida</label>
+                                    <label><input type="radio" name="tecidoMuscular" value="posOperatorio"> Pós-operatório imediato</label>
+                                    <label><input type="radio" name="tecidoMuscular" value="neurologica"> Sequela neurológica</label>
+                                    <label><input type="radio" name="tecidoMuscular" value="outra"> Outra condição</label>
+                                </div>
+                            </fieldset>
 
-                        <fieldset class="grupo-avaliacao">
-                            <legend>Grau de força muscular atual</legend>
+                            <fieldset class="grupo-avaliacao">
+                                <legend>Inervação periférica</legend>
+                                <div class="opcoes opcoes-verticais">
+                                    <label><input type="radio" name="inervacao" value="preservada"> Preservada</label>
+                                    <label><input type="radio" name="inervacao" value="parcial"> Parcialmente comprometida</label>
+                                    <label><input type="radio" name="inervacao" value="desnervacao"> Suspeita de desnervação</label>
+                                    <label><input type="radio" name="inervacao" value="nao_avaliado"> Não avaliada</label>
+                                </div>
+                            </fieldset>
 
-                            <div class="opcoes opcoes-verticais">
-                                <label><input type="radio" name="forcaMuscular" value="0"> Grau 0 — nenhuma contração</label>
-                                <label><input type="radio" name="forcaMuscular" value="1"> Grau 1 — contração palpável, sem movimento</label>
-                                <label><input type="radio" name="forcaMuscular" value="2"> Grau 2 — movimento com gravidade eliminada</label>
-                                <label><input type="radio" name="forcaMuscular" value="3"> Grau 3 — movimento contra a gravidade</label>
-                                <label><input type="radio" name="forcaMuscular" value="4"> Grau 4 — movimento contra resistência</label>
-                                <label><input type="radio" name="forcaMuscular" value="5"> Grau 5 — força considerada normal</label>
-                            </div>
-                        </fieldset>
+                            <fieldset class="grupo-avaliacao">
+                                <legend>Grau de força muscular atual</legend>
+                                <div class="opcoes opcoes-verticais">
+                                    <label><input type="radio" name="forcaMuscular" value="0"> Grau 0 — nenhuma contração</label>
+                                    <label><input type="radio" name="forcaMuscular" value="1"> Grau 1 — contração palpável, sem movimento</label>
+                                    <label><input type="radio" name="forcaMuscular" value="2"> Grau 2 — movimento com gravidade eliminada</label>
+                                    <label><input type="radio" name="forcaMuscular" value="3"> Grau 3 — movimento contra a gravidade</label>
+                                    <label><input type="radio" name="forcaMuscular" value="4"> Grau 4 — movimento contra resistência</label>
+                                    <label><input type="radio" name="forcaMuscular" value="5"> Grau 5 — força considerada normal</label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="grupo-avaliacao">
+                                <legend>Limitação da amplitude articular passiva</legend>
+                                <div class="opcoes opcoes-verticais">
+                                    <label><input type="radio" name="amplitude" value="nao"> Não</label>
+                                    <label><input type="radio" name="amplitude" value="leve"> Leve</label>
+                                    <label><input type="radio" name="amplitude" value="importante"> Importante</label>
+                                    <label><input type="radio" name="amplitude" value="nao_avaliado"> Não avaliada</label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="grupo-avaliacao">
+                                <legend>Espasticidade ou alteração do tônus</legend>
+                                <div class="opcoes opcoes-verticais">
+                                    <label><input type="radio" name="espasticidade" value="ausente"> Ausente</label>
+                                    <label><input type="radio" name="espasticidade" value="leve"> Leve</label>
+                                    <label><input type="radio" name="espasticidade" value="moderada"> Moderada</label>
+                                    <label><input type="radio" name="espasticidade" value="importante"> Importante</label>
+                                    <label><input type="radio" name="espasticidade" value="nao_avaliado"> Não avaliada</label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="grupo-avaliacao">
+                                <legend>Movimento que se pretende facilitar</legend>
+                                <div class="opcoes opcoes-verticais">
+                                    <label><input type="radio" name="movimento" value="dorsiflexao"> Dorsiflexão na marcha</label>
+                                    <label><input type="radio" name="movimento" value="punhoDedos"> Extensão de punho e dedos</label>
+                                    <label><input type="radio" name="movimento" value="preensao"> Preensão / liberação de objetos</label>
+                                    <label><input type="radio" name="movimento" value="joelho"> Extensão do joelho em tarefa</label>
+                                    <label><input type="radio" name="movimento" value="ombroCotovelo"> Movimento de ombro / cotovelo</label>
+                                    <label><input type="radio" name="movimento" value="outro"> Outro</label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="grupo-avaliacao">
+                                <legend>Objetivo do tratamento</legend>
+                                <div class="opcoes opcoes-verticais">
+                                    <label><input type="radio" name="objetivoFes" value="assistir"> Assistir o movimento</label>
+                                    <label><input type="radio" name="objetivoFes" value="desempenho"> Melhorar o desempenho funcional</label>
+                                    <label><input type="radio" name="objetivoFes" value="treino"> Facilitar treino repetitivo</label>
+                                    <label><input type="radio" name="objetivoFes" value="fortalecimento"> Só fortalecimento, sem tarefa funcional</label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="grupo-avaliacao">
+                                <legend>Como a estimulação será acionada</legend>
+                                <div class="opcoes opcoes-verticais">
+                                    <label><input type="radio" name="acionamento" value="marcha"> Sincronizada à marcha (sensor)</label>
+                                    <label><input type="radio" name="acionamento" value="manual"> Comando manual</label>
+                                    <label><input type="radio" name="acionamento" value="emg"> EMG</label>
+                                    <label><input type="radio" name="acionamento" value="ciclos"> Ciclos programados (ON/OFF)</label>
+                                    <label><input type="radio" name="acionamento" value="outro"> Outro</label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="grupo-avaliacao">
+                                <legend>Resposta no teste supervisionado</legend>
+                                <div class="opcoes opcoes-verticais">
+                                    <label><input type="radio" name="respostaTeste" value="funcional"> Contração funcional</label>
+                                    <label><input type="radio" name="respostaTeste" value="insuficiente"> Presente, mas insuficiente</label>
+                                    <label><input type="radio" name="respostaTeste" value="inadequada"> Inadequada / compensatória</label>
+                                    <label><input type="radio" name="respostaTeste" value="ausente"> Ausente</label>
+                                    <label><input type="radio" name="respostaTeste" value="nao_testada"> Não testada</label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="grupo-avaliacao">
+                                <legend>Tolerância</legend>
+                                <div class="opcoes">
+                                    <label><input type="radio" name="toleranciaFes" value="boa"> Boa</label>
+                                    <label><input type="radio" name="toleranciaFes" value="limitada"> Limitada por desconforto</label>
+                                    <label><input type="radio" name="toleranciaFes" value="nao_avaliado"> Não avaliada</label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="grupo-avaliacao">
+                                <legend>Fadiga durante a estimulação</legend>
+                                <div class="opcoes opcoes-verticais">
+                                    <label><input type="radio" name="fadiga" value="nao"> Não observada</label>
+                                    <label><input type="radio" name="fadiga" value="leve"> Leve</label>
+                                    <label><input type="radio" name="fadiga" value="importante"> Importante</label>
+                                    <label><input type="radio" name="fadiga" value="nao_avaliado"> Não avaliada</label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="grupo-avaliacao">
+                                <legend>Equipamento</legend>
+                                <div class="opcoes opcoes-verticais">
+                                    <label><input type="radio" name="equipamentoFes" value="confirmado"> Modelo, canais e formas de acionamento confirmados</label>
+                                    <label><input type="radio" name="equipamentoFes" value="outro"> Equipamento não confirmado</label>
+                                </div>
+                            </fieldset>
+
+                        <div class="acoes-calculadora">
+                            <button type="button" class="botao-principal" id="calcularFes">
+                                Calcular FES
+                            </button>
+                        </div>
+
+                        <div class="resultado-calculadora" id="resultadoFes" aria-live="polite" tabindex="-1" hidden></div>
 
                     </section>
 
@@ -428,6 +683,8 @@
                         </button>
 
                     </div>
+
+                    <p class="mensagem-triagem" id="mensagemTriagem" role="status"></p>
 
                 </form>
             </section>

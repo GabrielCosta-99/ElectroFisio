@@ -363,3 +363,234 @@
         flex-wrap: wrap;
     }
 }
+
+/* =====================================
+   CALCULADORA (abas Mapeamento TENS e FES)
+===================================== */
+
+.campo-regiao {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.legenda-campo {
+    color: #263C35;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.campo-regiao select {
+    max-width: 360px;
+    height: 40px;
+    padding: 0 10px;
+
+    border: 1px solid #C9D1CD;
+    border-radius: 6px;
+    background-color: #FFFFFF;
+
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.acoes-calculadora {
+    margin-top: 16px;
+}
+
+.acoes-calculadora button,
+.botao-confirmar {
+    height: 43px;
+    padding: 0 20px;
+
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.resultado-calculadora {
+    margin-top: 18px;
+    padding: 18px;
+
+    background-color: #F7FAF9;
+    border: 1px solid #C9D1CD;
+    border-radius: 8px;
+
+    color: #263C35;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.resultado-calculadora[hidden] {
+    display: none;
+}
+
+.topo-resultado {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.topo-resultado h3 {
+    color: var(--verde-escuro);
+    font-size: 17px;
+}
+
+/* Estado do resultado */
+.etiqueta-resultado {
+    padding: 4px 12px;
+    border-radius: 14px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.etiqueta-resultado.bloqueio {
+    background-color: #FBEDEA;
+    color: #8A2E1D;
+}
+
+.etiqueta-resultado.atencao {
+    background-color: #FFF1C9;
+    color: #6B4E00;
+}
+
+.etiqueta-resultado.revisao {
+    background-color: #E1EBE8;
+    color: var(--verde-escuro);
+}
+
+.etiqueta-resultado.ok {
+    background-color: var(--verde-escuro);
+    color: #FFFFFF;
+}
+
+.mensagem-resultado {
+    font-weight: bold;
+}
+
+.subtitulo-resultado {
+    margin-top: 12px;
+    font-weight: bold;
+}
+
+.lista-motivos,
+.lista-biblioteca,
+.lista-avisos {
+    margin-top: 4px;
+    padding-left: 20px;
+}
+
+.lista-avisos li {
+    color: #6B4E00;
+}
+
+/* Cartão do protocolo de referência */
+.protocolo-calculado {
+    margin-top: 14px;
+    padding: 14px;
+
+    background-color: #FFFFFF;
+    border-left: 4px solid var(--verde-agua);
+    border-radius: 6px;
+}
+
+.protocolo-calculado h4 {
+    margin-bottom: 8px;
+    color: var(--verde-escuro);
+    font-size: 15px;
+}
+
+.dados-protocolo,
+.rodape-resultado {
+    display: grid;
+    grid-template-columns: minmax(130px, 32%) 1fr;
+    gap: 4px 14px;
+}
+
+.dados-protocolo dt,
+.rodape-resultado dt {
+    color: #5F6B67;
+    font-weight: bold;
+}
+
+.dados-protocolo dd,
+.rodape-resultado dd {
+    margin: 0;
+}
+
+.botao-confirmar {
+    margin-top: 14px;
+}
+
+.confirmacao-resultado {
+    margin-top: 14px;
+    padding: 10px 12px;
+
+    background-color: #E1EBE8;
+    border-radius: 6px;
+
+    color: var(--verde-escuro);
+    font-weight: bold;
+}
+
+.rodape-resultado {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid #C9D1CD;
+    font-size: 13px;
+}
+
+.aviso-resultado {
+    margin-top: 12px;
+    color: #5F6B67;
+    font-size: 12px;
+}
+
+/* Mensagens da busca e dos botões Novo / Salvar */
+.mensagem-busca-triagem,
+.mensagem-triagem {
+    color: var(--verde-escuro);
+    font-size: 14px;
+}
+
+.mensagem-triagem {
+    margin-top: 10px;
+    text-align: right;
+}
+
+.mensagem-busca-triagem:empty,
+.mensagem-triagem:empty {
+    display: none;
+}
+
+.nome-paciente-triagem {
+    color: #263C35;
+    font-weight: bold;
+}
+
+@media (max-width: 650px) {
+    .dados-protocolo,
+    .rodape-resultado {
+        grid-template-columns: 1fr;
+    }
+
+    .dados-protocolo dd,
+    .rodape-resultado dd {
+        margin-bottom: 6px;
+    }
+}
+
+.botao-escolher {
+    margin-top: 10px;
+    height: 38px;
+    padding: 0 16px;
+
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
