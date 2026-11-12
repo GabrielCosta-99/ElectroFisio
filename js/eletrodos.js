@@ -145,7 +145,7 @@ const OBJETIVOS = {
 };
 
 const EXPLICACAO_OBJETIVO = {
-    "Analgesia": "Analgesia: os eletrodos ficam ao redor da área dolorosa, buscando formigamento forte e confortável, sem contração.",
+    "Analgesia": "Analgesia: os eletrodos ficam ao redor da área dolorosa, buscando formigamento forte e confortável (na TENS convencional, sem contração).",
     "Ativação muscular": "Ativação muscular: o par fica sobre o ventre do músculo-alvo. Contração isolada, sem tarefa, é NMES.",
     "Tarefa funcional": "Tarefa funcional: a contração precisa acontecer no momento da tarefa (ex.: balanço da marcha, soltar um objeto). Só assim é FES."
 };
