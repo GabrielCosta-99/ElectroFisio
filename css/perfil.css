@@ -266,3 +266,17 @@
     }
 }
 
+
+/* Mensagem depois de salvar ou cancelar */
+.mensagem-perfil {
+    margin-top: 12px;
+    color: var(--verde-escuro);
+    font-size: 14px;
+}
+
+/* Mensagem depois de salvar ou cancelar */
+.mensagem-perfil {
+    margin-top: 12px;
+    color: var(--verde-escuro);
+    font-size: 14px;
+}
