@@ -184,7 +184,7 @@ body {
 
 .lista-conferencia label {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 8px;
     cursor: pointer;
 }
@@ -192,6 +192,8 @@ body {
 .lista-conferencia input {
     width: 16px;
     height: 16px;
+    flex-shrink: 0;
+    margin-top: 2px;
     accent-color: var(--verde-escuro);
     cursor: pointer;
 }
@@ -210,6 +212,91 @@ body {
 /* Botões dentro de um card */
 .acoes-card {
     margin-top: 12px;
+}
+
+/* Textos, listas e tabelas dentro dos cards */
+.card-info p + p,
+.card-info p + ul,
+.card-info ul + p,
+.card-info p + table,
+.card-info table + p,
+.card-info p + ol,
+.card-info ol + p {
+    margin-top: 8px;
+}
+
+.card-info ul,
+.card-info ol {
+    padding-left: 18px;
+}
+
+.card-info li + li {
+    margin-top: 4px;
+}
+
+.card-info h3 {
+    margin-top: 12px;
+    margin-bottom: 4px;
+
+    color: var(--verde-escuro);
+    font-size: 14px;
+}
+
+.tabela-info {
+    width: 100%;
+    border-collapse: collapse;
+
+    background-color: var(--branco);
+    font-size: 13px;
+}
+
+.tabela-info th,
+.tabela-info td {
+    padding: 6px 8px;
+    border: 1px solid #C9D2CF;
+
+    text-align: left;
+    vertical-align: top;
+}
+
+.tabela-info th {
+    background-color: var(--verde-claro);
+    color: var(--verde-escuro);
+}
+
+/* Números das referências ao fim dos textos */
+.ref {
+    color: #6B7370;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* Gabarito que abre ao clicar */
+.gabarito {
+    margin-top: 10px;
+    padding: 8px 12px;
+
+    background-color: var(--branco);
+    border-radius: 4px;
+}
+
+.gabarito summary {
+    color: var(--verde-escuro);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.gabarito ul {
+    margin-top: 8px;
+}
+
+/* Destaque de atenção */
+.destaque-alerta {
+    padding: 10px 12px;
+
+    background-color: #FBEDEA;
+    border-left: 3px solid #B5503C;
+    border-radius: 4px;
 }
 
 /* Conteúdo escondido ao trocar entre TENS e FES */
@@ -242,4 +329,14 @@ body {
     .grade-duas-colunas {
         grid-template-columns: 1fr;
     }
+}
+
+/* Lista da biblioteca */
+.lista-referencias {
+    font-size: 13px;
+}
+
+.lista-referencias a {
+    color: var(--verde-escuro);
+    font-weight: bold;
 }
