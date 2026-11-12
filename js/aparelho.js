@@ -354,19 +354,119 @@ botaoAumentar.addEventListener("click", function () {
     acoes.ajustarIntensidade(1);
 });
 
-botoesModo.forEach(function (botao) {
-    botao.addEventListener("click", function () {
-        botoesModo.forEach(function (outro) {
-            outro.classList.remove("ativo");
-        });
-        botao.classList.add("ativo");
+// ---------------------------------------------------------------
+// Modo de estudo: explorar (livre) ou praticar (desafio com conferência)
+// ---------------------------------------------------------------
+
+const painelEstudo = document.getElementById("painelEstudo");
+
+const DESAFIOS = {
+    tens: {
+        enunciado: "Dor no joelho ao subir escadas. Configure uma TENS convencional para analgesia e inicie a sessão.",
+        conferir: function () {
+            const v = estado.valores;
+            return [
+                [modoAtual().id === "convencional", "Modo TENS convencional selecionado."],
+                [v.frequencia >= 50 && v.frequencia <= 100, "Frequência entre 50 e 100 Hz."],
+                [v.largura >= 50 && v.largura <= 200, "Duração de fase entre 50 e 200 µs."],
+                [estado.canais.some(function (mA) { return mA > 0; }), "Intensidade aumentada aos poucos até o formigamento confortável."],
+                [estado.emCurso, "Sessão iniciada."]
+            ];
+        }
+    },
+    fes: {
+        enunciado: "Pé caído após AVC. Configure a estimulação motora (NMES/FES) para dorsiflexão e inicie a sessão.",
+        conferir: function () {
+            const v = estado.valores;
+            return [
+                [modoAtual().id === "nmes", "Modo NMES/FES selecionado."],
+                [v.frequencia >= 20 && v.frequencia <= 50, "Frequência entre 20 e 50 Hz."],
+                [v.largura >= 200 && v.largura <= 300, "Duração de fase entre 200 e 300 µs."],
+                [v.subida > 0, "Rampa de subida para a contração começar aos poucos."],
+                [estado.canais.some(function (mA) { return mA > 0; }), "Intensidade ajustada até produzir o movimento."],
+                [estado.emCurso, "Sessão iniciada."]
+            ];
+        }
+    }
+};
+
+function modalidadeAtual() {
+    return document.body.dataset.modalidade === "fes" ? "fes" : "tens";
+}
+
+function mostrarEstudo(tipo) {
+    botoesModo.forEach(function (botao) {
+        botao.classList.toggle("ativo", botao.dataset.estudo === tipo);
     });
+
+    painelEstudo.innerHTML = "";
+
+    if (tipo === "explorar") {
+        const texto = document.createElement("p");
+        texto.textContent = "Clique nos controles do modelo ou da lista para ver a função, a unidade e a orientação de cada um. Ligue o aparelho e mude os parâmetros à vontade.";
+        painelEstudo.appendChild(texto);
+        return;
+    }
+
+    const desafio = DESAFIOS[modalidadeAtual()];
+
+    const enunciado = document.createElement("p");
+    enunciado.innerHTML = "<strong>Desafio:</strong> ";
+    enunciado.appendChild(document.createTextNode(desafio.enunciado));
+
+    const botaoConferir = document.createElement("button");
+    botaoConferir.type = "button";
+    botaoConferir.className = "botao-energia";
+    botaoConferir.textContent = "Conferir configuração";
+
+    const resultado = document.createElement("ul");
+    resultado.className = "resultado-estudo";
+
+    botaoConferir.addEventListener("click", function () {
+        const itens = desafio.conferir();
+        const acertos = itens.filter(function (item) { return item[0]; }).length;
+
+        resultado.innerHTML = "";
+        itens.forEach(function (item) {
+            const linha = document.createElement("li");
+            linha.className = item[0] ? "certo" : "rever";
+            linha.textContent = (item[0] ? "✓ " : "✗ Rever: ") + item[1];
+            resultado.appendChild(linha);
+        });
+
+        const resumo = document.createElement("li");
+        resumo.className = "resumo";
+        resumo.textContent = acertos === itens.length
+            ? "Configuração compatível com o objetivo. Lembre: a intensidade é sempre individual e não há valor único para todos."
+            : acertos + " de " + itens.length + " itens corretos. Revise os pontos marcados.";
+        resultado.appendChild(resumo);
+    });
+
+    painelEstudo.appendChild(enunciado);
+    painelEstudo.appendChild(botaoConferir);
+    painelEstudo.appendChild(resultado);
+}
+
+botoesModo.forEach(function (botao) {
+    if (botao.dataset.estudo) {
+        botao.addEventListener("click", function () {
+            mostrarEstudo(botao.dataset.estudo);
+        });
+    }
 });
+
+mostrarEstudo("explorar");
 
 // Botões TENS / FES do topo trocam o modo do aparelho
 document.addEventListener("modalidade", function (evento) {
     definirModo(MODO_POR_MODALIDADE[evento.detail]);
     mensagem.textContent = "";
+
+    // O desafio muda junto com a modalidade
+    const ativo = document.querySelector(".botao-modo.ativo");
+    if (ativo && ativo.dataset.estudo === "praticar") {
+        mostrarEstudo("praticar");
+    }
 });
 
 // Começa no modo da modalidade escolhida e com a intensidade selecionada

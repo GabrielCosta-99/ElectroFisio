@@ -417,3 +417,49 @@
     color: #6B7370;
     font-size: 13px;
 }
+
+/* "Praticar com caso fictício" é um link com a mesma aparência dos botões */
+a.botao-modo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+    text-decoration: none;
+}
+
+/* Painel do modo de estudo */
+.painel-estudo {
+    margin-top: 12px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+
+    color: var(--texto);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.resultado-estudo {
+    list-style: none;
+    font-size: 13px;
+}
+
+.resultado-estudo li + li {
+    margin-top: 4px;
+}
+
+.resultado-estudo .certo {
+    color: var(--verde-escuro);
+}
+
+.resultado-estudo .rever {
+    color: #8A4B12;
+}
+
+.resultado-estudo .resumo {
+    margin-top: 8px;
+    font-weight: bold;
+}
