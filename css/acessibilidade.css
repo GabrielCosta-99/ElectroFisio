@@ -1,9 +1,33 @@
 
 /* Ajustes de acessibilidade aplicados em todas as telas (ver js/acessibilidade.js) */
 
-/* Texto grande: aumenta o conteúdo da página */
-.texto-grande .conteudo-principal {
+/* Tamanho do texto: aumenta a página inteira (cabeçalho e conteúdo).
+   As telas usam tamanhos em px, então o aumento é feito com zoom. */
+.texto-grande body > * {
     zoom: 1.15;
+}
+
+.texto-muito-grande body > * {
+    zoom: 1.3;
+}
+
+/* Legendas: descrição em texto das imagens e modelos 3D */
+.legenda-acessivel {
+    margin-top: 6px;
+    padding: 8px 10px;
+
+    background-color: #FFFFFF;
+    border-left: 3px solid var(--verde-agua);
+    border-radius: 4px;
+
+    color: #222222;
+    font-size: 13px;
+}
+
+/* Leitor de tela: destaca o que está sendo lido */
+.leitor-tela :is(h1, h2, h3, p, li, label, button, a):hover {
+    outline: 2px dashed var(--verde-agua);
+    outline-offset: 2px;
 }
 
 /* Alto contraste: fundo branco, texto preto e bordas fortes */

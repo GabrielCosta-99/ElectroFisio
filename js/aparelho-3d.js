@@ -170,6 +170,11 @@ function avisar(mensagem = null, tipo = "info") {
 function falar(mensagem, origem = null, tipo = "info") {
     avisar(mensagem, tipo);
     mostrarMensagemFlutuante(mensagem, origem, tipo);
+
+    // Com o leitor de tela ligado (js/acessibilidade.js), o aviso também é falado
+    if (typeof lerEmVozAlta === "function") {
+        lerEmVozAlta(mensagem);
+    }
 }
 
 // ---------------------------------------------------------------
