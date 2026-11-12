@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ElectroFisio - Revisar materiais</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/tens-fes.css">
+    <link rel="stylesheet" href="../css/conteudo.css">
+    <link rel="stylesheet" href="../css/acessibilidade.css">
+
+    <script src="../js/acessibilidade.js"></script>
+    <script defer src="../js/menu.js"></script>
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header class="cabecalho">
+
+        <div class="cabecalho-logo">
+            <span class="logo-electro">Electro</span><span class="logo-fisio">Fisio</span>
+        </div>
+
+        <nav class="cabecalho-navegacao"
+             aria-label="Navegação principal">
+            <a href="inicio-profissional.html">Início</a>
+            <a href="visao-geral.html">TENS e FES</a>
+            <a href="pacientes.html">Pacientes</a>
+            <a href="perfil.html">Meu Perfil</a>
+            <a href="sair.html">Sair</a>
+        </nav>
+
+    </header>
+
+    <main class="conteudo-principal pagina-tens-fes">
+
+        <div class="linha-acessibilidade">
+            <a href="acessibilidade.html">Acessibilidade</a>
+        </div>
+
+        <h1 class="titulo-conteudo">Revisar materiais dos estudantes</h1>
+
+        <section class="grade-duas-colunas">
+
+            <!-- Lista de materiais enviados -->
+            <div class="coluna">
+
+                <article class="card-info">
+                    <h2>Aguardando revisão</h2>
+                    <ul class="lista-materiais" id="listaRevisao"></ul>
+                </article>
+
+                <article class="card-info">
+                    <h2>Já revisados</h2>
+                    <ul class="lista-materiais" id="listaRevisados"></ul>
+                </article>
+
+            </div>
+
+            <!-- Material aberto -->
+            <div class="coluna">
+
+                <article class="card-info" id="materialAberto" tabindex="-1">
+                    <h2>Material</h2>
+                    <p class="resposta-vazia">Escolha um material da lista para ler e revisar.</p>
+                </article>
+
+                <p class="aviso-educativo">
+                    Materiais aprovados passam a compor o conteúdo revisado usado nos estudos
+                    e nas respostas da IA. Materiais devolvidos voltam para o estudante ajustar.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../js/revisao.js"></script>
+
+</body>
+</html>

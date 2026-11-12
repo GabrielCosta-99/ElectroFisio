@@ -154,3 +154,90 @@
 .legenda-estados {
     font-size: 13px;
 }
+
+/* Uma seção por vez, com largura confortável para leitura */
+.coluna-conteudo {
+    max-width: 760px;
+}
+
+.painel-conteudo[hidden] {
+    display: none;
+}
+
+/* Linha da lista: material + botão de excluir */
+.linha-material {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+}
+
+.linha-material .item-material {
+    flex: 1;
+}
+
+.botao-excluir {
+    padding: 0 12px;
+
+    background-color: #FFFFFF;
+    color: #B5503C;
+
+    border: 1px solid #B5503C;
+    border-radius: 4px;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.botao-excluir:hover {
+    background-color: #FBEDEA;
+}
+
+.etiqueta-estado.aprovado {
+    background-color: #D7F0E8;
+    color: #1F5F55;
+}
+
+.etiqueta-estado.devolvido {
+    background-color: #FBEDEA;
+    color: #8A2E1D;
+}
+
+.abas-conteudo a.botao-aba {
+    text-decoration: none;
+}
+
+/* Revisão de materiais (tela do profissional) */
+.resposta-vazia {
+    color: #6B7370;
+}
+
+.campo-observacao {
+    margin-top: 12px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.campo-observacao textarea {
+    width: 100%;
+    padding: 10px;
+
+    background-color: var(--branco);
+    border: 1px solid #C9D2CF;
+    border-radius: 4px;
+
+    font-family: inherit;
+    font-size: 14px;
+    resize: vertical;
+}
+
+#materialAberto .botao-acao {
+    font-family: inherit;
+    cursor: pointer;
+}

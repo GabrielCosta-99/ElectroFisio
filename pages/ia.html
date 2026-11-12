@@ -3,14 +3,15 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <title>ElectroFisio - Casos Fictícios</title>
+    <title>ElectroFisio - Enviar caso para a IA</title>
 
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/tens-fes.css">
+    <link rel="stylesheet" href="../css/conteudo.css">
     <link rel="stylesheet" href="../css/ia.css">
-
-    <script defer src="../js/ia.js"></script>
     <link rel="stylesheet" href="../css/acessibilidade.css">
 
     <script src="../js/acessibilidade.js"></script>
@@ -18,160 +19,129 @@
 </head>
 <body>
 
+    <!-- Cabeçalho -->
     <header class="cabecalho">
+
         <div class="cabecalho-logo">
             <span class="logo-electro">Electro</span><span class="logo-fisio">Fisio</span>
         </div>
 
-        <nav class="cabecalho-navegacao" aria-label="Navegação principal">
+        <nav class="cabecalho-navegacao"
+             aria-label="Navegação principal">
             <a href="inicio.html">Início</a>
-            <a href="inicio.html#modulos">TENS e FES</a>
-            <a href="pacientes.html">Pacientes</a>
-            <a href="perfil.html">Meu perfil</a>
+            <a href="visao-geral.html">TENS e FES</a>
+            <a href="conteudo.html">Conteúdo</a>
+            <a href="perfil.html">Meu Perfil</a>
             <a href="sair.html">Sair</a>
-            <a href="acessibilidade.html" class="botao-acessibilidade">Acessibilidade</a>
         </nav>
+
     </header>
 
-    <main class="conteudo-principal pagina-casos">
+    <main class="conteudo-principal pagina-tens-fes">
 
-        <div class="casos-topo">
-            <a href="inicio.html" class="casos-voltar">
-                <i data-lucide="arrow-left"></i>
-                Voltar
-            </a>
-
-            <div class="casos-titulo">
-                <div class="casos-icone">
-                    <i data-lucide="bot"></i>
-                </div>
-
-                <div>
-                    <h1>Explorar casos fictícios</h1>
-                    <p>
-                        Treine seus conhecimentos com casos clínicos
-                        gerados por Inteligência Artificial.
-                    </p>
-                </div>
-            </div>
+        <div class="linha-acessibilidade">
+            <a href="acessibilidade.html">Acessibilidade</a>
         </div>
 
-        <div class="casos-colunas">
-
-            <!-- CASO CLÍNICO -->
-            <section class="casos-cartao">
-
-                <div class="casos-indicador">
-                    <span id="numeroCaso">Caso 1 de 5</span>
-                    <div class="casos-pontos" id="indicadoresCaso"
-                         aria-label="Progresso dos casos"></div>
-                </div>
-
-                <div class="casos-subtitulo">
-                    <i data-lucide="clipboard-list"></i>
-                    <h2>Caso clínico</h2>
-                </div>
-
-                <p class="casos-descricao" id="descricaoCaso">
-                    Paciente do sexo masculino, 52 anos, com diagnóstico
-                    de lombalgia crônica inespecífica, relata dor lombar
-                    de intensidade moderada (EVA 6/10), sem sinais de
-                    déficits neurológicos. O objetivo do tratamento é
-                    o alívio da dor e a melhora da funcionalidade.
-                </p>
-
-                <div class="casos-desafio">
-                    <div class="casos-subtitulo">
-                        <i data-lucide="target"></i>
-                        <h2>Desafio</h2>
-                    </div>
-
-                    <p>Com base no caso apresentado, defina:</p>
-
-                    <ul>
-                        <li>Qual recurso utilizar (TENS ou FES);</li>
-                        <li>Parâmetros sugeridos (frequência, largura de pulso, intensidade e tempo);</li>
-                        <li>Posicionamento dos eletrodos;</li>
-                        <li>Justifique sua escolha.</li>
-                    </ul>
-                </div>
-
-                <div class="casos-navegacao">
-                    <button type="button" id="casoAnterior">
-                        <i data-lucide="chevron-left"></i>
-                        Anterior
-                    </button>
-
-                    <button type="button" id="proximoCaso">
-                        Próximo caso
-                        <i data-lucide="chevron-right"></i>
-                    </button>
-                </div>
-
-            </section>
-
-            <!-- RESPOSTA -->
-            <section class="casos-cartao">
-
-                <div class="casos-subtitulo">
-                    <i data-lucide="pencil"></i>
-                    <h2>Sua resposta</h2>
-                </div>
-
-                <label for="respostaEstudante" class="texto-oculto">
-                    Escreva sua resposta
-                </label>
-
-                <textarea
-                    id="respostaEstudante"
-                    maxlength="1000"
-                    placeholder="Digite aqui sua conduta, os parâmetros e a justificativa..."
-                ></textarea>
-
-                <p class="casos-contador" id="contadorCaracteres">
-                    0 / 1000
-                </p>
-
-                <div class="casos-acoes">
-                    <button type="button" id="limparResposta"
-                            class="casos-botao-limpar">
-                        <i data-lucide="rotate-ccw"></i>
-                        Limpar resposta
-                    </button>
-
-                    <button type="button" id="enviarResposta"
-                            class="casos-botao-enviar">
-                        <i data-lucide="send"></i>
-                        Enviar para avaliação da IA
-                    </button>
-                </div>
-
-                <div class="casos-feedback" aria-live="polite">
-                    <div class="casos-subtitulo">
-                        <i data-lucide="bot"></i>
-                        <h2>Feedback da IA</h2>
-                    </div>
-
-                    <p id="textoFeedback">
-                        A avaliação da sua resposta aparecerá aqui após o envio.
-                    </p>
-                </div>
-
-            </section>
-
-        </div>
-
-        <p class="aviso-educacional">
-            Ambiente educacional com casos fictícios. Não substitui
-            avaliação clínica ou orientação profissional.
+        <h1 class="titulo-conteudo">Enviar caso para a IA</h1>
+        <p class="subtitulo-ia">
+            Tem um caso para estudar? Descreva uma situação fictícia ou anonimizada e receba
+            uma resposta educativa. Para praticar com casos prontos, use a aba
+            <a href="casos.html">Casos</a>.
         </p>
+
+        <section class="grade-duas-colunas">
+
+            <!-- Coluna esquerda: dados do caso -->
+            <div class="coluna">
+
+                <article class="card-info">
+                    <h2>Seu caso</h2>
+
+                    <form class="formulario-conteudo" id="formCaso">
+
+                        <label>
+                            Informações gerais
+                            <input type="text" name="geral" required
+                                   placeholder="Faixa etária, condição clínica e região do corpo">
+                        </label>
+
+                        <label>
+                            Queixa principal
+                            <textarea name="queixa" rows="2" required
+                                      placeholder="Dor, fraqueza, dificuldade funcional; tempo de evolução"></textarea>
+                        </label>
+
+                        <label>
+                            Avaliação fisioterapêutica
+                            <textarea name="avaliacao" rows="2"
+                                      placeholder="Pele, sensibilidade, capacidade funcional e limitações"></textarea>
+                        </label>
+
+                        <label>
+                            Objetivo terapêutico
+                            <select name="objetivo">
+                                <option value="dor">Redução da dor</option>
+                                <option value="contracao">Facilitar a contração</option>
+                                <option value="funcional">Movimento funcional (marcha, mão)</option>
+                            </select>
+                        </label>
+
+                        <label>
+                            Modalidade considerada
+                            <select name="modalidade">
+                                <option value="TENS">TENS</option>
+                                <option value="FES">FES</option>
+                                <option value="duvida">Ainda não sei</option>
+                            </select>
+                        </label>
+
+                        <label>
+                            Dúvida principal
+                            <input type="text" name="duvida"
+                                   placeholder="Modalidade, parâmetros, eletrodos, contraindicações...">
+                        </label>
+
+                        <div class="acoes">
+                            <button type="submit" class="botao-acao principal">Enviar caso</button>
+                            <button type="button" class="botao-acao" id="botaoExemplo">Preencher com exemplo</button>
+                        </div>
+
+                        <p class="mensagem-conteudo" id="mensagemCaso" role="status"></p>
+                    </form>
+                </article>
+
+                <p class="aviso-educativo">
+                    Não informe nome completo, CPF, telefone, endereço ou fotos que identifiquem
+                    a pessoa. Use apenas casos fictícios ou anonimizados.
+                </p>
+
+            </div>
+
+            <!-- Coluna direita: resposta -->
+            <div class="coluna">
+
+                <article class="card-info resposta-ia" id="respostaIa" aria-live="polite" tabindex="-1">
+                    <h2>Resposta educativa</h2>
+                    <p class="resposta-vazia">
+                        A resposta aparece aqui depois do envio, organizada em: resumo do caso,
+                        problema principal, fundamentação, TENS ou FES, parâmetros, segurança,
+                        avaliação dos resultados e referências.
+                    </p>
+                </article>
+
+                <p class="aviso-educativo">
+                    A resposta da IA apoia o estudo. Ela não substitui avaliação, diagnóstico,
+                    prescrição ou decisão clínica.
+                </p>
+
+            </div>
+
+        </section>
 
     </main>
 
-    <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
-    <script>
-        if (window.lucide) lucide.createIcons();
-    </script>
+    <script src="../js/ia.js"></script>
 
 </body>
 </html>
