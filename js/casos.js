@@ -32,7 +32,7 @@ cardsCaso.forEach(function (card) {
     // A resposta ainda não é salva: só confirma e sugere comparar
     areaResposta.addEventListener("submit", function (evento) {
         evento.preventDefault();
-        retorno.textContent = "Resposta registrada. Compare com a resposta comentada.";
+        retorno.textContent = "Resposta registrada. Compare com a resposta comentada: problema identificado, segurança, raciocínio e justificativa.";
         respostaComentada.classList.remove("escondido");
         botaoComentario.textContent = "Ocultar resposta comentada";
     });
