@@ -95,3 +95,79 @@
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+/* Triagem aberta (somente leitura) */
+.documento-triagem {
+    margin-top: 16px;
+}
+
+.documento-triagem[hidden] {
+    display: none;
+}
+
+.documento-triagem h2 {
+    margin-bottom: 4px;
+}
+
+.responsavel-triagem {
+    margin-bottom: 14px;
+    color: #5F6B67;
+    font-size: 13px;
+}
+
+.dados-triagem {
+    display: grid;
+    grid-template-columns: minmax(160px, 40%) 1fr;
+    gap: 8px 16px;
+    margin-bottom: 16px;
+
+    font-size: 14px;
+}
+
+.dados-triagem dt {
+    color: #5F6B67;
+    font-weight: bold;
+}
+
+.dados-triagem dd {
+    margin: 0;
+    color: #263C35;
+}
+
+/* Triagem aberta (somente leitura) */
+.documento-triagem {
+    margin-top: 16px;
+}
+
+.documento-triagem[hidden] {
+    display: none;
+}
+
+.documento-triagem h2 {
+    margin-bottom: 4px;
+}
+
+.responsavel-triagem {
+    margin-bottom: 14px;
+    color: #5F6B67;
+    font-size: 13px;
+}
+
+.dados-triagem {
+    display: grid;
+    grid-template-columns: minmax(160px, 40%) 1fr;
+    gap: 8px 16px;
+    margin-bottom: 16px;
+
+    font-size: 14px;
+}
+
+.dados-triagem dt {
+    color: #5F6B67;
+    font-weight: bold;
+}
+
+.dados-triagem dd {
+    margin: 0;
+    color: #263C35;
+}

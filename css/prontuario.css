@@ -380,3 +380,25 @@ input[type="radio"] {
     font-size: 14px;
     text-align: right;
 }
+
+/* Registros clicáveis: mostram o que cada profissional registrou */
+.registro-item[role="button"] {
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 6px 8px 18px;
+}
+
+.registro-item[role="button"]:hover,
+.registro-item.aberto {
+    background-color: #E1EBE8;
+}
+
+.registro-detalhe {
+    margin-top: 6px;
+    color: #263C35;
+    line-height: 1.5;
+}
+
+.registro-detalhe[hidden] {
+    display: none;
+}

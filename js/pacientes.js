@@ -15,6 +15,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const resultadoNome = document.getElementById("resultadoNome");
     const resultadoNascimento = document.getElementById("resultadoNascimento");
     const botoesTopo = document.querySelectorAll(".pacientes-acoes .botao-aba");
+    const cartaoResultado = document.querySelector(".pacientes-resultado");
+
+    // O cartão do paciente encontrado abre os dados dele
+    function abrirDados() {
+        if (cartaoResultado.classList.contains("encontrado")) {
+            window.location.href = "dados.html";
+        }
+    }
+
+    cartaoResultado.addEventListener("click", abrirDados);
+    cartaoResultado.addEventListener("keydown", evento => {
+        if (evento.key === "Enter" || evento.key === " ") {
+            evento.preventDefault();
+            abrirDados();
+        }
+    });
 
     // Mensagem logo abaixo da busca
     const mensagem = document.createElement("p");
@@ -35,6 +51,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function limparResultado() {
+        cartaoResultado.classList.remove("encontrado");
+        cartaoResultado.removeAttribute("tabindex");
+        cartaoResultado.removeAttribute("role");
         resultadoCpf.textContent = "—";
         resultadoNome.textContent = "—";
         resultadoNascimento.textContent = "—";
@@ -50,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const cpf = somenteNumeros(campoCpf.value);
         limparResultado();
-        mensagem.innerHTML = "";
+        mensagem.textContent = "";
 
         if (cpf.length !== 11) {
             mensagem.textContent = "Digite os 11 números do CPF.";
@@ -69,7 +88,11 @@ document.addEventListener("DOMContentLoaded", () => {
         resultadoNome.textContent = paciente.nome;
         resultadoNascimento.textContent = paciente.nascimento;
 
-        mensagem.innerHTML = "Paciente encontrado. <a href=\"dados.html\">Abrir dados do paciente</a>";
+        cartaoResultado.classList.add("encontrado");
+        cartaoResultado.setAttribute("tabindex", "0");
+        cartaoResultado.setAttribute("role", "link");
+        cartaoResultado.setAttribute("aria-label", "Abrir dados de " + paciente.nome);
+        mensagem.textContent = "Paciente encontrado. Clique no cartão para abrir os dados.";
     });
 
     // Botões "Triagem" e "Pacientes" do topo

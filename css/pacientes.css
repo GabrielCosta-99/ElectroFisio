@@ -214,3 +214,16 @@
     color: var(--verde-escuro);
     font-weight: bold;
 }
+
+/* Cartão do paciente encontrado: abre os dados ao clicar */
+.pacientes-resultado.encontrado {
+    cursor: pointer;
+    outline: 2px solid var(--verde-agua);
+    outline-offset: 4px;
+    border-radius: 8px;
+}
+
+.pacientes-resultado.encontrado:hover,
+.pacientes-resultado.encontrado:focus-visible {
+    background-color: #E1EBE8;
+}
