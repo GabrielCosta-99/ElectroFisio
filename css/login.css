@@ -196,21 +196,33 @@
         padding: 30px 20px;
     }
 
+    /* No celular o formulário vem primeiro e o painel verde fica menor, embaixo */
     .area-cadastro {
-        display: none;
+        flex: none;
+        width: 100%;
     }
 
     .painel-login {
         width: 100%;
-        min-height: 400px;
+        min-height: auto;
+        padding: 28px 20px;
     }
 
-    .painel-login h1 {
+    .painel-login-conteudo {
+        gap: 14px;
+    }
+
+    .painel-login h1,
+    .painel-login h2 {
         font-size: 24px;
     }
 
     .painel-login p {
-        font-size: 16px;
+        font-size: 17px;
+    }
+
+    .cadastro-conteudo h1 {
+        font-size: 26px;
     }
 }
 
@@ -275,4 +287,10 @@ a.botao-login {
 
 .aviso-senha:empty {
     display: none;
+}
+
+@media (max-width: 768px) {
+    .painel-login h2 {
+        font-size: 24px;
+    }
 }

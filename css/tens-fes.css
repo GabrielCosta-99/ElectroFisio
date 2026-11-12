@@ -326,6 +326,22 @@ body {
         align-items: flex-start;
     }
 
+    /* Abas em uma linha só, que desliza para o lado */
+    .abas {
+        width: 100%;
+        flex-wrap: nowrap;
+        gap: 8px;
+
+        overflow-x: auto;
+        padding-bottom: 6px;
+        scrollbar-width: thin;
+    }
+
+    .abas .botao-aba {
+        flex-shrink: 0;
+        min-width: auto;
+    }
+
     .grade-duas-colunas {
         grid-template-columns: 1fr;
     }

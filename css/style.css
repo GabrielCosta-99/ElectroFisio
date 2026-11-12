@@ -84,6 +84,63 @@ body {
     }
 }
 
+/* Menu do topo no celular: os links ficam atrás do botão "Menu" (js/menu.js) */
+.botao-menu {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .cabecalho {
+        flex-wrap: wrap;
+        min-height: 64px;
+    }
+
+    .botao-menu {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        padding: 8px 12px;
+
+        background-color: var(--branco);
+        color: var(--verde-escuro);
+
+        border: 1px solid var(--verde-escuro);
+        border-radius: 6px;
+
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .botao-menu .icone-menu {
+        font-size: 18px;
+        line-height: 1;
+    }
+
+    .cabecalho.com-menu:not(.menu-aberto) .cabecalho-navegacao {
+        display: none;
+    }
+
+    .cabecalho.menu-aberto .cabecalho-navegacao {
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+
+        padding-bottom: 10px;
+    }
+
+    .cabecalho.menu-aberto .cabecalho-navegacao a {
+        padding: 12px 4px;
+        border-top: 1px solid #E1E6E4;
+        font-size: 16px;
+    }
+}
+
 /* Erros de preenchimento (js/validacao.js) */
 .erro-campo {
     display: block;

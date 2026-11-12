@@ -33,6 +33,29 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // Botão "Menu" para o celular: mostra e esconde os links do topo
+    const cabecalho = document.querySelector(".cabecalho");
+    const navegacao = document.querySelector(".cabecalho-navegacao");
+
+    if (cabecalho && navegacao) {
+        navegacao.id = navegacao.id || "navegacaoPrincipal";
+
+        const botaoMenu = document.createElement("button");
+        botaoMenu.type = "button";
+        botaoMenu.className = "botao-menu";
+        botaoMenu.setAttribute("aria-expanded", "false");
+        botaoMenu.setAttribute("aria-controls", navegacao.id);
+        botaoMenu.innerHTML = "<span class=\"icone-menu\" aria-hidden=\"true\">☰</span> Menu";
+
+        botaoMenu.addEventListener("click", () => {
+            const aberto = cabecalho.classList.toggle("menu-aberto");
+            botaoMenu.setAttribute("aria-expanded", String(aberto));
+        });
+
+        navegacao.insertAdjacentElement("beforebegin", botaoMenu);
+        cabecalho.classList.add("com-menu");
+    }
+
     // Nome e CREFITO no topo das telas do paciente (vêm do Meu perfil)
     const infoProfissional = document.querySelector(".profissional-info");
 
