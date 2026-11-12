@@ -12,7 +12,7 @@ import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 // ---------------------------------------------------------------
 
 export const INTENSIDADE_MAXIMA = 40; // limite didático do simulador; o limite real depende do manual
-export const REFERENCIA_MANUAL = "Pendente: o aparelho de referência ainda não foi definido (Caderno, Anexo D).";
+export const REFERENCIA_MANUAL = "confira os comandos e os limites no manual do aparelho utilizado [22].";
 
 const PARAMETROS = {
     frequencia: { rotulo: "Frequência", unidade: "Hz", falado: "hertz", min: 1, max: 200, passo: 1 },
@@ -34,7 +34,7 @@ export const MODOS = [
         padrao: { frequencia: 80, largura: 100, tempo: 20 },
         ordem: ["frequencia", "largura", "tempo"],
         objetivo: "Analgesia com parestesia forte, confortável e não dolorosa.",
-        referencia: "Faixa educativa: 50–100 Hz; 50–200 µs [R1]. Exemplo do caderno: 80 Hz, 100 µs, 20 min."
+        referencia: "Faixa educativa: 50–100 Hz; 50–200 µs [3, 4]. Exemplo educativo: 80 Hz, 100 µs, 20 min."
     },
     {
         id: "acupuntura",
@@ -43,7 +43,7 @@ export const MODOS = [
         padrao: { frequencia: 3, largura: 200, tempo: 20 },
         ordem: ["frequencia", "largura", "tempo"],
         objetivo: "Analgesia com contrações rítmicas toleráveis; exige seleção do contexto.",
-        referencia: "Faixa educativa: 2–4 Hz; 100–400 µs [R1]."
+        referencia: "Faixa educativa: 2–4 Hz, com pulsos mais longos que os convencionais [3, 4]."
     },
     {
         id: "burst",
@@ -52,7 +52,7 @@ export const MODOS = [
         padrao: { rajadas: 2, frequencia: 100, largura: 200, tempo: 20 },
         ordem: ["rajadas", "frequencia", "largura", "tempo"],
         objetivo: "Grupos de pulsos. Distinguir a frequência das rajadas da frequência dos pulsos internos.",
-        referencia: "Faixa educativa: 2–4 rajadas/s; pulsos internos de 100–200 Hz [R1]."
+        referencia: "Faixa educativa: 2–4 rajadas/s; pulsos internos de 100–200 Hz [3, 4]."
     },
     {
         id: "nmes",
@@ -61,7 +61,7 @@ export const MODOS = [
         padrao: { frequencia: 35, largura: 300, subida: 2, plato: 6, descida: 2, repouso: 30, ciclos: 8 },
         ordem: ["frequencia", "largura", "subida", "plato", "descida", "repouso", "ciclos"],
         objetivo: "Contração muscular. Só é FES quando a estimulação é coordenada a uma tarefa funcional.",
-        referencia: "Exercício A do caderno: 35 Hz; 300 µs; subida 2 s, platô 6 s, descida 2 s, repouso 30 s; 8 ciclos [R3]."
+        referencia: "Faixas comuns: 20–50 Hz e 200–300 µs [7, 10]. Exemplo educativo: 35 Hz; 300 µs; subida 2 s, platô 6 s, descida 2 s, repouso 30 s; 8 ciclos."
     }
 ];
 
