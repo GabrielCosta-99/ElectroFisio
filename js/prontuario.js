@@ -10,9 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Ainda não há banco de dados: os textos são exemplos para a apresentação.
     const EXEMPLOS = {
         "prontuario.html": [
-            "Evolução: sessão de TENS convencional no joelho direito (80 Hz, 100 µs, 20 min). Dor ao subir escadas passou de 6 para 3 (0 a 10). Pele sem alterações.",
-            "Evolução: reavaliação da dor e orientação de exercícios domiciliares. Paciente relata melhora para caminhar.",
-            "Avaliação inicial: dor no joelho direito há 4 meses, pele íntegra e sensibilidade preservada. Plano: TENS como recurso complementar."
+            "Sessão 3: TENS no joelho direito com o protocolo IBR-CRONICA-02 (40 Hz, 150 µs, 30 min). Dor ao subir escadas passou de 6 para 3 (0 a 10). Pele sem alterações.",
+            "Sessão 2: TENS com o mesmo protocolo e orientação de exercícios domiciliares. Paciente relata melhora para caminhar.",
+            "Sessão 1: dor no joelho direito há 4 meses, pele íntegra e sensibilidade preservada. TENS com o protocolo IBR-CRONICA-02 (40 Hz, 150 µs, 30 min) como recurso complementar; formigamento forte e confortável."
         ],
         "receituario.html": [
             "Orientação: exercícios de fortalecimento de quadríceps, 3 séries de 10, em dias alternados.",
@@ -20,9 +20,9 @@ document.addEventListener("DOMContentLoaded", () => {
             "Orientação: caminhada leve de 20 minutos, 3 vezes por semana."
         ],
         "triagens.html": [
-            "Triagem: questionário de segurança sem alertas e mapeamento TENS do joelho direito.",
-            "Triagem: mapeamento FES; contração presente, ainda insuficiente para a tarefa.",
-            "Triagem inicial: dados cadastrais conferidos."
+            "Mapeamento FES: contração presente, ainda insuficiente para levantar da cadeira. Sem protocolo validado; seguir com treino ativo.",
+            "Mapeamento TENS do joelho direito: protocolo IBR-CRONICA-02 confirmado após teste supervisionado confortável.",
+            "Triagem inicial: dados cadastrais conferidos e questionário de segurança sem alertas."
         ]
     };
 

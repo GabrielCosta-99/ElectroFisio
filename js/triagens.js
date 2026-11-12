@@ -7,38 +7,49 @@ document.addEventListener("DOMContentLoaded", () => {
     const DOCUMENTOS = {
         questionario: {
             titulo: "Questionário de segurança",
-            responsavel: "Profissional 1 · CREFITO 000000 · 03/11/2026 - 16:35",
+            responsavel: "Ana Souza · CREFITO 123456-F · 28/10/2026 - 08:45",
             linhas: [
-                ["Tecido neoplásico na região", "Não"],
-                ["Pele íntegra e sensibilidade preservada", "Sim"],
+                ["Avaliação profissional", "Sim"],
+                ["Região dos eletrodos", "Joelho (direito)"],
+                ["Tumor ou câncer ativo na região", "Não"],
+                ["Ferida, infecção ou sangramento na região", "Não"],
+                ["Sensibilidade na região", "Preservada"],
+                ["Comunica desconforto", "Sim"],
                 ["Dispositivos eletrônicos implantados", "Não"],
                 ["Gestação", "Não se aplica"],
                 ["Implantes metálicos locais", "Não"],
-                ["Alterações circulatórias / vasculares", "Não"],
-                ["Epilepsia ou histórico neurológico", "Não"],
+                ["Trombose na região", "Não"],
+                ["Epilepsia ou convulsões", "Não"],
+                ["Condição cardiovascular", "Não"],
+                ["Cirurgia ou fratura recente", "Não"],
                 ["Conclusão", "Sem alertas de segurança para a região do joelho direito."]
             ]
         },
         tens: {
             titulo: "Mapeamento TENS",
-            responsavel: "Profissional 1 · CREFITO 000000 · 03/11/2026 - 16:35",
+            responsavel: "Ana Souza · CREFITO 123456-F · 28/10/2026 - 09:00",
             linhas: [
-                ["Região da dor", "Joelho direito"],
-                ["Nível da dor hoje", "6 de 10"],
-                ["Cronicidade", "Crônica (mais de 3 meses)"],
-                ["Tipo de dor predominante", "Mecânica / inflamatória"],
-                ["Modalidade considerada", "TENS convencional"],
-                ["Observação", "Formigamento forte e confortável no teste; reavaliar a dor ao subir escadas."]
+                ["Localização da dor", "Joelho direito"],
+                ["Nível da dor hoje", "Moderada"],
+                ["Duração da dor", "Crônica (mais de 3 meses)"],
+                ["Mecanismo predominante", "Nociceptiva (mecânica / inflamatória)"],
+                ["Ponto-gatilho miofascial", "Não"],
+                ["Equipamento", "IBRAMED Neurodyn II"],
+                ["Teste supervisionado", "Sensação forte e confortável"],
+                ["Resultado da calculadora", "IBR-CRONICA-02: 40 Hz, 150 µs, 30 min (preset do fabricante)"],
+                ["Situação", "Confirmado pelo profissional"]
             ]
         },
         fes: {
             titulo: "Mapeamento FES",
-            responsavel: "Profissional 2 · CREFITO 000000 · 03/11/2026 - 16:35",
+            responsavel: "Ana Souza · CREFITO 123456-F · 28/10/2026 - 09:10",
             linhas: [
-                ["Condição do tecido muscular", "Sem lesão estrutural conhecida"],
+                ["Condição clínica", "Outra condição (dor no joelho, sem doença neurológica)"],
+                ["Inervação periférica", "Preservada"],
                 ["Movimento desejado", "Extensão do joelho ao levantar da cadeira"],
                 ["Resposta no teste", "Contração presente, ainda insuficiente para a tarefa"],
                 ["Tolerância", "Boa"],
+                ["Resultado da calculadora", "Sem protocolo validado para este perfil"],
                 ["Observação", "Por enquanto, sem indicação de FES: seguir com treino ativo e reavaliar."]
             ]
         }
