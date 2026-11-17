@@ -1,0 +1,119 @@
+
+/* =====================================
+   RECEITUÁRIO - ELECTROFISIO
+===================================== */
+
+/* Layout com três colunas */
+.layout-receituario {
+    grid-template-columns:
+        minmax(190px, 1fr)
+        minmax(0, 2.5fr)
+        minmax(170px, 1fr);
+}
+
+/* =====================================
+   COLUNA CENTRAL
+===================================== */
+
+.conteudo-receituario {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0;
+}
+
+/* Quadro principal */
+.quadro-receituario {
+    display: flex;
+    flex-direction: column;
+    min-height: 480px;
+}
+
+.quadro-receituario h2 {
+    margin-bottom: 25px;
+}
+
+/* Título do campo */
+.receituario-label {
+    color: #263C35;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+/* Campo para escrever */
+.quadro-receituario textarea {
+    width: 100%;
+    min-height: 340px;
+    flex: 1;
+
+    padding: 15px;
+
+    background-color: #FFFFFF;
+    border: 1px solid #C9D1CD;
+    border-radius: 6px;
+
+    color: #263C35;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+
+    resize: vertical;
+}
+
+/* Campo selecionado */
+.quadro-receituario textarea:focus {
+    outline: 2px solid var(--verde-escuro);
+    outline-offset: 1px;
+}
+
+/* Texto de exemplo */
+.quadro-receituario textarea::placeholder {
+    color: #858585;
+}
+
+/* =====================================
+   BOTÕES DE AÇÃO
+===================================== */
+
+/*
+   Os botões reutilizam as classes
+   .acoes-prontuario e .botao-icone
+   do arquivo prontuario.css.
+*/
+
+/* =====================================
+   COLUNA DE REGISTROS
+===================================== */
+
+/*
+   Reutiliza as classes:
+   .prontuario-registros
+   .registro-item
+   .registro-nome
+
+   Todas já definidas em prontuario.css.
+*/
+
+/* =====================================
+   RESPONSIVIDADE
+===================================== */
+
+@media (max-width: 950px) {
+
+    .layout-receituario {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .quadro-receituario {
+        min-height: 380px;
+    }
+
+    .quadro-receituario textarea {
+        min-height: 270px;
+    }
+
+}

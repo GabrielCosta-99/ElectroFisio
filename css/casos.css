@@ -1,0 +1,71 @@
+
+/* Botões do card de caso (são <button>, não links) */
+.card-caso .botao-acao {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* Área para escrever a resposta */
+.area-resposta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+
+    margin-top: 14px;
+}
+
+.area-resposta.escondido {
+    display: none;
+}
+
+.area-resposta label {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    color: var(--texto);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.area-resposta textarea {
+    width: 100%;
+    padding: 10px;
+
+    background-color: var(--branco);
+    border: 1px solid #C9D2CF;
+    border-radius: 4px;
+
+    font-family: inherit;
+    font-size: 14px;
+    resize: vertical;
+}
+
+.retorno-resposta {
+    color: var(--verde-escuro);
+    font-size: 13px;
+}
+
+/* Resposta comentada */
+.resposta-comentada {
+    margin-top: 14px;
+    padding: 12px 14px;
+
+    background-color: var(--branco);
+    border-left: 3px solid var(--verde-agua);
+    border-radius: 4px;
+}
+
+.resposta-comentada h3 {
+    margin-bottom: 4px;
+    color: var(--verde-escuro);
+    font-size: 14px;
+}
+
+/* Passos de "Como praticar" */
+.passos {
+    padding-left: 18px;
+}

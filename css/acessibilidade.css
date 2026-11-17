@@ -1,0 +1,80 @@
+
+/* Ajustes de acessibilidade aplicados em todas as telas (ver js/acessibilidade.js) */
+
+/* Tamanho do texto: aumenta a página inteira (cabeçalho e conteúdo).
+   As telas usam tamanhos em px, então o aumento é feito com zoom. */
+.texto-grande body > * {
+    zoom: 1.15;
+}
+
+.texto-muito-grande body > * {
+    zoom: 1.3;
+}
+
+/* Legendas: descrição em texto das imagens e modelos 3D */
+.legenda-acessivel {
+    margin-top: 6px;
+    padding: 8px 10px;
+
+    background-color: #FFFFFF;
+    border-left: 3px solid var(--verde-agua);
+    border-radius: 4px;
+
+    color: #222222;
+    font-size: 13px;
+}
+
+/* Leitor de tela: destaca o que está sendo lido */
+.leitor-tela :is(h1, h2, h3, p, li, label, button, a):hover {
+    outline: 2px dashed var(--verde-agua);
+    outline-offset: 2px;
+}
+
+/* Alto contraste: fundo branco, texto preto e bordas fortes */
+.alto-contraste {
+    --verde-escuro: #00382B;
+    --verde-agua: #006B5E;
+    --cinza-claro: #FFFFFF;
+    --cinza-fundo: #FFFFFF;
+    --cinza-card: #FFFFFF;
+    --verde-claro: #FFFFFF;
+    --texto: #000000;
+}
+
+.alto-contraste body {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+.alto-contraste .cabecalho {
+    border-bottom: 2px solid #000000;
+}
+
+.alto-contraste .card-info,
+.alto-contraste .card-branco,
+.alto-contraste .card-acessibilidade,
+.alto-contraste .aviso-educativo,
+.alto-contraste .campo {
+    border: 2px solid #000000;
+}
+
+.alto-contraste .botao-aba,
+.alto-contraste .botao-acao {
+    border: 2px solid #000000;
+    color: #000000;
+}
+
+.alto-contraste .botao-aba.ativo,
+.alto-contraste .botao-acao.principal {
+    background-color: #000000;
+    color: #FFFFFF;
+}
+
+.alto-contraste a {
+    text-decoration: underline;
+}
+
+.alto-contraste :focus-visible {
+    outline: 3px solid #000000;
+    outline-offset: 2px;
+}

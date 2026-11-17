@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ElectroFisio - Dados do Paciente</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/prontuario.css">
+    <link rel="stylesheet" href="../css/dados.css">
+
+    <script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+    <script defer src="../js/prontuario.js"></script>
+    <script defer src="../js/validacao.js"></script>
+    <script defer src="../js/dados.js"></script>
+    <link rel="stylesheet" href="../css/acessibilidade.css">
+
+    <script src="../js/acessibilidade.js"></script>
+    <script defer src="../js/menu.js"></script>
+</head>
+<body>
+
+    <!-- CABEÇALHO -->
+    <header class="cabecalho">
+
+        <div class="cabecalho-logo">
+            <span class="logo-electro">Electro</span><span class="logo-fisio">Fisio</span>
+        </div>
+
+        <nav class="cabecalho-navegacao"
+             aria-label="Navegação principal">
+
+            <a href="inicio.html">Início</a>
+
+            <a href="visao-geral.html">TENS e FES</a>
+            <a href="pacientes.html">Pacientes</a>
+            <a href="perfil.html">Meu perfil</a>
+            <a href="sair.html">Sair</a>
+            <a href="acessibilidade.html">Acessibilidade</a>
+
+        </nav>
+    </header>
+
+    <main class="conteudo-principal pagina-prontuario">
+
+        <!-- ÁREA SUPERIOR -->
+        <div class="prontuario-topo">
+
+            <a href="pacientes.html" class="botao-voltar">
+                Voltar
+            </a>
+
+            <div class="profissional-info">
+                <span>Nome do profissional</span>
+                <span>CREFITO: 000000</span>
+            </div>
+
+        </div>
+
+        <div class="prontuario-colunas layout-dados">
+
+            <!-- COLUNA ESQUERDA -->
+            <aside class="prontuario-lateral">
+
+                <div class="paciente-identificacao">
+
+                    <div class="paciente-avatar">
+                        <span aria-hidden="true">👤</span>
+                    </div>
+
+                    <div class="paciente-dados">
+                        <p class="paciente-nome">
+                            Paciente de Exemplo 1
+                        </p>
+                        <p>CPF: 111.222.333-44</p>
+                        <p>Mãe: Maria de Exemplo</p>
+                    </div>
+
+                </div>
+
+                <nav class="menu-prontuario"
+                     aria-label="Seções do prontuário">
+
+                    <a href="triagens.html">Triagem</a>
+
+                    <a href="dados.html"
+                       class="menu-ativo"
+                       aria-current="page">
+                        Dados
+                    </a>
+
+                    <a href="prontuario.html">
+                        Evolução
+                    </a>
+
+                    <a href="receituario.html">Receituário</a>
+
+                </nav>
+
+            </aside>
+
+            <!-- CONTEÚDO CENTRAL -->
+            <section class="conteudo-dados">
+
+                <!-- PRIMEIRO QUADRO -->
+                <section class="quadro-prontuario">
+
+                    <div class="dados-cabecalho">
+
+                        <h2>Dados do paciente</h2>
+
+                        <div class="dados-acoes">
+
+                            <button
+                                type="button"
+                                class="botao-icone"
+                                id="botaoEditar"
+                                title="Editar"
+                                aria-label="Editar dados">
+                                <i data-lucide="pencil"></i>
+                            </button>
+
+                            <button
+                                type="button"
+                                class="botao-icone"
+                                id="botaoSalvar"
+                                title="Salvar"
+                                aria-label="Salvar dados"
+                                disabled>
+                                <i data-lucide="save"></i>
+                            </button>
+
+                        </div>
+                    </div>
+
+                    <div class="lista-dados">
+
+                        <div class="dado-item">
+                            <i data-lucide="user-round"></i>
+                            <div>
+                                <span>Nome completo</span>
+                                <p>Paciente de Exemplo 1</p>
+                            </div>
+                        </div>
+
+                        <div class="dado-item">
+                            <i data-lucide="id-card"></i>
+                            <div>
+                                <span>CPF</span>
+                                <p>111.222.333-44</p>
+                            </div>
+                        </div>
+
+                        <div class="dado-item">
+                            <i data-lucide="calendar-days"></i>
+                            <div>
+                                <span>Data de nascimento</span>
+                                <p>10/05/1980</p>
+                            </div>
+                        </div>
+
+                        <div class="dado-item">
+                            <i data-lucide="map-pin"></i>
+                            <div>
+                                <span>Endereço</span>
+                                <p>Rua das Flores, 100, Centro, Belo Horizonte - MG</p>
+                            </div>
+                        </div>
+
+                        <div class="dado-item">
+                            <i data-lucide="mail"></i>
+                            <div>
+                                <span>E-mail</span>
+                                <p>paciente1@exemplo.com</p>
+                            </div>
+                        </div>
+
+                        <div class="dado-item">
+                            <i data-lucide="phone"></i>
+                            <div>
+                                <span>Telefone 1</span>
+                                <p>(31) 91234-5678</p>
+                            </div>
+                        </div>
+
+                        <div class="dado-item">
+                            <i data-lucide="phone-call"></i>
+                            <div>
+                                <span>Telefone 2</span>
+                                <p>(31) 3234-5678</p>
+                            </div>
+                        </div>
+
+                        <div class="dado-item">
+                            <i data-lucide="users"></i>
+                            <div>
+                                <span>Nome da mãe</span>
+                                <p>Maria de Exemplo</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- SEGUNDO QUADRO -->
+                <section class="quadro-prontuario">
+
+                    <h2>Últimos atendimentos</h2>
+
+                    <div class="lista-atendimentos">
+
+                        <article class="atendimento-item">
+                            <i data-lucide="clipboard-list"></i>
+                            <div>
+                                <h3>Sessão 3 — TENS</h3>
+                                <p>03/11/2026 • 14:30</p>
+                            </div>
+                        </article>
+
+                        <article class="atendimento-item">
+                            <i data-lucide="clipboard-list"></i>
+                            <div>
+                                <h3>Sessão 2 — TENS</h3>
+                                <p>02/11/2026 • 10:15</p>
+                            </div>
+                        </article>
+
+                        <article class="atendimento-item">
+                            <i data-lucide="clipboard-list"></i>
+                            <div>
+                                <h3>Sessão 1 — TENS</h3>
+                                <p>30/10/2026 • 09:20</p>
+                            </div>
+                        </article>
+
+                        <article class="atendimento-item">
+                            <i data-lucide="clipboard-list"></i>
+                            <div>
+                                <h3>Triagem inicial</h3>
+                                <p>28/10/2026 • 08:45</p>
+                            </div>
+                        </article>
+
+                    </div>
+                </section>
+
+            </section>
+        </div>
+    </main>
+</body>
+</html>

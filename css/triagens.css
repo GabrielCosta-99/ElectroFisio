@@ -1,0 +1,173 @@
+
+/* =====================================
+   TRIAGENS FEITAS - ELECTROFISIO
+===================================== */
+
+.quadro-triagens {
+    min-height: 420px;
+}
+
+.quadro-triagens h2 {
+    margin-bottom: 20px;
+}
+
+/* Lista de triagens */
+.lista-triagens {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.item-triagem {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+
+    padding: 12px 14px;
+
+    background-color: #FFFFFF;
+    border: 1px solid #C9D1CD;
+    border-radius: 6px;
+
+    color: #263C35;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.item-triagem:hover {
+    border-color: var(--verde-agua);
+}
+
+.item-triagem.selecionado {
+    background-color: #E1EBE8;
+    border-color: var(--verde-escuro);
+    font-weight: bold;
+}
+
+.data-triagem {
+    color: #5F6B67;
+    font-size: 13px;
+    font-weight: normal;
+}
+
+.mensagem-triagens {
+    margin-top: 16px;
+    color: #5F6B67;
+    font-size: 14px;
+}
+
+/* Botões Novo e Abrir */
+.acoes-triagens {
+    display: flex;
+    gap: 12px;
+}
+
+.botao-triagens {
+    min-width: 100px;
+    padding: 10px 20px;
+
+    background-color: #FFFFFF;
+    color: var(--verde-escuro);
+
+    border: 1px solid var(--verde-escuro);
+    border-radius: 4px;
+
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.botao-triagens.principal {
+    background-color: var(--verde-escuro);
+    color: #FFFFFF;
+}
+
+.botao-triagens:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Triagem aberta (somente leitura) */
+.documento-triagem {
+    margin-top: 16px;
+}
+
+.documento-triagem[hidden] {
+    display: none;
+}
+
+.documento-triagem h2 {
+    margin-bottom: 4px;
+}
+
+.responsavel-triagem {
+    margin-bottom: 14px;
+    color: #5F6B67;
+    font-size: 13px;
+}
+
+.dados-triagem {
+    display: grid;
+    grid-template-columns: minmax(160px, 40%) 1fr;
+    gap: 8px 16px;
+    margin-bottom: 16px;
+
+    font-size: 14px;
+}
+
+.dados-triagem dt {
+    color: #5F6B67;
+    font-weight: bold;
+}
+
+.dados-triagem dd {
+    margin: 0;
+    color: #263C35;
+}
+
+/* Triagem aberta (somente leitura) */
+.documento-triagem {
+    margin-top: 16px;
+}
+
+.documento-triagem[hidden] {
+    display: none;
+}
+
+.documento-triagem h2 {
+    margin-bottom: 4px;
+}
+
+.responsavel-triagem {
+    margin-bottom: 14px;
+    color: #5F6B67;
+    font-size: 13px;
+}
+
+.dados-triagem {
+    display: grid;
+    grid-template-columns: minmax(160px, 40%) 1fr;
+    gap: 8px 16px;
+    margin-bottom: 16px;
+
+    font-size: 14px;
+}
+
+.dados-triagem dt {
+    color: #5F6B67;
+    font-weight: bold;
+}
+
+.dados-triagem dd {
+    margin: 0;
+    color: #263C35;
+}

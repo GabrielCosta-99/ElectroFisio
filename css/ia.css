@@ -1,0 +1,42 @@
+
+/* =====================================
+   ENVIAR CASO PARA A IA - ELECTROFISIO
+===================================== */
+
+.subtitulo-ia {
+    margin-bottom: 20px;
+
+    color: var(--texto);
+    font-size: 15px;
+}
+
+.subtitulo-ia a {
+    color: var(--verde-escuro);
+    font-weight: bold;
+}
+
+.resposta-ia {
+    min-height: 300px;
+}
+
+.resposta-vazia {
+    color: #6B7370;
+}
+
+.bloco-resposta + .bloco-resposta {
+    margin-top: 10px;
+}
+
+.bloco-resposta h3 {
+    margin-top: 0;
+}
+
+.nota-resposta {
+    margin-top: 14px;
+    padding-top: 10px;
+
+    border-top: 1px solid #C9D2CF;
+
+    color: #6B7370;
+    font-size: 12px;
+}
