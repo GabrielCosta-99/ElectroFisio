@@ -1,5 +1,5 @@
 
-/* Grade em tres colunas da tela de eletrodos */
+/* Grade em três colunas da tela de eletrodos */
 .grade-eletrodos {
     display: grid;
     grid-template-columns: 1fr 1.1fr 1.4fr;
