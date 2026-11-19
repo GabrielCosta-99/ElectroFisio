@@ -1,5 +1,5 @@
 
-/* Layout da pagina Dados */
+/* Layout da página Dados */
 .layout-dados {
     grid-template-columns:
         minmax(190px, 1fr)

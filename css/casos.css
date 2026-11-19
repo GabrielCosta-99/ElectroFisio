@@ -5,7 +5,7 @@
     cursor: pointer;
 }
 
-/* Área para escrever as respostas */
+/* Área para escrever a resposta */
 .area-resposta {
     display: flex;
     flex-direction: column;

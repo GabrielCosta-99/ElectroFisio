@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-
->>>>>>> 406a85b9082f8d444b11fde23416c01619d93aad
->>>>>>> fecd717b172514d287505e97c9a9ee72b2ede80d
 /* =====================================
    RECEITUÁRIO - ELECTROFISIO
 ===================================== */
@@ -77,21 +70,12 @@
     color: #858585;
 }
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> fecd717b172514d287505e97c9a9ee72b2ede80d
 /* Preserva quebras de linha na descrição exibida nos registros */
 .prontuario-registros .registro-detalhe {
     white-space: pre-line;
     overflow-wrap: anywhere;
 }
 
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 406a85b9082f8d444b11fde23416c01619d93aad
->>>>>>> fecd717b172514d287505e97c9a9ee72b2ede80d
 /* =====================================
    BOTÕES DE AÇÃO
 ===================================== */
@@ -117,7 +101,7 @@
 
 /* =====================================
    RESPONSIVIDADE
-==================================== */
+===================================== */
 
 @media (max-width: 950px) {
 
@@ -138,16 +122,7 @@
     }
 
 }
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> fecd717b172514d287505e97c9a9ee72b2ede80d
 .botao-icone[aria-label="Imprimir receituário"] {
     font-size: 28px;
     line-height: 1;
 }
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 406a85b9082f8d444b11fde23416c01619d93aad
->>>>>>> fecd717b172514d287505e97c9a9ee72b2ede80d
