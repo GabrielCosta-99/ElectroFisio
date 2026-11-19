@@ -1,12 +1,18 @@
+import {
+    db,
+    collection,
+    getDocs,
+    updateDoc,
+    doc,
+    serverTimestamp
+} from "./firebase-config.js";
 
-// Tela Meu perfil: mostra os dados do usuário que entrou
-// Ainda não há banco de dados: os dados ficam salvos só neste navegador.
-
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
 
     const CHAVE_DADOS = "electrofisio-dados-perfil";
+    const CHAVE_USUARIO = "electrofisio-usuario";
 
-    // Perfis de teste para a apresentação (usados enquanto nada for salvo)
+    // Fallback caso ninguém esteja logado
     const PERFIS_TESTE = {
         profissional: {
             nome: "Ana Souza",
@@ -42,6 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const formulario = document.getElementById("formularioPerfil");
     const botaoCancelar = document.getElementById("botaoCancelar");
+    const botaoSalvar = formulario.querySelector(".botao-perfil-salvar");
     const botaoVoltar = document.getElementById("botaoVoltar");
 
     const linkDadosEspecificos = document.querySelector(
@@ -57,6 +64,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // CPF, telefone e e-mail: máscara e mensagem de erro
     Validacao.protegerFormulario(formulario);
 
+    let usuarioLogado = null;
+    try {
+        usuarioLogado = JSON.parse(localStorage.getItem(CHAVE_USUARIO)) || null;
+    } catch (erro) {
+        usuarioLogado = null;
+    }
+
     function lerSalvos() {
         try {
             return JSON.parse(localStorage.getItem(CHAVE_DADOS)) || {};
@@ -66,11 +80,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function preencher(tipo) {
-        const dados = Object.assign({}, PERFIS_TESTE[tipo], lerSalvos()[tipo]);
+        const ehPerfilReal = usuarioLogado && (usuarioLogado.tipoPerfil || "profissional") === tipo;
+        const dados = ehPerfilReal
+            ? Object.assign({}, usuarioLogado)
+            : Object.assign({}, PERFIS_TESTE[tipo], lerSalvos()[tipo]);
 
         Object.keys(dados).forEach(campo => {
             const input = formulario.elements[campo];
-            if (input) {
+            if (input && dados[campo] !== null && dados[campo] !== undefined) {
                 input.value = dados[campo];
             }
         });
@@ -118,10 +135,15 @@ document.addEventListener("DOMContentLoaded", () => {
             nomePerfil.value.trim() || "Nome do usuário";
     });
 
-    formulario.addEventListener("submit", evento => {
+    formulario.addEventListener("submit", async evento => {
+        const bloqueadoPelaValidacao = evento.defaultPrevented;
         evento.preventDefault();
 
-        const salvos = lerSalvos();
+        if (bloqueadoPelaValidacao) {
+            return;
+        }
+
+        const tipoAtual = seletor.value;
         const dados = {};
 
         Array.from(formulario.elements).forEach(input => {
@@ -130,13 +152,59 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        salvos[seletor.value] = dados;
+        const textoOriginal = botaoSalvar.textContent;
+        botaoSalvar.disabled = true;
+        botaoSalvar.textContent = "Salvando...";
+        mensagem.textContent = "";
 
         try {
-            localStorage.setItem(CHAVE_DADOS, JSON.stringify(salvos));
-            mensagem.textContent = "Perfil salvo neste navegador.";
+            // Se há usuário autenticado no Firestore, atualiza o registro no banco
+            if (usuarioLogado && usuarioLogado.id) {
+                const atualizacaoBanco = {
+                    ...dados,
+                    updatedAt: serverTimestamp()
+                };
+
+                if (dados.cpf) {
+                    atualizacaoBanco.cpfNumeros = dados.cpf.replace(/\D/g, "");
+                }
+                if (tipoAtual === "profissional" && dados.crefito) {
+                    atualizacaoBanco.crefitoNormalizado = dados.crefito.toUpperCase();
+                }
+
+                await updateDoc(doc(db, "usuarios", usuarioLogado.id), atualizacaoBanco);
+
+                usuarioLogado = {
+                    ...usuarioLogado,
+                    ...dados,
+                    tipoPerfil: tipoAtual
+                };
+
+                try {
+                    localStorage.setItem(CHAVE_USUARIO, JSON.stringify(usuarioLogado));
+                    localStorage.setItem("electrofisio-perfil", tipoAtual);
+                } catch (erro) {
+                    // Ignora se localStorage estiver bloqueado
+                }
+            }
+
+            const salvos = lerSalvos();
+            salvos[tipoAtual] = dados;
+            try {
+                localStorage.setItem(CHAVE_DADOS, JSON.stringify(salvos));
+            } catch (erro) {
+                // Ignora se localStorage estiver bloqueado
+            }
+
+            nomeResumo.textContent = dados.nome || "Nome do usuário";
+            mensagem.textContent = "Alterações salvas com sucesso.";
+
         } catch (erro) {
-            mensagem.textContent = "Não foi possível salvar neste navegador.";
+            console.error("Erro ao atualizar perfil no Firebase:", erro);
+            mensagem.textContent = "Erro ao salvar alterações no banco de dados.";
+        } finally {
+            botaoSalvar.disabled = false;
+            botaoSalvar.textContent = textoOriginal;
         }
     });
 
@@ -158,15 +226,55 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Abre no perfil que entrou no login
-    try {
-        seletor.value = localStorage.getItem("electrofisio-perfil") === "estudante"
-            ? "estudante"
-            : "profissional";
-    } catch (erro) {
-        // Sem armazenamento: fica como profissional
+    // Define o perfil inicial a partir do usuário logado
+    if (usuarioLogado && usuarioLogado.tipoPerfil) {
+        seletor.value = usuarioLogado.tipoPerfil === "estudante" ? "estudante" : "profissional";
+    } else {
+        try {
+            seletor.value = localStorage.getItem("electrofisio-perfil") === "estudante"
+                ? "estudante"
+                : "profissional";
+        } catch (erro) {
+            // Sem armazenamento: fica como profissional
+        }
     }
 
     atualizarPerfil(seletor.value);
+
+    // Sincroniza todos os campos do usuário logado direto do Firestore
+    if (usuarioLogado) {
+        try {
+            const snapUsuarios = await getDocs(collection(db, "usuarios"));
+            let dadosCompletos = null;
+
+            snapUsuarios.forEach(docSnap => {
+                if (dadosCompletos) return;
+                const d = docSnap.data();
+
+                const mesmoId = usuarioLogado.id && docSnap.id === usuarioLogado.id;
+                const mesmoCpf = usuarioLogado.cpf && d.cpf === usuarioLogado.cpf;
+                const mesmoCrefito = usuarioLogado.crefito && d.crefito === usuarioLogado.crefito;
+                const mesmoRa = usuarioLogado.ra && d.ra === usuarioLogado.ra;
+
+                if (mesmoId || mesmoCpf || mesmoCrefito || mesmoRa) {
+                    const { senha, ...semSenha } = d;
+                    dadosCompletos = { id: docSnap.id, ...semSenha };
+                }
+            });
+
+            if (dadosCompletos) {
+                usuarioLogado = dadosCompletos;
+                try {
+                    localStorage.setItem(CHAVE_USUARIO, JSON.stringify(usuarioLogado));
+                } catch (erro) {
+                    // Ignora se localStorage estiver bloqueado
+                }
+                seletor.value = usuarioLogado.tipoPerfil === "estudante" ? "estudante" : "profissional";
+                atualizarPerfil(seletor.value);
+            }
+        } catch (erro) {
+            console.error("Erro ao sincronizar dados do perfil com o Firebase:", erro);
+        }
+    }
 
 });
