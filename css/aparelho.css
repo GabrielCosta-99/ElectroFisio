@@ -418,7 +418,7 @@
     font-size: 13px;
 }
 
-/* "Praticar com caso fictício" é um link com a mesma aparência dos botões */
+/* "Praticar com caso fictício" link com a mesma aparência dos botões */
 a.botao-modo {
     display: flex;
     align-items: center;

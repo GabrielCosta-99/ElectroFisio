@@ -44,7 +44,7 @@
     font-size: 14px;
 }
 
-/* Três colunas */
+/* Tres colunas */
 .prontuario-colunas {
     display: grid;
     grid-template-columns:
