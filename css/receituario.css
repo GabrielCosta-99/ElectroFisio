@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 406a85b9082f8d444b11fde23416c01619d93aad
 /* =====================================
    RECEITUÁRIO - ELECTROFISIO
 ===================================== */
@@ -70,12 +74,15 @@
     color: #858585;
 }
 
+<<<<<<< HEAD
 /* Preserva quebras de linha na descrição exibida nos registros */
 .prontuario-registros .registro-detalhe {
     white-space: pre-line;
     overflow-wrap: anywhere;
 }
 
+=======
+>>>>>>> 406a85b9082f8d444b11fde23416c01619d93aad
 /* =====================================
    BOTÕES DE AÇÃO
 ===================================== */
@@ -122,7 +129,10 @@
     }
 
 }
+<<<<<<< HEAD
 .botao-icone[aria-label="Imprimir receituário"] {
     font-size: 28px;
     line-height: 1;
 }
+=======
+>>>>>>> 406a85b9082f8d444b11fde23416c01619d93aad

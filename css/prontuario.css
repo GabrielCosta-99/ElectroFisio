@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 406a85b9082f8d444b11fde23416c01619d93aad
 /* Cabeçalho */
 .cabecalho-navegacao {
     gap: 30px;
@@ -288,12 +292,15 @@ input[type="radio"] {
     border-color: var(--verde-escuro);
 }
 
+<<<<<<< HEAD
 .botao-icone.ativo {
     background: var(--verde-escuro);
     border-color: var(--verde-escuro);
     color: #FFFFFF;
 }
 
+=======
+>>>>>>> 406a85b9082f8d444b11fde23416c01619d93aad
 .botao-icone svg {
     width: 21px;
     height: 21px;
@@ -383,14 +390,22 @@ input[type="radio"] {
 
     color: var(--verde-escuro);
     font-size: 14px;
+<<<<<<< HEAD
     text-align: center;
+=======
+    text-align: right;
+>>>>>>> 406a85b9082f8d444b11fde23416c01619d93aad
 }
 
 /* Registros clicáveis: mostram o que cada profissional registrou */
 .registro-item[role="button"] {
     cursor: pointer;
     border-radius: 6px;
+<<<<<<< HEAD
     padding: 8px 10px 16px;
+=======
+    padding: 6px 8px 18px;
+>>>>>>> 406a85b9082f8d444b11fde23416c01619d93aad
 }
 
 .registro-item[role="button"]:hover,
@@ -398,6 +413,7 @@ input[type="radio"] {
     background-color: #E1EBE8;
 }
 
+<<<<<<< HEAD
 /* Destaque visual quando o modo Copiar está aguardando o clique na sessão */
 .prontuario-registros.modo-copia .registro-item[role="button"] {
     outline: 2px dashed var(--verde-escuro);
@@ -405,6 +421,8 @@ input[type="radio"] {
     background-color: #EEF5F2;
 }
 
+=======
+>>>>>>> 406a85b9082f8d444b11fde23416c01619d93aad
 .registro-detalhe {
     margin-top: 6px;
     color: #263C35;
@@ -413,4 +431,8 @@ input[type="radio"] {
 
 .registro-detalhe[hidden] {
     display: none;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 406a85b9082f8d444b11fde23416c01619d93aad
