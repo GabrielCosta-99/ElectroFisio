@@ -1,4 +1,3 @@
-
 /* =====================================
    RECEITUÁRIO - ELECTROFISIO
 ===================================== */
@@ -71,6 +70,12 @@
     color: #858585;
 }
 
+/* Preserva quebras de linha na descrição exibida nos registros */
+.prontuario-registros .registro-detalhe {
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+
 /* =====================================
    BOTÕES DE AÇÃO
 ===================================== */
@@ -116,4 +121,8 @@
         min-height: 270px;
     }
 
+}
+.botao-icone[aria-label="Imprimir receituário"] {
+    font-size: 28px;
+    line-height: 1;
 }

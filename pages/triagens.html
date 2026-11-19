@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -15,7 +14,7 @@
 
     <script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
     <script defer src="../js/prontuario.js"></script>
-    <script defer src="../js/triagens.js"></script>
+    <script type="module" src="../js/triagens.js"></script>
     <link rel="stylesheet" href="../css/acessibilidade.css">
 
     <script src="../js/acessibilidade.js"></script>
@@ -39,7 +38,9 @@
             <a href="pacientes.html">Pacientes</a>
             <a href="perfil.html">Meu perfil</a>
             <a href="sair.html">Sair</a>
-            <a href="acessibilidade.html">Acessibilidade</a>
+            <a href="acessibilidade.html" class="botao-acessibilidade">
+                Acessibilidade
+            </a>
 
         </nav>
     </header>
@@ -136,7 +137,7 @@
                     </ul>
 
                     <p class="mensagem-triagens" id="mensagemTriagens" role="status">
-                        Selecione uma triagem para abrir.
+                        Selecione uma sessão à direita para escolher a aba.
                     </p>
 
                 </div>
@@ -187,4 +188,3 @@
 
 </body>
 </html>
-

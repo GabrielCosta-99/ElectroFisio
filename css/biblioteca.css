@@ -1,0 +1,104 @@
+/* Estilos exclusivos da biblioteca */
+    .pagina-biblioteca {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 24px 56px;
+    }
+    .biblioteca-intro { margin: 0 0 26px; }
+    .biblioteca-intro h1 {
+      margin: 0 0 8px;
+      color: #263b5b;
+      font-size: clamp(1.65rem, 3vw, 2.15rem);
+      font-weight: 800;
+    }
+    .biblioteca-intro p {
+      max-width: 760px;
+      margin: 0;
+      color: #596579;
+      line-height: 1.6;
+    }
+    .biblioteca-grade {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      align-items: start;
+    }
+    .biblioteca-tema {
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid #e1e6ed;
+      border-radius: 13px;
+      box-shadow: 0 3px 10px rgba(31, 48, 72, .09);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .biblioteca-tema:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 18px rgba(31, 48, 72, .13);
+    }
+    .tema-cabecalho {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-height: 112px;
+      padding: 20px;
+      cursor: pointer;
+      list-style: none;
+      background: linear-gradient(135deg, #fff 0%, #f8faff 100%);
+    }
+    .tema-cabecalho::-webkit-details-marker { display: none; }
+    .tema-icone {
+      display: grid;
+      place-items: center;
+      flex: 0 0 54px;
+      width: 54px;
+      height: 54px;
+      border-radius: 12px;
+      background: #eaf1ff;
+      font-size: 26px;
+    }
+    .tema-textos { display: flex; flex: 1; flex-direction: column; gap: 6px; }
+    .tema-titulo { color: #263b5b; font-size: 1.08rem; font-weight: 800; }
+    .tema-descricao { color: #657187; font-size: .88rem; line-height: 1.45; }
+    .tema-contagem {
+      align-self: flex-start;
+      padding: 5px 9px;
+      border-radius: 20px;
+      background: #edf1f7;
+      color: #52627b;
+      font-size: .72rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .tema-seta { color: #315bd6; font-size: 1.25rem; transition: transform .2s ease; }
+    .biblioteca-tema[open] .tema-seta { transform: rotate(180deg); }
+    .tema-conteudo { padding: 4px 22px 22px; border-top: 1px solid #edf0f4; }
+    .tema-conteudo .lista-referencias { margin: 14px 0 0; padding-left: 22px; }
+    .tema-conteudo .lista-referencias li {
+      padding: 0 0 13px 4px;
+      color: #3e4858;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    .tema-conteudo .lista-referencias li:last-child { padding-bottom: 0; }
+    .tema-conteudo a { color: #2859d9; font-weight: 700; text-decoration: none; }
+    .tema-conteudo a:hover { text-decoration: underline; }
+    .biblioteca-aviso {
+      margin-top: 22px;
+      padding: 15px 18px;
+      border-left: 4px solid #3b67dc;
+      border-radius: 8px;
+      background: #f2f5fc;
+      color: #536078;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    .biblioteca-voltar { margin-top: 26px; text-align: center; }
+    @media (max-width: 760px) {
+      .pagina-biblioteca { padding: 24px 16px 40px; }
+      .biblioteca-grade { grid-template-columns: 1fr; gap: 15px; }
+      .tema-cabecalho { min-height: 100px; padding: 16px; gap: 11px; }
+      .tema-contagem { font-size: .66rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .biblioteca-tema, .tema-seta { transition: none; }
+    }

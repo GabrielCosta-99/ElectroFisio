@@ -1,4 +1,3 @@
-
 /* Cabeçalho */
 .cabecalho-navegacao {
     gap: 30px;
@@ -289,6 +288,12 @@ input[type="radio"] {
     border-color: var(--verde-escuro);
 }
 
+.botao-icone.ativo {
+    background: var(--verde-escuro);
+    border-color: var(--verde-escuro);
+    color: #FFFFFF;
+}
+
 .botao-icone svg {
     width: 21px;
     height: 21px;
@@ -378,19 +383,26 @@ input[type="radio"] {
 
     color: var(--verde-escuro);
     font-size: 14px;
-    text-align: right;
+    text-align: center;
 }
 
 /* Registros clicáveis: mostram o que cada profissional registrou */
 .registro-item[role="button"] {
     cursor: pointer;
     border-radius: 6px;
-    padding: 6px 8px 18px;
+    padding: 8px 10px 16px;
 }
 
 .registro-item[role="button"]:hover,
 .registro-item.aberto {
     background-color: #E1EBE8;
+}
+
+/* Destaque visual quando o modo Copiar está aguardando o clique na sessão */
+.prontuario-registros.modo-copia .registro-item[role="button"] {
+    outline: 2px dashed var(--verde-escuro);
+    outline-offset: 2px;
+    background-color: #EEF5F2;
 }
 
 .registro-detalhe {
