@@ -4,7 +4,7 @@
 ========================================= */
 
 // Endereço da API durante o desenvolvimento local
-const API_BASE_URL = "http://127.0.0.1:8000";
+const API_BASE_URL = "https://electrofisio-api.onrender.com";
 
 // Elementos da página
 const botaoGerar = document.getElementById("botao-gerar-caso");
