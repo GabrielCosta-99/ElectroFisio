@@ -28,8 +28,18 @@ function trocarModalidade(modalidade) {
 
 botoesModalidade.forEach(function (botao) {
     botao.addEventListener("click", function () {
+
+        if (botao.disabled) {
+            return;
+        }
+
         trocarModalidade(botao.dataset.modalidade);
-        history.replaceState(null, "", "?modalidade=" + botao.dataset.modalidade);
+
+        history.replaceState(
+            null,
+            "",
+            "?modalidade=" + botao.dataset.modalidade
+        );
     });
 });
 

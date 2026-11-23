@@ -1,71 +1,248 @@
 
-/* Botões do card de caso (são <button>, não links) */
-.card-caso .botao-acao {
-    font-family: inherit;
-    cursor: pointer;
+/* =========================================
+   TREINAMENTO COM FISIS
+========================================= */
+
+.treinamento {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 1050px;
+    margin: 0 auto;
 }
 
-/* Área para escrever a resposta */
-.area-resposta {
+/* Introdução */
+
+.treinamento-introducao {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.treinamento-introducao h1 {
+    color: var(--verde-escuro);
+    font-size: 26px;
+    margin-bottom: 8px;
+}
+
+.treinamento-introducao p {
+    color: var(--texto);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.identificacao-assistente {
+    display: inline-block;
+    color: var(--verde-escuro);
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+/* Configuração */
+
+.configuracao-treinamento {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
-
-    margin-top: 14px;
+    gap: 12px;
 }
 
-.area-resposta.escondido {
-    display: none;
-}
-
-.area-resposta label {
+.campos-configuracao {
     width: 100%;
+    max-width: 350px;
+}
 
+.campos-configuracao label,
+#form-resposta label {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-
+    gap: 7px;
     color: var(--texto);
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
 }
 
-.area-resposta textarea {
+.campos-configuracao select,
+#form-resposta textarea {
     width: 100%;
-    padding: 10px;
-
+    padding: 11px 12px;
     background-color: var(--branco);
     border: 1px solid #C9D2CF;
     border-radius: 4px;
-
+    color: var(--texto);
     font-family: inherit;
     font-size: 14px;
-    resize: vertical;
 }
 
-.retorno-resposta {
+.campos-configuracao select {
+    min-height: 42px;
+    cursor: pointer;
+}
+
+.status-treinamento {
     color: var(--verde-escuro);
     font-size: 13px;
 }
 
-/* Resposta comentada */
-.resposta-comentada {
-    margin-top: 14px;
-    padding: 12px 14px;
+/* Áreas de treinamento */
 
+.area-treinamento {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.cabecalho-caso {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #C9D2CF;
+}
+
+.cabecalho-caso h2 {
+    margin-top: 5px;
+}
+
+.nivel-caso {
+    padding: 6px 10px;
+    background-color: var(--verde-claro);
+    border-radius: 4px;
+    color: var(--verde-escuro);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Informações do paciente */
+
+.informacoes-paciente,
+.conteudo-caso {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.informacoes-paciente {
+    padding: 14px;
     background-color: var(--branco);
-    border-left: 3px solid var(--verde-agua);
     border-radius: 4px;
 }
 
-.resposta-comentada h3 {
-    margin-bottom: 4px;
+.area-treinamento h3 {
     color: var(--verde-escuro);
     font-size: 14px;
 }
 
-/* Passos de "Como praticar" */
-.passos {
-    padding-left: 18px;
+.area-treinamento p {
+    color: var(--texto);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.conteudo-caso {
+    gap: 8px;
+}
+
+.conteudo-caso h3:not(:first-child) {
+    margin-top: 10px;
+}
+
+/* Formulário de resolução */
+
+#form-resposta {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+#form-resposta textarea {
+    resize: vertical;
+    line-height: 1.5;
+}
+
+#form-resposta textarea:focus,
+.campos-configuracao select:focus {
+    outline: 2px solid var(--verde-agua);
+    outline-offset: 1px;
+}
+
+#botao-enviar-resposta,
+#botao-gerar-caso {
+    min-height: 42px;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+#botao-gerar-caso:disabled,
+#botao-enviar-resposta:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Resultado */
+
+#conteudo-resultado {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Acesso ao caso próprio */
+
+.acesso-caso-proprio {
+    background-color: var(--branco);
+    border-left: 3px solid var(--verde-agua);
+}
+
+.aviso-educativo {
+    background-color: var(--branco);
+    border-left: 3px solid var(--verde-agua);
+    border-radius: 4px;
+    padding: 12px 16px;
+    color: var(--texto);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* Conteúdo oculto */
+
+.escondido {
+    display: none !important;
+}
+
+/* Responsividade */
+
+@media (max-width: 900px) {
+    .treinamento {
+        max-width: 100%;
+    }
+
+    .treinamento-introducao {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 600px) {
+    .treinamento-introducao h1 {
+        font-size: 22px;
+    }
+
+    .cabecalho-caso {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .configuracao-treinamento,
+    .area-treinamento {
+        padding: 14px;
+    }
+
+    #botao-gerar-caso,
+    #botao-enviar-resposta {
+        width: 100%;
+    }
 }
