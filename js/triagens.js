@@ -7,6 +7,9 @@ import {
 } from "./firebase-config.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
+    if (window.lucide) {
+        lucide.createIcons();
+    }
 
     // Dicionários para exibir os valores salvos em português legível
     const TEXTOS_REGIAO = {
@@ -201,6 +204,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Elementos da página
     const itensAbas = document.querySelectorAll(".item-triagem");
     const botaoAbrir = document.getElementById("botaoAbrir");
+    const botaoImprimir = document.getElementById("botaoImprimir");
     const mensagem = document.getElementById("mensagemTriagens");
     const quadro = document.querySelector(".quadro-triagens");
     const painelRegistros = document.querySelector(".prontuario-registros");
@@ -215,6 +219,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     documento.hidden = true;
     quadro.insertAdjacentElement("afterend", documento);
 
+    let pacienteAtual = null;
     let ultimas3Sessoes = [];
     let sessaoSelecionada = null;
     let abaEscolhida = null;
@@ -231,6 +236,36 @@ document.addEventListener("DOMContentLoaded", async () => {
             .replace(/(\d{3})(\d)/, "$1.$2")
             .replace(/(\d{3})(\d)/, "$1.$2")
             .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+    }
+
+    function formatarDataBr(dataStr) {
+        if (!dataStr) return "—";
+        if (String(dataStr).includes("/")) return dataStr;
+        const partes = String(dataStr).split("-");
+        if (partes.length === 3) {
+            return `${partes[2]}/${partes[1]}/${partes[0]}`;
+        }
+        return dataStr;
+    }
+
+    function calcularIdade(dataStr) {
+        if (!dataStr) return "—";
+        let dia, mes, ano;
+        if (String(dataStr).includes("/")) {
+            [dia, mes, ano] = String(dataStr).split("/").map(Number);
+        } else if (String(dataStr).includes("-")) {
+            [ano, mes, dia] = String(dataStr).split("-").map(Number);
+        }
+        if (!ano || !mes || !dia) return "—";
+
+        const hoje = new Date();
+        let idade = hoje.getFullYear() - ano;
+        const jaFezAniversario =
+            hoje.getMonth() + 1 > mes ||
+            (hoje.getMonth() + 1 === mes && hoje.getDate() >= dia);
+
+        if (!jaFezAniversario) idade--;
+        return idade >= 0 ? `${idade} anos` : "—";
     }
 
     function extrairDataHora(sessao) {
@@ -305,6 +340,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         return null;
     }
 
+    function atualizarLinksMenuLateral(cpfNumeros) {
+        if (!cpfNumeros || cpfNumeros.length !== 11) return;
+
+        document.querySelectorAll(".menu-prontuario a").forEach(link => {
+            const url = new URL(link.getAttribute("href"), window.location.href);
+            url.searchParams.set("cpf", cpfNumeros);
+            link.setAttribute("href", url.pathname.split("/").pop() + url.search);
+        });
+    }
+
     // Coluna 1 (Esquerda): Nome, CPF e Nome da mãe
     function renderizarDadosPacienteEsquerda(paciente) {
         if (!containerPacienteDados) return;
@@ -338,7 +383,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         const usouTens = Boolean(sessao.usouTens || sessao.tens);
         const usouFes = Boolean(sessao.usouFes || sessao.fes);
 
-        // Quando apenas o questionário foi preenchido -> "Triagem inicial"
         if (!usouTens && !usouFes) {
             const temAlerta =
                 q.neoplasia === "sim" ||
@@ -355,7 +399,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             return linhas;
         }
 
-        // Resultado do Mapeamento TENS
         if (usouTens) {
             const t = sessao.tens || sessao.respostas || {};
             const statusTens = TEXTOS_ESTADOS[sessao.resultadoTens] || "registrado";
@@ -376,7 +419,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
         }
 
-        // Resultado do Mapeamento FES
         if (usouFes) {
             const f = sessao.fes || sessao.respostas || {};
             const respostaTexto = (TEXTOS_RESPOSTA_FES[f.respostaTeste] || "").toLowerCase();
@@ -426,6 +468,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
 
         botaoAbrir.disabled = !(temSessao && abaEscolhida);
+        if (botaoImprimir) {
+            botaoImprimir.disabled = !temSessao;
+        }
     }
 
     // Seleciona uma das 3 sessões na coluna da direita
@@ -444,11 +489,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         const num = sessaoSelecionada.numeroSessao || sessaoSelecionada.numeroTriagem || (ultimas3Sessoes.length - indice);
         const { data, hora } = extrairDataHora(sessaoSelecionada);
 
-        // Se uma aba já estiver aberta abaixo, atualiza automaticamente para a sessão clicada
         if (!documento.hidden && abaEscolhida) {
             abrirDocumentoAba();
         } else {
-            mensagem.textContent = `Sessão #${num} (${data} - ${hora}) selecionada. Escolha uma das 3 abas acima e clique em Abrir.`;
+            mensagem.textContent = `Sessão #${num} (${data} - ${hora}) selecionada. Escolha uma das 3 abas acima para abrir ou clique em Imprimir.`;
         }
     }
 
@@ -530,7 +574,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
 
         botaoAbrir.disabled = false;
-        mensagem.textContent = item.querySelector("span").textContent + " selecionado. Clique em Abrir para visualizar.";
+        if (botaoImprimir) botaoImprimir.disabled = false;
+        mensagem.textContent = item.querySelector("span").textContent + " selecionado. Clique em Abrir para visualizar ou em Imprimir.";
     }
 
     // Monta os dados detalhados da aba escolhida para a sessão selecionada
@@ -636,6 +681,287 @@ document.addEventListener("DOMContentLoaded", async () => {
         return null;
     }
 
+    // ---------- Impressão com cabeçalho clínico padronizado ----------
+    function imprimirTriagem() {
+        if (!sessaoSelecionada) {
+            mensagem.textContent = "Selecione uma sessão à direita antes de imprimir.";
+            return;
+        }
+
+        const janela = window.open("", "_blank", "popup");
+        if (!janela) {
+            mensagem.textContent = "Permita a abertura da janela de impressão neste site.";
+            return;
+        }
+
+        janela.opener = null;
+        const pagina = janela.document;
+        pagina.documentElement.lang = "pt-BR";
+        pagina.title = "Triagem Fisioterapêutica — ElectroFisio";
+
+        const estilo = pagina.createElement("style");
+        estilo.textContent = `
+            @page {
+                size: A4;
+                margin: 12mm 14mm;
+            }
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+                color: #111111;
+                background: #FFFFFF;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .cabecalho-topo {
+                display: flex;
+                align-items: center;
+                border: 1.5px solid #222222;
+                padding: 10px 16px;
+                margin-bottom: 3px;
+            }
+            .logo-box {
+                display: flex;
+                align-items: center;
+                gap: 9px;
+                min-width: 185px;
+            }
+            .logo-marca {
+                display: flex;
+                flex-direction: column;
+                line-height: 1.1;
+            }
+            .logo-nome {
+                font-size: 18px;
+                font-weight: 700;
+            }
+            .logo-nome .electro { color: #31524A; }
+            .logo-nome .fisio { color: #67AB9F; }
+            .logo-sub {
+                font-size: 8.5px;
+                color: #4A5552;
+                margin-top: 2px;
+            }
+            .doc-titulo {
+                flex: 1;
+                text-align: center;
+                font-size: 17px;
+                font-weight: 700;
+                letter-spacing: 0.4px;
+                padding-right: 90px;
+                text-transform: uppercase;
+            }
+            .quadro-meta {
+                display: grid;
+                grid-template-columns: 1.45fr 1fr;
+                gap: 4px 16px;
+                border: 1.5px solid #222222;
+                padding: 9px 14px;
+                margin-bottom: 16px;
+            }
+            .col-meta {
+                display: grid;
+                grid-template-columns: 102px 1fr;
+                row-gap: 3px;
+                column-gap: 8px;
+                font-size: 10.5px;
+                line-height: 1.35;
+            }
+            .col-meta dt {
+                text-align: right;
+                font-weight: 400;
+                color: #222222;
+            }
+            .col-meta dd {
+                margin: 0;
+                color: #111111;
+                word-break: break-word;
+            }
+            .col-meta dd.negrito {
+                font-weight: 700;
+            }
+            .secao-titulo {
+                font-size: 12px;
+                font-weight: 700;
+                color: #31524A;
+                border-bottom: 1px solid #888888;
+                padding-bottom: 4px;
+                margin: 14px 0 8px;
+                text-transform: uppercase;
+            }
+            table.tabela-dados {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 14px;
+                font-size: 11px;
+            }
+            table.tabela-dados th,
+            table.tabela-dados td {
+                border: 1px solid #CCCCCC;
+                padding: 5px 9px;
+                text-align: left;
+                vertical-align: top;
+            }
+            table.tabela-dados th {
+                width: 40%;
+                background: #F4F7F6;
+                color: #263C35;
+                font-weight: 700;
+            }
+            .assinatura-box {
+                margin-top: 44px;
+                text-align: center;
+                font-size: 11px;
+                page-break-inside: avoid;
+            }
+            .assinatura-linha {
+                width: 260px;
+                margin: 0 auto 6px;
+                border-top: 1px solid #222222;
+            }
+        `;
+        pagina.head.appendChild(estilo);
+
+        const dadosSessao = sessaoSelecionada.dados || sessaoSelecionada.respostas || {};
+        const nomePaciente = (pacienteAtual && pacienteAtual.nome) || dadosSessao.nome || sessaoSelecionada.pacienteNome || "—";
+        const maePaciente = (pacienteAtual && pacienteAtual.mae) || dadosSessao.mae || "Não informada";
+        const cpfPaciente = formatarCpf((pacienteAtual && (pacienteAtual.cpfNumeros || pacienteAtual.cpf)) || sessaoSelecionada.cpfNumeros || sessaoSelecionada.cpf);
+        const nascPaciente = (pacienteAtual && pacienteAtual.nascimento) || dadosSessao.nascimento || "";
+        const codigoPaciente = somenteNumeros(cpfPaciente).slice(0, 8) || "00000001";
+
+        const profNome = sessaoSelecionada.profissionalNome || (usuarioLogado && usuarioLogado.nome) || "Profissional";
+        const profCrefito = sessaoSelecionada.profissionalCrefito || (usuarioLogado && (usuarioLogado.crefito || usuarioLogado.ra)) || "Não informado";
+        const especialidade = (usuarioLogado && usuarioLogado.especialidade) || "Fisioterapia";
+
+        const numSessao = String(sessaoSelecionada.numeroSessao || sessaoSelecionada.numeroTriagem || 1).padStart(7, "0");
+        const { data, hora } = extrairDataHora(sessaoSelecionada);
+        const dataHoraTexto = `${data} ${hora}`;
+
+        const secoesParaImprimir = [];
+        if (abaEscolhida) {
+            const bloco = montarDadosAbaSessao(sessaoSelecionada, abaEscolhida);
+            if (bloco) secoesParaImprimir.push(bloco);
+        } else {
+            secoesParaImprimir.push(montarDadosAbaSessao(sessaoSelecionada, "questionario"));
+            if (sessaoSelecionada.usouTens || sessaoSelecionada.tens) {
+                secoesParaImprimir.push(montarDadosAbaSessao(sessaoSelecionada, "tens"));
+            }
+            if (sessaoSelecionada.usouFes || sessaoSelecionada.fes) {
+                secoesParaImprimir.push(montarDadosAbaSessao(sessaoSelecionada, "fes"));
+            }
+        }
+
+        const tituloPrincipal = abaEscolhida && secoesParaImprimir[0]
+            ? `TRIAGEM — ${secoesParaImprimir[0].titulo}`
+            : "TRIAGEM FISIOTERAPÊUTICA";
+
+        // Faixa superior (Logo + Título)
+        const faixaTopo = pagina.createElement("div");
+        faixaTopo.className = "cabecalho-topo";
+
+        const logoBox = pagina.createElement("div");
+        logoBox.className = "logo-box";
+        logoBox.innerHTML = `
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <rect x="1" y="1" width="30" height="30" rx="6" stroke="#31524A" stroke-width="2"/>
+                <path d="M18 6L10 17H16L14 26L22 15H16L18 6Z" fill="#67AB9F" stroke="#31524A" stroke-width="1.3" stroke-linejoin="round"/>
+            </svg>
+            <div class="logo-marca">
+                <span class="logo-nome"><span class="electro">Electro</span><span class="fisio">Fisio</span></span>
+                <span class="logo-sub">Fisioterapia e Eletroterapia</span>
+            </div>
+        `;
+
+        const h1 = pagina.createElement("h1");
+        h1.className = "doc-titulo";
+        h1.textContent = tituloPrincipal;
+        faixaTopo.append(logoBox, h1);
+
+        // Quadro de metadados em 2 colunas
+        const quadroMeta = pagina.createElement("div");
+        quadroMeta.className = "quadro-meta";
+
+        function montarColunaMeta(itens) {
+            const dl = pagina.createElement("dl");
+            dl.className = "col-meta";
+            itens.forEach(([rotulo, valor, negrito]) => {
+                const dt = pagina.createElement("dt");
+                dt.textContent = rotulo;
+                const dd = pagina.createElement("dd");
+                if (negrito) dd.className = "negrito";
+                dd.textContent = valor;
+                dl.append(dt, dd);
+            });
+            return dl;
+        }
+
+        const colEsq = montarColunaMeta([
+            ["PACIENTE:", `${codigoPaciente}  ${String(nomePaciente).toUpperCase()}`, true],
+            ["NOME DA MÃE:", String(maePaciente).toUpperCase(), false],
+            ["ATENDIMENTO:", numSessao, false],
+            ["LOCAL:", "ELECTROFISIO - FISIOTERAPIA", false],
+            ["PROFISSIONAL:", String(profNome).toUpperCase(), false],
+            ["CREFITO:", String(profCrefito).toUpperCase(), false]
+        ]);
+
+        const colDir = montarColunaMeta([
+            ["IDADE:", calcularIdade(nascPaciente), false],
+            ["DATA NASC:", formatarDataBr(nascPaciente), false],
+            ["CPF:", cpfPaciente, false],
+            ["ESPECIALIDADE:", String(especialidade).toUpperCase(), false],
+            ["DATA:", dataHoraTexto, false]
+        ]);
+
+        quadroMeta.append(colEsq, colDir);
+        pagina.body.append(faixaTopo, quadroMeta);
+
+        // Seções de respostas
+        secoesParaImprimir.forEach(secao => {
+            if (!secao) return;
+            const h2 = pagina.createElement("h2");
+            h2.className = "secao-titulo";
+            h2.textContent = secao.titulo;
+
+            const tabela = pagina.createElement("table");
+            tabela.className = "tabela-dados";
+            const tbody = pagina.createElement("tbody");
+
+            secao.linhas.forEach(([rotulo, valor]) => {
+                const tr = pagina.createElement("tr");
+                const th = pagina.createElement("th");
+                th.textContent = rotulo;
+                const td = pagina.createElement("td");
+                td.textContent = valor;
+                tr.append(th, td);
+                tbody.appendChild(tr);
+            });
+
+            tabela.appendChild(tbody);
+            pagina.body.append(h2, tabela);
+        });
+
+        // Assinatura
+        const assBox = pagina.createElement("div");
+        assBox.className = "assinatura-box";
+        const assLinha = pagina.createElement("div");
+        assLinha.className = "assinatura-linha";
+        const assNome = pagina.createElement("p");
+        const strongNome = pagina.createElement("strong");
+        strongNome.textContent = profNome;
+        assNome.appendChild(strongNome);
+        const assReg = pagina.createElement("p");
+        assReg.textContent = `Fisioterapeuta · CREFITO: ${profCrefito}`;
+        assBox.append(assLinha, assNome, assReg);
+        pagina.body.appendChild(assBox);
+
+        janela.focus();
+        janela.print();
+    }
+
     function abrirDocumentoAba() {
         if (!sessaoSelecionada || !abaEscolhida) return;
 
@@ -662,6 +988,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             tabela.append(termo, descricao);
         });
 
+        const barraBotoes = document.createElement("div");
+        barraBotoes.className = "acoes-triagens";
+
         const fechar = document.createElement("button");
         fechar.type = "button";
         fechar.className = "botao-triagens";
@@ -671,7 +1000,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             botaoAbrir.focus();
         });
 
-        documento.append(titulo, responsavel, tabela, fechar);
+        const imprimirDoc = document.createElement("button");
+        imprimirDoc.type = "button";
+        imprimirDoc.className = "botao-triagens principal";
+        imprimirDoc.textContent = "Imprimir";
+        imprimirDoc.addEventListener("click", imprimirTriagem);
+
+        barraBotoes.append(fechar, imprimirDoc);
+
+        documento.append(titulo, responsavel, tabela, barraBotoes);
         documento.hidden = false;
         documento.focus();
         mensagem.textContent = dados.titulo + " aberto abaixo (somente leitura).";
@@ -688,6 +1025,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     botaoAbrir.addEventListener("click", abrirDocumentoAba);
 
+    if (botaoImprimir) {
+        botaoImprimir.addEventListener("click", imprimirTriagem);
+    }
+
     // Carrega dados do paciente e as 3 últimas sessões do Firebase
     async function carregarTelaTriagens() {
         atualizarOpcoesCentro();
@@ -702,11 +1043,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         const cpf = paciente.cpfNumeros;
+        pacienteAtual = paciente;
+        atualizarLinksMenuLateral(cpf);
         renderizarDadosPacienteEsquerda(paciente);
         mensagem.textContent = "Carregando sessões do paciente...";
 
         try {
-            // 1. Busca o cadastro completo do paciente (incluindo nome da mãe)
             const qPaciente = query(
                 collection(db, "pacientes"),
                 where("cpfNumeros", "==", cpf)
@@ -720,7 +1062,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                 };
             }
 
-            // 2. Busca as sessões deste CPF na coleção "triagens"
             const qTriagens = query(
                 collection(db, "triagens"),
                 where("cpfNumeros", "==", cpf)
@@ -732,7 +1073,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                 lista.push({ id: docSnap.id, ...docSnap.data() });
             });
 
-            // Ordena da mais recente para a mais antiga
             lista.sort((a, b) => {
                 const diffTempo = (b.criadoEmMs || 0) - (a.criadoEmMs || 0);
                 if (diffTempo !== 0) return diffTempo;
@@ -750,6 +1090,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                     cpf: formatarCpf(cpf)
                 };
             }
+
+            pacienteAtual = paciente;
 
             try {
                 localStorage.setItem("electrofisio-paciente-selecionado", JSON.stringify(paciente));

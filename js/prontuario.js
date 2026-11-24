@@ -1,78 +1,24 @@
-// Partes comuns das telas do paciente e integração com Firebase na tela de Evolução (prontuario.html)
+import {
+    db,
+    collection,
+    getDocs,
+    addDoc,
+    query,
+    where,
+    serverTimestamp
+} from "./firebase-config.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
     if (window.lucide) {
         lucide.createIcons();
     }
 
-    const pagina = window.location.pathname.split("/").pop();
-
-    // Em triagens.html e dados.html, os scripts próprios (triagens.js e dados.js) gerenciam a página
-    if (pagina === "triagens.html" || pagina === "dados.html") {
-        return;
-    }
-
-    // Mantém os exemplos na tela de Receituário enquanto ela ainda não for conectada ao banco
-    if (pagina === "receituario.html") {
-        const textosReceituario = [
-            "Orientação: exercícios de fortalecimento de quadríceps, 3 séries de 10, em dias alternados.",
-            "Orientação: manter atividades com pausas e aplicar compressa fria por 15 minutos se houver dor.",
-            "Orientação: caminhada leve de 20 minutos, 3 vezes por semana."
-        ];
-
-        document.querySelectorAll(".registro-item").forEach((registro, indice) => {
-            const detalhe = document.createElement("p");
-            detalhe.className = "registro-detalhe";
-            detalhe.textContent = textosReceituario[indice % textosReceituario.length];
-            detalhe.hidden = true;
-            registro.appendChild(detalhe);
-
-            registro.tabIndex = 0;
-            registro.setAttribute("role", "button");
-            registro.setAttribute("aria-expanded", "false");
-
-            function alternar() {
-                const abrir = detalhe.hidden;
-                detalhe.hidden = !abrir;
-                registro.classList.toggle("aberto", abrir);
-                registro.setAttribute("aria-expanded", String(abrir));
-            }
-
-            registro.addEventListener("click", alternar);
-            registro.addEventListener("keydown", evento => {
-                if (evento.key === "Enter" || evento.key === " ") {
-                    evento.preventDefault();
-                    alternar();
-                }
-            });
-        });
-        return;
-    }
-
-    // =========================================================================
-    // TELA DE EVOLUÇÃO (prontuario.html) — CONECTADA AO FIREBASE FIRESTORE
-    // =========================================================================
-    if (pagina !== "prontuario.html") {
-        return;
-    }
-
-    const firebase = await import("./firebase-config.js");
-    const {
-        db,
-        collection,
-        getDocs,
-        addDoc,
-        query,
-        where,
-        serverTimestamp
-    } = firebase;
-
-    const ROTULOS_DOR = {
-        "0": "Sem dor",
-        "1": "Leve",
-        "2": "Moderada",
-        "3": "Intensa",
-        "4": "Muito intensa"
+    const ESCALA_DOR = {
+        "0": "0 - Sem dor",
+        "1": "1 - Leve",
+        "2": "2 - Moderada",
+        "3": "3 - Intensa",
+        "4": "4 - Muito intensa"
     };
 
     const formulario = document.getElementById("formularioAnamnese");
@@ -91,16 +37,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     const statusRegistro = document.createElement("p");
     statusRegistro.className = "status-registro";
     statusRegistro.setAttribute("role", "status");
+
     if (containerAcoes) {
         containerAcoes.insertAdjacentElement("afterend", statusRegistro);
     }
 
     let pacienteAtual = null;
-    let sessoesEvolucao = [];
+    let evolucoesPaciente = [];
     let aguardandoCopia = false;
     let assinaturaProfissional = null;
 
-    // Utilitários
     function somenteNumeros(texto) {
         return String(texto || "").replace(/\D/g, "").slice(0, 11);
     }
@@ -108,33 +54,70 @@ document.addEventListener("DOMContentLoaded", async () => {
     function formatarCpf(numeros) {
         const limpo = somenteNumeros(numeros);
         if (limpo.length !== 11) return numeros || "—";
+
         return limpo
             .replace(/(\d{3})(\d)/, "$1.$2")
             .replace(/(\d{3})(\d)/, "$1.$2")
             .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
     }
 
-    function extrairDataHora(sessao) {
-        if (sessao.dataSessao && sessao.horaSessao) {
+    function formatarDataBr(dataStr) {
+        if (!dataStr) return "—";
+        if (String(dataStr).includes("/")) return dataStr;
+        const partes = String(dataStr).split("-");
+        if (partes.length === 3) {
+            return `${partes[2]}/${partes[1]}/${partes[0]}`;
+        }
+        return dataStr;
+    }
+
+    function calcularIdade(dataStr) {
+        if (!dataStr) return "—";
+        let dia, mes, ano;
+        if (String(dataStr).includes("/")) {
+            [dia, mes, ano] = String(dataStr).split("/").map(Number);
+        } else if (String(dataStr).includes("-")) {
+            [ano, mes, dia] = String(dataStr).split("-").map(Number);
+        }
+        if (!ano || !mes || !dia) return "—";
+
+        const hoje = new Date();
+        let idade = hoje.getFullYear() - ano;
+        const jaFezAniversario =
+            hoje.getMonth() + 1 > mes ||
+            (hoje.getMonth() + 1 === mes && hoje.getDate() >= dia);
+
+        if (!jaFezAniversario) idade--;
+        return idade >= 0 ? `${idade} anos` : "—";
+    }
+
+    function extrairDataHora(registro) {
+        if (registro.dataSessao && registro.horaSessao) {
             return {
-                data: sessao.dataSessao,
-                hora: sessao.horaSessao.slice(0, 5)
+                data: registro.dataSessao,
+                hora: registro.horaSessao.slice(0, 5)
             };
         }
-        if (sessao.salvaEm && sessao.salvaEm.includes(",")) {
-            const [d, h] = sessao.salvaEm.split(",");
+
+        if (registro.salvaEm && registro.salvaEm.includes(",")) {
+            const [d, h] = registro.salvaEm.split(",");
             return {
                 data: d.trim(),
                 hora: h.trim().slice(0, 5)
             };
         }
-        if (sessao.criadoEmMs) {
-            const dt = new Date(sessao.criadoEmMs);
+
+        if (registro.criadoEmMs) {
+            const dt = new Date(registro.criadoEmMs);
             return {
                 data: dt.toLocaleDateString("pt-BR"),
-                hora: dt.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })
+                hora: dt.toLocaleTimeString("pt-BR", {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                })
             };
         }
+
         return { data: "—", hora: "—" };
     }
 
@@ -148,11 +131,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Atualiza o topo com o profissional logado
     const usuarioLogado = obterUsuarioLogado();
+
     if (topoProfissional && usuarioLogado) {
         const spans = topoProfissional.querySelectorAll("span");
+
         if (spans[0] && usuarioLogado.nome) {
             spans[0].textContent = usuarioLogado.nome;
         }
+
         if (spans[1]) {
             spans[1].textContent = usuarioLogado.crefito
                 ? "CREFITO: " + usuarioLogado.crefito
@@ -160,13 +146,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-    // Recupera o paciente selecionado
     function obterPacienteInicial() {
-        const cpfUrl = somenteNumeros(new URLSearchParams(window.location.search).get("cpf"));
+        const cpfUrl = somenteNumeros(
+            new URLSearchParams(window.location.search).get("cpf")
+        );
+
         let salvoLocal = null;
 
         try {
-            salvoLocal = JSON.parse(localStorage.getItem("electrofisio-paciente-selecionado"));
+            salvoLocal = JSON.parse(
+                localStorage.getItem("electrofisio-paciente-selecionado")
+            );
         } catch (erro) {
             salvoLocal = null;
         }
@@ -175,20 +165,25 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (salvoLocal && somenteNumeros(salvoLocal.cpfNumeros || salvoLocal.cpf) === cpfUrl) {
                 return salvoLocal;
             }
+
             return { cpfNumeros: cpfUrl, cpf: formatarCpf(cpfUrl) };
         }
 
         if (salvoLocal) {
             const cpfSalvo = somenteNumeros(salvoLocal.cpfNumeros || salvoLocal.cpf);
-            return { ...salvoLocal, cpfNumeros: cpfSalvo, cpf: formatarCpf(cpfSalvo) };
+            return {
+                ...salvoLocal,
+                cpfNumeros: cpfSalvo,
+                cpf: formatarCpf(cpfSalvo)
+            };
         }
 
         return null;
     }
 
-    // Mantém o parâmetro ?cpf= nos links do menu lateral
     function atualizarLinksMenuLateral(cpfNumeros) {
         if (!cpfNumeros || cpfNumeros.length !== 11) return;
+
         document.querySelectorAll(".menu-prontuario a").forEach(link => {
             const url = new URL(link.getAttribute("href"), window.location.href);
             url.searchParams.set("cpf", cpfNumeros);
@@ -196,7 +191,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    // Coluna esquerda: Nome, CPF e Nome da mãe
     function renderizarColunaEsquerda(paciente) {
         if (!containerPacienteDados) return;
 
@@ -204,7 +198,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const pNome = document.createElement("p");
         pNome.className = "paciente-nome";
-        pNome.textContent = (paciente && paciente.nome) ? paciente.nome : "Paciente não selecionado";
+        pNome.textContent = (paciente && paciente.nome)
+            ? paciente.nome
+            : "Paciente não selecionado";
 
         const pCpf = document.createElement("p");
         const cpfTexto = paciente && (paciente.cpfNumeros || paciente.cpf)
@@ -218,87 +214,92 @@ document.addEventListener("DOMContentLoaded", async () => {
         containerPacienteDados.append(pNome, pCpf, pMae);
     }
 
-    // Limpa todo o formulário da tela de Evolução
-    function limparFormulario() {
-        if (!formulario) return;
-        formulario.reset();
+    function lerDadosFormulario() {
+        if (!formulario) return {};
 
-        formulario.querySelectorAll("input, textarea").forEach(campo => {
-            if (campo.type === "radio" || campo.type === "checkbox") {
-                campo.checked = false;
-            } else {
-                campo.value = "";
-            }
+        const recursoEl = formulario.querySelector('input[name="recurso"]:checked');
+        const dorEl = formulario.querySelector('input[name="dor"]:checked');
+
+        return {
+            recurso: recursoEl ? recursoEl.value : "",
+            frequencia: String(formulario.elements.frequencia?.value || "").trim(),
+            larguraPulso: String(formulario.elements.larguraPulso?.value || "").trim(),
+            temposFes: String(formulario.elements.temposFes?.value || "").trim(),
+            tempoAplicacao: String(formulario.elements.tempoAplicacao?.value || "").trim(),
+            dor: dorEl ? dorEl.value : "",
+            observacoes: String(formulario.elements.observacoes?.value || "").trim()
+        };
+    }
+
+    function formularioEstaPreenchido(dados) {
+        return Boolean(
+            dados.recurso ||
+            dados.frequencia ||
+            dados.larguraPulso ||
+            dados.temposFes ||
+            dados.tempoAplicacao ||
+            dados.dor ||
+            dados.observacoes
+        );
+    }
+
+    function preencherFormulario(dados) {
+        if (!formulario || !dados) return;
+
+        formulario.querySelectorAll('input[name="recurso"]').forEach(radio => {
+            radio.checked = radio.value === (dados.recurso || "");
         });
 
+        if (formulario.elements.frequencia) formulario.elements.frequencia.value = dados.frequencia || "";
+        if (formulario.elements.larguraPulso) formulario.elements.larguraPulso.value = dados.larguraPulso || "";
+        if (formulario.elements.temposFes) formulario.elements.temposFes.value = dados.temposFes || "";
+        if (formulario.elements.tempoAplicacao) formulario.elements.tempoAplicacao.value = dados.tempoAplicacao || "";
+
+        formulario.querySelectorAll('input[name="dor"]').forEach(radio => {
+            radio.checked = radio.value === String(dados.dor ?? "");
+        });
+
+        if (formulario.elements.observacoes) {
+            formulario.elements.observacoes.value = dados.observacoes || "";
+        }
+    }
+
+    function limparFormulario() {
+        if (formulario) {
+            formulario.reset();
+        }
         assinaturaProfissional = null;
     }
 
-    // Controla o modo Copiar ("clicar em copiar na sequencia em alguma sessao")
     function definirModoCopia(ativo) {
         aguardandoCopia = Boolean(ativo);
+
         if (botaoCopiar) {
             botaoCopiar.classList.toggle("ativo", aguardandoCopia);
             botaoCopiar.setAttribute("aria-pressed", String(aguardandoCopia));
         }
+
         if (painelRegistros) {
             painelRegistros.classList.toggle("modo-copia", aguardandoCopia);
         }
     }
 
-    // Preenche o formulário com os dados da sessão clicada
-    function aplicarDadosSessaoNoFormulario(sessao) {
-        if (!formulario || !sessao) return;
-
-        limparFormulario();
-
-        if (sessao.recurso) {
-            const radioRecurso = formulario.querySelector(`input[name="recurso"][value="${sessao.recurso}"]`);
-            if (radioRecurso) radioRecurso.checked = true;
+    function resumirEvolucao(ev) {
+        const partes = [];
+        if (ev.recurso) partes.push(`Recurso: ${ev.recurso}`);
+        if (ev.frequencia) partes.push(`${ev.frequencia} Hz`);
+        if (ev.larguraPulso) partes.push(`${ev.larguraPulso} µs`);
+        if (ev.tempoAplicacao) partes.push(`${ev.tempoAplicacao} min`);
+        if (ev.dor !== "" && ev.dor !== undefined && ev.dor !== null) {
+            partes.push(`Dor: ${ESCALA_DOR[String(ev.dor)] || ev.dor}`);
         }
-
-        if (formulario.elements.frequencia) {
-            formulario.elements.frequencia.value = sessao.frequencia || "";
+        const linhaParametros = partes.join(" · ");
+        if (linhaParametros && ev.observacoes) {
+            return `${linhaParametros}\n${ev.observacoes}`;
         }
-        if (formulario.elements.larguraPulso) {
-            formulario.elements.larguraPulso.value = sessao.larguraPulso || "";
-        }
-        if (formulario.elements.temposFes) {
-            formulario.elements.temposFes.value = sessao.temposFes || "";
-        }
-        if (formulario.elements.tempoAplicacao) {
-            formulario.elements.tempoAplicacao.value = sessao.tempoAplicacao || "";
-        }
-
-        if (sessao.dor !== undefined && sessao.dor !== null && sessao.dor !== "") {
-            const radioDor = formulario.querySelector(`input[name="dor"][value="${sessao.dor}"]`);
-            if (radioDor) radioDor.checked = true;
-        }
-
-        if (formulario.elements.observacoes) {
-            formulario.elements.observacoes.value = sessao.observacoes || "";
-        }
+        return linhaParametros || ev.observacoes || "";
     }
 
-    // Monta o texto resumo exibido no cartão da direita (ex: "Sessão 3: TENS (40 Hz, 150 µs, 30 min)...")
-    function gerarTextoResumoSessao(sessao, numeroExibicao) {
-        const num = sessao.numeroSessao || numeroExibicao;
-        const partesParams = [];
-
-        if (sessao.frequencia) partesParams.push(`${sessao.frequencia} Hz`);
-        if (sessao.larguraPulso) partesParams.push(`${sessao.larguraPulso} µs`);
-        if (sessao.temposFes) partesParams.push(`FES: ${sessao.temposFes}`);
-        if (sessao.tempoAplicacao) partesParams.push(`${sessao.tempoAplicacao} min`);
-
-        const recursoTexto = sessao.recurso ? sessao.recurso : "Conduta";
-        const paramsTexto = partesParams.length > 0 ? ` (${partesParams.join(", ")})` : "";
-        const dorTexto = ROTULOS_DOR[sessao.dor] ? ` Dor pós-sessão: ${ROTULOS_DOR[sessao.dor]}.` : "";
-        const obsTexto = sessao.observacoes ? ` ${sessao.observacoes}` : "";
-
-        return `Sessão ${num}: ${recursoTexto}${paramsTexto}.${dorTexto}${obsTexto}`.trim();
-    }
-
-    // Renderiza a lista exclusiva de registros de evolução na coluna da direita
     function renderizarRegistrosDireita(lista) {
         if (!painelRegistros) return;
 
@@ -314,22 +315,26 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        lista.forEach((sessao, idx) => {
-            const num = sessao.numeroSessao || (lista.length - idx);
+        lista.forEach((evolucao, idx) => {
             const artigo = document.createElement("article");
             artigo.className = "registro-item";
             artigo.tabIndex = 0;
+            artigo.dataset.indice = String(idx);
             artigo.setAttribute("role", "button");
 
             const pNome = document.createElement("p");
             pNome.className = "registro-nome";
-            pNome.textContent = sessao.profissionalNome || (usuarioLogado && usuarioLogado.nome) || "Profissional";
+            pNome.textContent = evolucao.profissionalNome
+                || (usuarioLogado && usuarioLogado.nome)
+                || "Profissional";
 
             const pCrefito = document.createElement("p");
-            const crefitoValor = sessao.profissionalCrefito || (usuarioLogado && usuarioLogado.crefito) || "Não informado";
+            const crefitoValor = evolucao.profissionalCrefito
+                || (usuarioLogado && usuarioLogado.crefito)
+                || "Não informado";
             pCrefito.textContent = "CREFITO: " + crefitoValor;
 
-            const { data, hora } = extrairDataHora(sessao);
+            const { data, hora } = extrairDataHora(evolucao);
 
             const pData = document.createElement("p");
             pData.textContent = "Data: " + data;
@@ -337,41 +342,42 @@ document.addEventListener("DOMContentLoaded", async () => {
             const pHorario = document.createElement("p");
             pHorario.textContent = "Horário: " + hora;
 
-            const pResumo = document.createElement("p");
-            pResumo.className = "registro-detalhe";
-            pResumo.textContent = sessao.resumoTexto || gerarTextoResumoSessao(sessao, num);
+            const pDescricao = document.createElement("p");
+            pDescricao.className = "registro-detalhe";
+            pDescricao.textContent = resumirEvolucao(evolucao);
 
-            artigo.append(pNome, pCrefito, pData, pHorario, pResumo);
+            artigo.append(pNome, pCrefito, pData, pHorario, pDescricao);
 
-            function acionarSessao() {
-                // Se clicou em "Copiar" antes, copia imediatamente os dados desta sessão para o formulário
+            function acionarEvolucao() {
                 if (aguardandoCopia) {
-                    aplicarDadosSessaoNoFormulario(sessao);
+                    preencherFormulario(evolucao);
                     definirModoCopia(false);
-                    statusRegistro.textContent = `Informações da Sessão ${num} copiadas para o formulário.`;
-                    if (formulario.elements.observacoes) {
-                        formulario.elements.observacoes.focus();
-                    }
+                    statusRegistro.textContent = "Dados da evolução copiados para o formulário.";
                     return;
                 }
 
-                // Caso contrário, destaca a sessão clicada na direita
                 painelRegistros.querySelectorAll(".registro-item").forEach(item => {
                     item.classList.toggle("aberto", item === artigo);
                 });
-                statusRegistro.textContent = `Sessão ${num} selecionada. Clique em Copiar e depois nela para reutilizar seus parâmetros.`;
+
+                statusRegistro.textContent =
+                    `Evolução #${lista.length - idx} selecionada. Clique em Copiar para reutilizar ou em Imprimir.`;
             }
 
-            artigo.addEventListener("click", acionarSessao);
+            artigo.addEventListener("click", acionarEvolucao);
             artigo.addEventListener("keydown", evento => {
                 if (evento.key === "Enter" || evento.key === " ") {
                     evento.preventDefault();
-                    acionarSessao();
+                    acionarEvolucao();
                 }
             });
 
             painelRegistros.appendChild(artigo);
         });
+    }
+
+    if (formulario) {
+        formulario.addEventListener("submit", evento => evento.preventDefault());
     }
 
     // Botão Novo
@@ -388,7 +394,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         botaoCancelar.addEventListener("click", () => {
             definirModoCopia(false);
             limparFormulario();
-            statusRegistro.textContent = "Preenchimento cancelado.";
+            statusRegistro.textContent = "Edição cancelada.";
         });
     }
 
@@ -398,15 +404,357 @@ document.addEventListener("DOMContentLoaded", async () => {
             const nomeProf = (usuarioLogado && usuarioLogado.nome) || "Profissional";
             const crefitoProf = (usuarioLogado && usuarioLogado.crefito) || "000000";
             assinaturaProfissional = `${nomeProf} (CREFITO: ${crefitoProf})`;
-            statusRegistro.textContent = `Evolução assinada digitalmente por ${assinaturaProfissional}. Clique em Salvar para registrar.`;
+
+            statusRegistro.textContent =
+                `Evolução assinada digitalmente por ${assinaturaProfissional}. Clique em Salvar para registrar.`;
         });
     }
 
-    // Botão Copiar: ativa o modo cópia para clicar na sequência em alguma sessão à direita
+    // Botão Imprimir (mesmo padrão visual de ícone do Receituário + cabeçalho clínico padronizado)
+    const botaoImprimir = document.createElement("button");
+    botaoImprimir.type = "button";
+    botaoImprimir.className = "botao-icone";
+    botaoImprimir.dataset.acao = "imprimir";
+    botaoImprimir.title = "Imprimir evolução";
+    botaoImprimir.setAttribute("aria-label", botaoImprimir.title);
+
+    const iconeImprimir = document.createElement("i");
+    iconeImprimir.setAttribute("data-lucide", "printer");
+    iconeImprimir.setAttribute("aria-hidden", "true");
+    iconeImprimir.style.width = "21px";
+    iconeImprimir.style.height = "21px";
+
+    botaoImprimir.appendChild(iconeImprimir);
+    containerAcoes?.appendChild(botaoImprimir);
+    window.lucide?.createIcons();
+
+    botaoImprimir.addEventListener("click", () => {
+        const dadosAtual = lerDadosFormulario();
+        const temFormulario = formularioEstaPreenchido(dadosAtual);
+        const indiceAberto = painelRegistros?.querySelector(".registro-item.aberto")?.dataset.indice;
+        const registroSalvo = !temFormulario && indiceAberto !== undefined
+            ? evolucoesPaciente[Number(indiceAberto)]
+            : null;
+
+        const alvo = temFormulario ? dadosAtual : registroSalvo;
+
+        if (!alvo) {
+            statusRegistro.textContent = "Preencha a evolução ou selecione um registro à direita para imprimir.";
+            return;
+        }
+
+        const janela = window.open("", "_blank", "popup");
+        if (!janela) {
+            statusRegistro.textContent = "Permita a abertura da janela de impressão neste site.";
+            return;
+        }
+
+        janela.opener = null;
+        const pagina = janela.document;
+        pagina.documentElement.lang = "pt-BR";
+        pagina.title = "Evolução Fisioterapêutica — ElectroFisio";
+
+        const estilo = pagina.createElement("style");
+        estilo.textContent = `
+            @page {
+                size: A4;
+                margin: 12mm 14mm;
+            }
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+                color: #111111;
+                background: #FFFFFF;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .cabecalho-topo {
+                display: flex;
+                align-items: center;
+                border: 1.5px solid #222222;
+                padding: 10px 16px;
+                margin-bottom: 3px;
+            }
+            .logo-box {
+                display: flex;
+                align-items: center;
+                gap: 9px;
+                min-width: 185px;
+            }
+            .logo-marca {
+                display: flex;
+                flex-direction: column;
+                line-height: 1.1;
+            }
+            .logo-nome {
+                font-size: 18px;
+                font-weight: 700;
+            }
+            .logo-nome .electro { color: #31524A; }
+            .logo-nome .fisio { color: #67AB9F; }
+            .logo-sub {
+                font-size: 8.5px;
+                color: #4A5552;
+                margin-top: 2px;
+            }
+            .doc-titulo {
+                flex: 1;
+                text-align: center;
+                font-size: 17px;
+                font-weight: 700;
+                letter-spacing: 0.4px;
+                padding-right: 90px;
+                text-transform: uppercase;
+            }
+            .quadro-meta {
+                display: grid;
+                grid-template-columns: 1.45fr 1fr;
+                gap: 4px 16px;
+                border: 1.5px solid #222222;
+                padding: 9px 14px;
+                margin-bottom: 16px;
+            }
+            .col-meta {
+                display: grid;
+                grid-template-columns: 102px 1fr;
+                row-gap: 3px;
+                column-gap: 8px;
+                font-size: 10.5px;
+                line-height: 1.35;
+            }
+            .col-meta dt {
+                text-align: right;
+                font-weight: 400;
+                color: #222222;
+            }
+            .col-meta dd {
+                margin: 0;
+                color: #111111;
+                word-break: break-word;
+            }
+            .col-meta dd.negrito {
+                font-weight: 700;
+            }
+            .secao-titulo {
+                font-size: 12px;
+                font-weight: 700;
+                color: #31524A;
+                border-bottom: 1px solid #888888;
+                padding-bottom: 4px;
+                margin: 14px 0 8px;
+                text-transform: uppercase;
+            }
+            table.tabela-dados {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 14px;
+                font-size: 11px;
+            }
+            table.tabela-dados th,
+            table.tabela-dados td {
+                border: 1px solid #CCCCCC;
+                padding: 6px 9px;
+                text-align: left;
+                vertical-align: top;
+            }
+            table.tabela-dados th {
+                width: 40%;
+                background: #F4F7F6;
+                color: #263C35;
+                font-weight: 700;
+            }
+            .bloco-observacoes {
+                border: 1px solid #CCCCCC;
+                padding: 10px 12px;
+                min-height: 110px;
+                font-size: 11.5px;
+                line-height: 1.55;
+                white-space: pre-wrap;
+                overflow-wrap: anywhere;
+            }
+            .assinatura-box {
+                margin-top: 44px;
+                text-align: center;
+                font-size: 11px;
+                page-break-inside: avoid;
+            }
+            .assinatura-linha {
+                width: 260px;
+                margin: 0 auto 6px;
+                border-top: 1px solid #222222;
+            }
+            .assinatura-digital {
+                margin-top: 4px;
+                font-size: 10px;
+                color: #4A5552;
+            }
+        `;
+        pagina.head.appendChild(estilo);
+
+        const nomePaciente = (registroSalvo && registroSalvo.pacienteNome) || (pacienteAtual && pacienteAtual.nome) || "—";
+        const maePaciente = (pacienteAtual && pacienteAtual.mae) || "Não informada";
+        const cpfPaciente = formatarCpf((pacienteAtual && (pacienteAtual.cpfNumeros || pacienteAtual.cpf)) || (registroSalvo && registroSalvo.cpf));
+        const nascPaciente = (pacienteAtual && pacienteAtual.nascimento) || "";
+        const codigoPaciente = somenteNumeros(cpfPaciente).slice(0, 8) || "00000001";
+
+        const profNome = (registroSalvo && registroSalvo.profissionalNome) || (usuarioLogado && usuarioLogado.nome) || "Profissional";
+        const profCrefito = (registroSalvo && registroSalvo.profissionalCrefito) || (usuarioLogado && (usuarioLogado.crefito || usuarioLogado.ra)) || "Não informado";
+        const especialidade = (usuarioLogado && usuarioLogado.especialidade) || "Fisioterapia";
+
+        const numAtendimento = registroSalvo
+            ? String(evolucoesPaciente.length - Number(indiceAberto)).padStart(7, "0")
+            : String(evolucoesPaciente.length + 1).padStart(7, "0");
+
+        let dataHoraTexto;
+        if (registroSalvo) {
+            const dh = extrairDataHora(registroSalvo);
+            dataHoraTexto = `${dh.data} ${dh.hora}`;
+        } else {
+            const agora = new Date();
+            dataHoraTexto = `${agora.toLocaleDateString("pt-BR")} ${agora.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}`;
+        }
+
+        // Faixa superior (Logo + Título)
+        const faixaTopo = pagina.createElement("div");
+        faixaTopo.className = "cabecalho-topo";
+
+        const logoBox = pagina.createElement("div");
+        logoBox.className = "logo-box";
+        logoBox.innerHTML = `
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <rect x="1" y="1" width="30" height="30" rx="6" stroke="#31524A" stroke-width="2"/>
+                <path d="M18 6L10 17H16L14 26L22 15H16L18 6Z" fill="#67AB9F" stroke="#31524A" stroke-width="1.3" stroke-linejoin="round"/>
+            </svg>
+            <div class="logo-marca">
+                <span class="logo-nome"><span class="electro">Electro</span><span class="fisio">Fisio</span></span>
+                <span class="logo-sub">Fisioterapia e Eletroterapia</span>
+            </div>
+        `;
+
+        const h1 = pagina.createElement("h1");
+        h1.className = "doc-titulo";
+        h1.textContent = "EVOLUÇÃO FISIOTERAPÊUTICA";
+        faixaTopo.append(logoBox, h1);
+
+        // Quadro de metadados em 2 colunas
+        const quadroMeta = pagina.createElement("div");
+        quadroMeta.className = "quadro-meta";
+
+        function montarColunaMeta(itens) {
+            const dl = pagina.createElement("dl");
+            dl.className = "col-meta";
+            itens.forEach(([rotulo, valor, negrito]) => {
+                const dt = pagina.createElement("dt");
+                dt.textContent = rotulo;
+                const dd = pagina.createElement("dd");
+                if (negrito) dd.className = "negrito";
+                dd.textContent = valor;
+                dl.append(dt, dd);
+            });
+            return dl;
+        }
+
+        const colEsq = montarColunaMeta([
+            ["PACIENTE:", `${codigoPaciente}  ${String(nomePaciente).toUpperCase()}`, true],
+            ["NOME DA MÃE:", String(maePaciente).toUpperCase(), false],
+            ["ATENDIMENTO:", numAtendimento, false],
+            ["LOCAL:", "ELECTROFISIO - FISIOTERAPIA", false],
+            ["PROFISSIONAL:", String(profNome).toUpperCase(), false],
+            ["CREFITO:", String(profCrefito).toUpperCase(), false]
+        ]);
+
+        const colDir = montarColunaMeta([
+            ["IDADE:", calcularIdade(nascPaciente), false],
+            ["DATA NASC:", formatarDataBr(nascPaciente), false],
+            ["CPF:", cpfPaciente, false],
+            ["ESPECIALIDADE:", String(especialidade).toUpperCase(), false],
+            ["DATA:", dataHoraTexto, false]
+        ]);
+
+        quadroMeta.append(colEsq, colDir);
+        pagina.body.append(faixaTopo, quadroMeta);
+
+        // Tabela de Conduta e Parâmetros
+        const h2Conduta = pagina.createElement("h2");
+        h2Conduta.className = "secao-titulo";
+        h2Conduta.textContent = "Conduta Adotada e Parâmetros Ajustados";
+
+        const tabela = pagina.createElement("table");
+        tabela.className = "tabela-dados";
+        const tbody = pagina.createElement("tbody");
+
+        const dorTexto = alvo.dor !== "" && alvo.dor !== undefined && alvo.dor !== null
+            ? (ESCALA_DOR[String(alvo.dor)] || String(alvo.dor))
+            : "Não informada";
+
+        const linhasConduta = [
+            ["Recurso utilizado", alvo.recurso || "Não informado"],
+            ["Frequência (Hz)", alvo.frequencia ? `${alvo.frequencia} Hz` : "—"],
+            ["Largura de pulso (µs)", alvo.larguraPulso ? `${alvo.larguraPulso} µs` : "—"],
+            ["Subida / descida / ON / OFF (FES)", alvo.temposFes || "—"],
+            ["Tempo de aplicação (min)", alvo.tempoAplicacao ? `${alvo.tempoAplicacao} min` : "—"],
+            ["Classificação da dor (pós-sessão)", dorTexto]
+        ];
+
+        linhasConduta.forEach(([rotulo, valor]) => {
+            const tr = pagina.createElement("tr");
+            const th = pagina.createElement("th");
+            th.textContent = rotulo;
+            const td = pagina.createElement("td");
+            td.textContent = valor;
+            tr.append(th, td);
+            tbody.appendChild(tr);
+        });
+
+        tabela.appendChild(tbody);
+        pagina.body.append(h2Conduta, tabela);
+
+        // Bloco de Observações / Evolução
+        const h2Obs = pagina.createElement("h2");
+        h2Obs.className = "secao-titulo";
+        h2Obs.textContent = "Evolução Clínica / Observações";
+
+        const blocoObs = pagina.createElement("div");
+        blocoObs.className = "bloco-observacoes";
+        blocoObs.textContent = alvo.observacoes || "Sem observações adicionais registradas.";
+        pagina.body.append(h2Obs, blocoObs);
+
+        // Assinatura
+        const assBox = pagina.createElement("div");
+        assBox.className = "assinatura-box";
+        const assLinha = pagina.createElement("div");
+        assLinha.className = "assinatura-linha";
+        const assNome = pagina.createElement("p");
+        const strongNome = pagina.createElement("strong");
+        strongNome.textContent = profNome;
+        assNome.appendChild(strongNome);
+        const assReg = pagina.createElement("p");
+        assReg.textContent = `Fisioterapeuta · CREFITO: ${profCrefito}`;
+        assBox.append(assLinha, assNome, assReg);
+
+        const assDigital = registroSalvo ? registroSalvo.assinadoPor : assinaturaProfissional;
+        if (assDigital) {
+            const pDig = pagina.createElement("p");
+            pDig.className = "assinatura-digital";
+            pDig.textContent = "Assinado digitalmente por: " + assDigital;
+            assBox.appendChild(pDig);
+        }
+
+        pagina.body.appendChild(assBox);
+
+        janela.focus();
+        janela.print();
+    });
+
+    // Botão Copiar
     if (botaoCopiar) {
         botaoCopiar.addEventListener("click", () => {
-            if (sessoesEvolucao.length === 0) {
-                statusRegistro.textContent = "Não há sessões registradas para copiar.";
+            if (evolucoesPaciente.length === 0) {
+                statusRegistro.textContent = "Não há evoluções registradas para copiar.";
                 return;
             }
 
@@ -414,14 +762,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             definirModoCopia(proximoEstado);
 
             if (proximoEstado) {
-                statusRegistro.textContent = "Clique em uma das sessões registradas à direita para copiar suas informações.";
+                statusRegistro.textContent = "Clique em um dos registros à direita para copiar os dados da evolução.";
             } else {
                 statusRegistro.textContent = "Modo cópia cancelado.";
             }
         });
     }
 
-    // Botão Salvar: salva exclusivamente na coleção "evolucoes", atualiza a direita e limpa o formulário
+    // Botão Salvar
     if (botaoSalvar) {
         botaoSalvar.addEventListener("click", async () => {
             if (!pacienteAtual || !pacienteAtual.cpfNumeros) {
@@ -429,17 +777,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                 return;
             }
 
-            const formData = new FormData(formulario);
-            const recurso = String(formData.get("recurso") || "").trim();
-            const frequencia = String(formData.get("frequencia") || "").trim();
-            const larguraPulso = String(formData.get("larguraPulso") || "").trim();
-            const temposFes = String(formData.get("temposFes") || "").trim();
-            const tempoAplicacao = String(formData.get("tempoAplicacao") || "").trim();
-            const dor = String(formData.get("dor") || "").trim();
-            const observacoes = String(formData.get("observacoes") || "").trim();
+            const dados = lerDadosFormulario();
 
-            if (!recurso && !frequencia && !larguraPulso && !temposFes && !tempoAplicacao && !dor && !observacoes) {
-                statusRegistro.textContent = "Preencha a conduta ou as observações da sessão antes de salvar.";
+            if (!formularioEstaPreenchido(dados)) {
+                statusRegistro.textContent = "Preencha a conduta ou as observações antes de salvar.";
                 return;
             }
 
@@ -449,39 +790,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             try {
                 const cpfNumeros = pacienteAtual.cpfNumeros;
-
-                // Calcula o número da sessão exclusivo desta tela (coleção "evolucoes") para este CPF
-                const qExistentes = query(
-                    collection(db, "evolucoes"),
-                    where("cpfNumeros", "==", cpfNumeros)
-                );
-                const snapExistentes = await getDocs(qExistentes);
-
-                let maiorSessaoAnterior = 0;
-                snapExistentes.forEach(docSnap => {
-                    const num = Number(docSnap.data().numeroSessao || 0);
-                    if (num > maiorSessaoAnterior) {
-                        maiorSessaoAnterior = num;
-                    }
-                });
-
-                const numeroSessao = Math.max(maiorSessaoAnterior, snapExistentes.size) + 1;
-
                 const agora = new Date();
+
                 const dataSessao = agora.toLocaleDateString("pt-BR", {
                     day: "2-digit",
                     month: "2-digit",
                     year: "numeric"
                 });
+
                 const horaSessao = agora.toLocaleTimeString("pt-BR", {
                     hour: "2-digit",
                     minute: "2-digit",
                     second: "2-digit"
                 });
+
                 const salvaEm = `${dataSessao}, ${horaSessao.slice(0, 5)}`;
 
                 const novaEvolucao = {
-                    numeroSessao,
                     cpfNumeros,
                     cpf: formatarCpf(cpfNumeros),
                     pacienteNome: pacienteAtual.nome || "Paciente",
@@ -494,30 +819,18 @@ document.addEventListener("DOMContentLoaded", async () => {
                     salvaEm,
                     criadoEmMs: agora.getTime(),
                     criadoEm: serverTimestamp(),
-                    recurso,
-                    frequencia,
-                    larguraPulso,
-                    temposFes,
-                    tempoAplicacao,
-                    dor,
-                    observacoes
+                    ...dados
                 };
-
-                novaEvolucao.resumoTexto = gerarTextoResumoSessao(novaEvolucao, numeroSessao);
 
                 const docRef = await addDoc(collection(db, "evolucoes"), novaEvolucao);
                 novaEvolucao.id = docRef.id;
 
-                // Adiciona no topo da lista da direita e renderiza
-                sessoesEvolucao.unshift(novaEvolucao);
-                renderizarRegistrosDireita(sessoesEvolucao);
-
-                // Limpa a tela após salvar
+                evolucoesPaciente.unshift(novaEvolucao);
+                renderizarRegistrosDireita(evolucoesPaciente);
                 limparFormulario();
 
                 statusRegistro.textContent =
-                    `Sessão ${numeroSessao} salva em ${dataSessao} às ${horaSessao.slice(0, 5)}. Tela limpa para o próximo registro.`;
-
+                    `Evolução salva em ${dataSessao} às ${horaSessao.slice(0, 5)}. Formulário limpo para um novo registro.`;
             } catch (erro) {
                 console.error("Erro ao salvar evolução no Firebase:", erro);
                 statusRegistro.textContent = "Erro ao salvar no Firebase. Verifique sua conexão e tente novamente.";
@@ -527,7 +840,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    // Carrega dados do paciente na esquerda e histórico exclusivo da tela de Evolução na direita
     async function carregarTelaEvolucao() {
         let paciente = obterPacienteInicial();
 
@@ -541,21 +853,45 @@ document.addEventListener("DOMContentLoaded", async () => {
         const cpf = paciente.cpfNumeros;
         atualizarLinksMenuLateral(cpf);
         renderizarColunaEsquerda(paciente);
-        statusRegistro.textContent = "Carregando registros de evolução...";
+        statusRegistro.textContent = "Carregando evoluções...";
 
         try {
-            // 1. Busca o cadastro do paciente (Nome, CPF e Nome da mãe)
             const qPaciente = query(
                 collection(db, "pacientes"),
                 where("cpfNumeros", "==", cpf)
             );
+
             const snapPaciente = await getDocs(qPaciente);
+
             if (!snapPaciente.empty) {
                 paciente = {
                     ...paciente,
                     ...snapPaciente.docs[0].data(),
                     cpfNumeros: cpf
                 };
+            } else {
+                const qTriagens = query(
+                    collection(db, "triagens"),
+                    where("cpfNumeros", "==", cpf)
+                );
+
+                const snapTriagens = await getDocs(qTriagens);
+
+                if (!snapTriagens.empty) {
+                    const maisRecente = snapTriagens.docs
+                        .map(d => d.data())
+                        .sort((a, b) => (b.criadoEmMs || 0) - (a.criadoEmMs || 0))[0];
+
+                    const dadosRecentes = maisRecente.dados || maisRecente.respostas || {};
+
+                    paciente = {
+                        ...dadosRecentes,
+                        ...paciente,
+                        nome: paciente.nome || dadosRecentes.nome || maisRecente.pacienteNome,
+                        mae: paciente.mae || dadosRecentes.mae || "",
+                        cpfNumeros: cpf
+                    };
+                }
             }
 
             pacienteAtual = {
@@ -565,37 +901,35 @@ document.addEventListener("DOMContentLoaded", async () => {
             };
 
             try {
-                localStorage.setItem("electrofisio-paciente-selecionado", JSON.stringify(pacienteAtual));
+                localStorage.setItem(
+                    "electrofisio-paciente-selecionado",
+                    JSON.stringify(pacienteAtual)
+                );
             } catch (erro) {
-                // Ignora se localStorage estiver bloqueado
+                // Ignora se localStorage estiver bloqueado.
             }
 
             renderizarColunaEsquerda(pacienteAtual);
 
-            // 2. Busca exclusivamente as evoluções salvas desta tela para este CPF
             const qEvolucoes = query(
                 collection(db, "evolucoes"),
                 where("cpfNumeros", "==", cpf)
             );
-            const snapEvolucoes = await getDocs(qEvolucoes);
 
+            const snapEvolucoes = await getDocs(qEvolucoes);
             const lista = [];
+
             snapEvolucoes.forEach(docSnap => {
                 lista.push({ id: docSnap.id, ...docSnap.data() });
             });
 
-            lista.sort((a, b) => {
-                const diffTempo = (b.criadoEmMs || 0) - (a.criadoEmMs || 0);
-                if (diffTempo !== 0) return diffTempo;
-                return (b.numeroSessao || 0) - (a.numeroSessao || 0);
-            });
+            lista.sort((a, b) => (b.criadoEmMs || 0) - (a.criadoEmMs || 0));
 
-            sessoesEvolucao = lista;
-            renderizarRegistrosDireita(sessoesEvolucao);
+            evolucoesPaciente = lista;
+            renderizarRegistrosDireita(evolucoesPaciente);
             statusRegistro.textContent = "";
-
         } catch (erro) {
-            console.error("Erro ao carregar evolução do Firebase:", erro);
+            console.error("Erro ao carregar evoluções do Firebase:", erro);
             statusRegistro.textContent = "Erro ao carregar os registros do banco de dados.";
         }
     }

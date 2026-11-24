@@ -1,4 +1,3 @@
-
 // Ajusta o menu do topo conforme o perfil que entrou no login:
 // o estudante vê "Conteúdo" no lugar de "Pacientes" e cada perfil tem seu Início.
 
@@ -14,6 +13,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const estudante = perfil === "estudante";
     const inicio = estudante ? "inicio.html" : "inicio-profissional.html";
+
+    const cabecalho = document.querySelector(".cabecalho");
+    const navegacao = document.querySelector(".cabecalho-navegacao");
+
+    // Adiciona o link "Biblioteca" logo após "TENS e FES" em todas as páginas internas
+    if (navegacao && !navegacao.querySelector('a[href="biblioteca.html"]')) {
+        const linkTens = navegacao.querySelector('a[href="visao-geral.html"]');
+
+        if (linkTens) {
+            const linkBiblioteca = document.createElement("a");
+            linkBiblioteca.href = "biblioteca.html";
+            linkBiblioteca.textContent = "Biblioteca";
+
+            const paginaAtual = window.location.pathname.split("/").pop();
+            if (paginaAtual === "biblioteca.html") {
+                navegacao.querySelectorAll("a").forEach(a => {
+                    a.classList.remove("nav-ativo", "link-ativo");
+                });
+                linkBiblioteca.classList.add("nav-ativo");
+            }
+
+            linkTens.insertAdjacentElement("afterend", linkBiblioteca);
+        }
+    }
 
     document.querySelectorAll(".cabecalho-navegacao a").forEach(link => {
         const destino = link.getAttribute("href");
@@ -34,9 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Botão "Menu" para o celular: mostra e esconde os links do topo
-    const cabecalho = document.querySelector(".cabecalho");
-    const navegacao = document.querySelector(".cabecalho-navegacao");
-
     if (cabecalho && navegacao) {
         navegacao.id = navegacao.id || "navegacaoPrincipal";
 

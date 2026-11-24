@@ -53,6 +53,36 @@ document.addEventListener("DOMContentLoaded", async () => {
             .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
     }
 
+    function formatarDataBr(dataStr) {
+        if (!dataStr) return "—";
+        if (String(dataStr).includes("/")) return dataStr;
+        const partes = String(dataStr).split("-");
+        if (partes.length === 3) {
+            return `${partes[2]}/${partes[1]}/${partes[0]}`;
+        }
+        return dataStr;
+    }
+
+    function calcularIdade(dataStr) {
+        if (!dataStr) return "—";
+        let dia, mes, ano;
+        if (String(dataStr).includes("/")) {
+            [dia, mes, ano] = String(dataStr).split("/").map(Number);
+        } else if (String(dataStr).includes("-")) {
+            [ano, mes, dia] = String(dataStr).split("-").map(Number);
+        }
+        if (!ano || !mes || !dia) return "—";
+
+        const hoje = new Date();
+        let idade = hoje.getFullYear() - ano;
+        const jaFezAniversario =
+            hoje.getMonth() + 1 > mes ||
+            (hoje.getMonth() + 1 === mes && hoje.getDate() >= dia);
+
+        if (!jaFezAniversario) idade--;
+        return idade >= 0 ? `${idade} anos` : "—";
+    }
+
     function extrairDataHora(registro) {
         if (registro.dataSessao && registro.horaSessao) {
             return {
@@ -307,23 +337,20 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    // Botão Imprimir
+    // Botão Imprimir (estilo carregado externamente via receituario.css)
     const botaoImprimir = document.createElement("button");
     botaoImprimir.type = "button";
     botaoImprimir.className = "botao-icone";
     botaoImprimir.title = "Imprimir receituário";
     botaoImprimir.setAttribute("aria-label", botaoImprimir.title);
+
     const iconeImprimir = document.createElement("i");
     iconeImprimir.setAttribute("data-lucide", "printer");
     iconeImprimir.setAttribute("aria-hidden", "true");
-    iconeImprimir.style.width = "28px";
-    iconeImprimir.style.height = "28px";
 
     botaoImprimir.appendChild(iconeImprimir);
     containerAcoes?.appendChild(botaoImprimir);
     window.lucide?.createIcons();
-    
-    
 
     botaoImprimir.addEventListener("click", () => {
         // Prioriza o texto em edição. Com o campo vazio, usa a receita selecionada.
@@ -349,54 +376,149 @@ document.addEventListener("DOMContentLoaded", async () => {
         const pagina = janela.document;
         pagina.documentElement.lang = "pt-BR";
         pagina.title = "Receituário — ElectroFisio";
+        pagina.body.className = "pagina-impressao-receituario";
 
-        const estilo = pagina.createElement("style");
-        estilo.textContent = `
-            @page {
-                margin: 20mm;
-            }
+        // Vincula o arquivo CSS externo (receituario.css) sem CSS inline no JS
+        const linkCssOriginal = document.querySelector('link[href*="receituario.css"]');
+        const linkCss = pagina.createElement("link");
+        linkCss.rel = "stylesheet";
+        linkCss.href = linkCssOriginal
+            ? linkCssOriginal.href
+            : new URL("../css/receituario.css", window.location.href).href;
+        pagina.head.appendChild(linkCss);
 
-            body {
-                font: 12pt/1.5 sans-serif;
-                color: black;
-            }
+        const nomePaciente = registro?.pacienteNome || pacienteAtual?.nome || "—";
+        const maePaciente = pacienteAtual?.mae || "Não informada";
+        const cpfPaciente = formatarCpf(pacienteAtual?.cpfNumeros || pacienteAtual?.cpf || registro?.cpf);
+        const nascPaciente = pacienteAtual?.nascimento || "";
+        const codigoPaciente = somenteNumeros(cpfPaciente).slice(0, 8) || "00000001";
 
-            .descricao {
-                white-space: pre-wrap;
-                overflow-wrap: anywhere;
-            }
-        `;
-        pagina.head.appendChild(estilo);
+        const profNome = (registro ? registro.profissionalNome : usuarioLogado?.nome) || "Profissional";
+        const profCrefito = (registro ? registro.profissionalCrefito : (usuarioLogado?.crefito || usuarioLogado?.ra)) || "Não informado";
+        const especialidade = usuarioLogado?.especialidade || "Fisioterapia";
 
-        function adicionar(tag, texto) {
-            const elemento = pagina.createElement(tag);
-            elemento.textContent = texto;
-            pagina.body.appendChild(elemento);
-            return elemento;
+        const numAtendimento = registro
+            ? String(receitasPaciente.length - Number(indice)).padStart(7, "0")
+            : String(receitasPaciente.length + 1).padStart(7, "0");
+
+        let dataHoraTexto;
+        if (registro) {
+            const dh = extrairDataHora(registro);
+            dataHoraTexto = `${dh.data} ${dh.hora}`;
+        } else {
+            const agora = new Date();
+            dataHoraTexto = `${agora.toLocaleDateString("pt-BR")} ${agora.toLocaleTimeString("pt-BR", {
+                hour: "2-digit",
+                minute: "2-digit"
+            })}`;
         }
 
-        adicionar("h1", "Receituário");
+        // 1. Faixa superior (Logo ElectroFisio + Título RECEITUÁRIO)
+        const faixaTopo = pagina.createElement("div");
+        faixaTopo.className = "cabecalho-topo";
 
-        const paciente = registro?.pacienteNome || pacienteAtual?.nome;
-        const profissional = registro ? registro.profissionalNome : usuarioLogado?.nome;
-        const crefito = registro ? registro.profissionalCrefito : usuarioLogado?.crefito;
+        const logoBox = pagina.createElement("div");
+        logoBox.className = "logo-box";
+        logoBox.innerHTML = `
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <rect x="1" y="1" width="30" height="30" rx="6" stroke="#31524A" stroke-width="2"/>
+                <path d="M18 6L10 17H16L14 26L22 15H16L18 6Z" fill="#67AB9F" stroke="#31524A" stroke-width="1.3" stroke-linejoin="round"/>
+            </svg>
+            <div class="logo-marca">
+                <span class="logo-nome"><span class="electro">Electro</span><span class="fisio">Fisio</span></span>
+                <span class="logo-sub">Fisioterapia e Eletroterapia</span>
+            </div>
+        `;
 
-        if (paciente) adicionar("p", "Paciente: " + paciente);
-        if (profissional) adicionar("p", "Profissional: " + profissional);
-        if (crefito) adicionar("p", "CREFITO: " + crefito);
+        const tituloDoc = pagina.createElement("h1");
+        tituloDoc.className = "doc-titulo";
+        tituloDoc.textContent = "RECEITUÁRIO";
+        faixaTopo.append(logoBox, tituloDoc);
 
-        const data = registro
-            ? extrairDataHora(registro).data
-            : new Date().toLocaleDateString("pt-BR");
+        // 2. Quadro de metadados em 2 colunas
+        const quadroMeta = pagina.createElement("div");
+        quadroMeta.className = "quadro-meta";
 
-        adicionar("p", "Data: " + data);
-        adicionar("p", descricao).className = "descricao";
+        function montarColunaMeta(itens) {
+            const dl = pagina.createElement("dl");
+            dl.className = "col-meta";
+            itens.forEach(([rotulo, valor, negrito]) => {
+                const dt = pagina.createElement("dt");
+                dt.textContent = rotulo;
+                const dd = pagina.createElement("dd");
+                if (negrito) dd.className = "negrito";
+                dd.textContent = valor;
+                dl.append(dt, dd);
+            });
+            return dl;
+        }
+
+        const colEsquerda = montarColunaMeta([
+            ["PACIENTE:", `${codigoPaciente}  ${String(nomePaciente).toUpperCase()}`, true],
+            ["NOME DA MÃE:", String(maePaciente).toUpperCase(), false],
+            ["ATENDIMENTO:", numAtendimento, false],
+            ["LOCAL:", "ELECTROFISIO - FISIOTERAPIA", false],
+            ["PROFISSIONAL:", String(profNome).toUpperCase(), false],
+            ["CREFITO:", String(profCrefito).toUpperCase(), false]
+        ]);
+
+        const colDireita = montarColunaMeta([
+            ["IDADE:", calcularIdade(nascPaciente), false],
+            ["DATA NASC:", formatarDataBr(nascPaciente), false],
+            ["CPF:", cpfPaciente, false],
+            ["ESPECIALIDADE:", String(especialidade).toUpperCase(), false],
+            ["DATA:", dataHoraTexto, false]
+        ]);
+
+        quadroMeta.append(colEsquerda, colDireita);
+
+        // 3. Conteúdo do receituário
+        const secaoTitulo = pagina.createElement("h2");
+        secaoTitulo.className = "secao-titulo";
+        secaoTitulo.textContent = "Prescrição / Orientações";
+
+        const paragrafoDescricao = pagina.createElement("p");
+        paragrafoDescricao.className = "descricao";
+        paragrafoDescricao.textContent = descricao;
+
+        // 4. Assinatura
+        const assBox = pagina.createElement("div");
+        assBox.className = "assinatura-box";
+
+        const assLinha = pagina.createElement("div");
+        assLinha.className = "assinatura-linha";
+
+        const assNome = pagina.createElement("p");
+        const strongNome = pagina.createElement("strong");
+        strongNome.textContent = profNome;
+        assNome.appendChild(strongNome);
+
+        const assReg = pagina.createElement("p");
+        assReg.textContent = `Fisioterapeuta · CREFITO: ${profCrefito}`;
+
+        assBox.append(assLinha, assNome, assReg);
 
         const assinatura = registro ? registro.assinadoPor : assinaturaProfissional;
-        if (assinatura) adicionar("p", "Assinado por: " + assinatura);
+        if (assinatura) {
+            const pDig = pagina.createElement("p");
+            pDig.className = "assinatura-digital";
+            pDig.textContent = "Assinado digitalmente por: " + assinatura;
+            assBox.appendChild(pDig);
+        }
 
-        janela.focus();
-        janela.print();
+        pagina.body.append(faixaTopo, quadroMeta, secaoTitulo, paragrafoDescricao, assBox);
+
+        let jaImprimiu = false;
+        function dispararImpressao() {
+            if (jaImprimiu) return;
+            jaImprimiu = true;
+            janela.focus();
+            janela.print();
+        }
+
+        linkCss.addEventListener("load", dispararImpressao);
+        linkCss.addEventListener("error", dispararImpressao);
+        setTimeout(dispararImpressao, 350);
     });
 
     // Botão Copiar
