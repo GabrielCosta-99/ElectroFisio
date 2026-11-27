@@ -7,14 +7,14 @@
     .biblioteca-intro { margin: 0 0 26px; }
     .biblioteca-intro h1 {
       margin: 0 0 8px;
-      color: #263b5b;
+      color: #175B49;
       font-size: clamp(1.65rem, 3vw, 2.15rem);
       font-weight: 800;
     }
     .biblioteca-intro p {
       max-width: 760px;
       margin: 0;
-      color: #596579;
+      color: #3A3F3D;
       line-height: 1.6;
     }
     .biblioteca-grade {
@@ -57,8 +57,8 @@
       font-size: 26px;
     }
     .tema-textos { display: flex; flex: 1; flex-direction: column; gap: 6px; }
-    .tema-titulo { color: #263b5b; font-size: 1.08rem; font-weight: 800; }
-    .tema-descricao { color: #657187; font-size: .88rem; line-height: 1.45; }
+    .tema-titulo { color: #175B49; font-size: 1.08rem; font-weight: 800; }
+    .tema-descricao { color: #3A3F3D; font-size: .88rem; line-height: 1.45; }
     .tema-contagem {
       align-self: flex-start;
       padding: 5px 9px;
@@ -69,13 +69,13 @@
       font-weight: 700;
       white-space: nowrap;
     }
-    .tema-seta { color: #315bd6; font-size: 1.25rem; transition: transform .2s ease; }
+    .tema-seta { color: #175B49; font-size: 1.25rem; transition: transform .2s ease; }
     .biblioteca-tema[open] .tema-seta { transform: rotate(180deg); }
     .tema-conteudo { padding: 4px 22px 22px; border-top: 1px solid #edf0f4; }
     .tema-conteudo .lista-referencias { margin: 14px 0 0; padding-left: 22px; }
     .tema-conteudo .lista-referencias li {
       padding: 0 0 13px 4px;
-      color: #3e4858;
+      color: #3A3F3D;
       font-size: .9rem;
       line-height: 1.55;
     }
@@ -88,7 +88,7 @@
       border-left: 4px solid #3b67dc;
       border-radius: 8px;
       background: #f2f5fc;
-      color: #536078;
+      color: #3A3F3D;
       font-size: .9rem;
       line-height: 1.55;
     }
